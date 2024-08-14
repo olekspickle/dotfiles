@@ -1,77 +1,91 @@
 --[[ opts.lua ]]
-local opt = vim.opt
-local cmd = vim.api.nvim_command
+-- p.s. stole nice structure and comments from merikan
 local g = vim.g
+local o = vim.opt
+local cmd = vim.api.nvim_command
 
--- LEADER
--- These keybindings need to be defined before the first /
--- is called; otherwise, it will default to "\"
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+--------------------------------------------------------------------------------
+-- Core
+--------------------------------------------------------------------------------
+o.clipboard:prepend { "unnamed", "unnamedplus" } -- use system buffer (cross-platform), share clipboard between instances
+o.fileencoding = "utf-8" -- the encoding written to a file
+o.mouse = "a" -- allow the mouse to be used in neovim
+o.autoread = true -- automatically reload a file
+g.autoformat = false -- disable LazyVim auto format
 
-g.t_co = 256
-g.background = "light"
+--------------------------------------------------------------------------------
+-- Display
+--------------------------------------------------------------------------------
+o.termguicolors = true -- set term gui colors (most terminals support this)
+o.splitbelow = true -- force all horizontal splits to go below current window
+o.splitright = true -- force all vertical splits to go to the right of current window
+o.timeoutlen = 1000 -- time to wait for a mapped sequence to complete (in milliseconds)
+o.updatetime = 300 -- faster completion (4000ms default)
+o.laststatus = 3 -- only the last window will always have a status line
+o.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time
+--? vim.opt.showbreak     = [[↪ ]] -- Options include -> '…', '↳ ', '→','↪ '
+o.pumheight = 10 -- pop up menu height
+o.showmode = false -- we don't need to see things like -- INSERT -- anymore
+o.showtabline = 0 -- always show tabs
+o.showcmd = false -- hide (partial) command in the last line of the screen (for performance)
+o.cmdheight = 1 -- more space in the neovim command line for displaying messages
+o.shortmess:append("c") -- hide all the completion messages, e.g. "-- XXX completion (YYY)", "match 1 of 2", "The only match", "Pattern not found"
+-- Font
+o.guifont = "JetBrainsMono Nerd Font"
 
-vim.opt.backspace = '2'
---vim.opt.showcmd = true
---vim.opt.laststatus = 2
---vim.opt.autowrite = true
--- vim.opt.cursorline = true
-vim.opt.autoread = true
+--------------------------------------------------------------------------------
+-- Lines
+--------------------------------------------------------------------------------
+o.number = true -- set numbered lines
+o.numberwidth = 4 -- minimal number of columns to use for the line number {default 4}
+o.relativenumber = true -- use relative number
+-- o.cursorline = true -- highlight the current line
+o.scrolloff = 2 -- Lines of context
 
--- nvim-cmp
-vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
+o.expandtab = true -- convert tabs to spaces
+o.shiftwidth = 4 -- the number of spaces inserted for each indentation
+o.shiftround = true
+o.tabstop = 2 -- insert 2 spaces for a tab
+o.smartindent = true -- make indenting smarter again
+o.ruler = false -- hide the line and column number of the cursor position
+o.fillchars.eob = " " -- show empty lines at the end of a buffer as ` ` {default `~`}
+o.whichwrap:append("<,>,[,],h,l") -- keys allowed to move to the previous/next line when the beginning/end of line is reached
+o.iskeyword:append("-") -- treats words with `-` as single words
 
-vim.cmd [[ set noswapfile ]]
-vim.cmd [[ set termguicolors ]]
+o.conceallevel = 0 -- so that `` is visible in markdown files
+o.list = true -- :set list, :set nolist
+o.listchars:append("trail:•") -- trail char
+-- o.listchars:append("space:.")
+o.listchars:append("eol:↴")
+o.listchars:append("tab:» ")
+o.listchars:append("extends:❯")
+o.listchars:append("precedes:❮")
+o.listchars:append("nbsp:_")
 
--- [[ Context ]]
--- opt.colorcolumn = '80'           -- str:  Show col for max line length
-opt.number = true                -- bool: Show line numbers
-opt.relativenumber = true        -- bool: Show relative line numbers
-opt.scrolloff = 4                -- int:  Min num lines of context
-opt.signcolumn = "yes"           -- str:  Show the sign column
+--------------------------------------------------------------------------------
+-- Backup / Undo / Swap
+--------------------------------------------------------------------------------
+o.backup = false -- creates a backup file
+o.undofile = true -- enable persistent undo
+o.swapfile = false -- creates a swapfile
+o.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 
-opt.scrolloff = 4
-opt.updatetime = 50
--- opt.colorcolumn = "100"
+--------------------------------------------------------------------------------
+-- Search and Complelete
+--------------------------------------------------------------------------------
+o.incsearch = true -- use incremental search (nvim default)
+o.hlsearch = true -- highlight all matches on previous search pattern
+o.ignorecase = true -- ignore case in search patterns
+o.smartcase = true -- with ignorecase to force case match if upper
+o.completeopt = {'menu', 'menuone', 'noselect', 'noinsert'}
+o.grepprg = "rg --vimgrep --smart-case --follow"
 
-
--- [[ Share clipboard between instances ]]
-opt.clipboard = "unnamedplus"
-
--- [[ Filetypes ]]
-opt.encoding = 'utf8'            -- str:  String encoding to use
-opt.fileencoding = 'utf8'        -- str:  File encoding to use
-
--- [[ Search ]]
-opt.ignorecase = true            -- bool: Ignore case in search patterns
-opt.smartcase = true             -- bool: Override ignorecase if search contains capitals
-opt.hlsearch = false             -- bool: Highlight search matches
-opt.incsearch = true             -- bool: Use incremental search
+o.path:append { "**" } -- gf jump to file under cursor, CTRL-^ to jump back
 
 -- [[ Whitespace ]]
-opt.expandtab = true             -- bool: Use spaces instead of tabs
-opt.shiftwidth = 4               -- num:  Size of an indent
-opt.softtabstop = 4              -- num:  Number of spaces tabs count for in insert mode
-opt.tabstop = 4                  -- num:  Number of spaces tabs count for
-opt.shiftround = true
-opt.expandtab = true
-
--- [[ Splits ]]
-opt.splitright = true            -- bool: Place new window to right of current one
-opt.splitbelow = true            -- bool: Place new window below the current one
-
--- Fixed column for diagnostics to appear
--- Show autodiagnostic popup on cursor hover_range
--- Goto previous / next diagnostic warning / error
--- Show inlay_hints more frequently
-vim.cmd([[
-set signcolumn=yes
-autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
-]])
-
--- Indent blankline customization
-vim.opt.list = true
-vim.opt.listchars:append "eol:↴"
+o.shiftwidth = 4               -- num:  Size of an indent
+o.softtabstop = 4              -- num:  Number of spaces tabs count for in insert mode
+o.tabstop = 4                  -- num:  Number of spaces tabs count for
+o.shiftround = true
+o.expandtab = true
 
