@@ -1,0 +1,6 @@
+relative-time[datetime]::after {
+    display: block;
+    margin-top: 0.2em;
+    width: 15em;
+    content: attr(title);
+}
