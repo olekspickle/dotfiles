@@ -19,7 +19,7 @@ sudo rsync -avzh "$HOME"/Documents /var/backups \
     --exclude "*/node_modules/*" \
     --max-size=5M
 
-sudo rsync -avzh "$HOME"/Downloads /var/backups --exclude "*Telegram*" --max-size=5M
+sudo rsync -avzh "$HOME"/Downloads /var/backups --exclude "*elegram*" --max-size=5M
 sudo rsync -avzh "$HOME"/Videos/obs /var/backups/Videos --max-size=5M
 sudo rsync -avzh "$HOME"/Pictures /var/backups --max-size=10M
 sudo rsync -avzh "$HOME"/lmms /var/backups --max-size=15M
@@ -34,11 +34,9 @@ rsync -avzh "$HOME"/.config/zellij "$HOME"/Documents/my-vimrc/.config \
 # KDE
 rsync -avzh "$HOME"/.config/kdeglobals "$HOME"/Documents/my-vimrc/.config
 rsync -avzh "$HOME"/.config/plasmarc "$HOME"/Documents/my-vimrc/.config
-rsync -avzh "$HOME"/.config/plasma-org.kde.plasma.desktop-appletsrc "$HOME"/Documents/my-vimrc/.config
 rsync -avzh "$HOME"/.config/plasma-workspace/env "$HOME"/Documents/my-vimrc/.config
 rsync -avzh "$HOME"/.config/kwinrc "$HOME"/Documents/my-vimrc/.config
 rsync -avzh "$HOME"/.config/krunnerrc "$HOME"/Documents/my-vimrc/.config
 rsync -avzh "$HOME"/.config/kscreenlockerrc "$HOME"/Documents/my-vimrc/.config
-rsync -avzh "$HOME"/.config/kglobalshortcutsrc "$HOME"/Documents/my-vimrc/.config
 rsync -avzh "$HOME"/.config/khotkeysrc "$HOME"/Documents/my-vimrc/.config
 
