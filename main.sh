@@ -3,10 +3,14 @@
 # New full machine setup
 # ideally - media should already be copied to $HOME/Pictures
 
+# make all .sh scripts executable
+find . -type f -name "*.sh" -exec chmod +x {} \;
+
 echo "Installing basic tools..."
 sudo apt install pkg-config build-essential curl cmake lld coreutils \
     libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev \
-    fonts-firacode fonts-powerline \
+    libpcap-dev libasound2-dev libgtk-3-dev \
+    fonts-firacode fonts-powerline nmap\
     -y
 
 # utils for setup
@@ -18,14 +22,14 @@ echo "Installing node..."
 ./setup/node.sh
 echo "Installing rust..."
 ./setup/rust/lang.sh
+echo "Installing rusty packages..."
+./setup/rust/oxidized_packages.sh
 
 # terminal
 echo "Installing alacritty terminal emulator..."
 ./setup/alacritty.sh
 echo "Installing zsh shell..."
 ./setup/zsh.sh
-echo "Installing starship prompt..."
-sh -c "$(curl -fsSL https://starship.rs/install.sh)" -y
 echo "Installing neovim..."
 ./setup/nvim.sh
 echo "Installing fonts..."
@@ -33,8 +37,6 @@ echo "Installing fonts..."
 
 echo "Installing media related tools..."
 ./setup/media.sh
-echo "Installing rusty packages..."
-./setup/rust/oxidized_packages.sh
 
 # copy configuration and aliases
 rsync -avzh .config/* ~/.config
