@@ -12,7 +12,6 @@ sudo rsync -avzh "$HOME"/Documents /var/backups \
     --exclude "*/zellij/*" \
     --exclude "*/Fyrox/*" \
     --exclude "*/logs/*" \
-    --exclude "*.git*" \
     --exclude "*.venv*" \
     --exclude "*/target/*" \
     --exclude "*.mypy_cache*" \

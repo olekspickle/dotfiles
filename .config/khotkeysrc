@@ -995,6 +995,7 @@ Type=GESTURE
 
 [DirSelect Dialog]
 DirSelectDialog Size[$d]
+History Items[$d]
 
 [General]
 BrowserApplication[$d]

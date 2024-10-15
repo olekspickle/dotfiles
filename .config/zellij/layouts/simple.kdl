@@ -6,13 +6,15 @@ layout {
         children
     }
 
-    tab name="♅ main" {
+    tab name="♅ main" cwd="~/Documents" {
         pane
     }
+
     tab name="☍ dev" {
         pane
     }
-    tab name="ꆛconfig"{
+
+    tab name="ꆛconfig" cwd="~/Documents/dotfiles"{
         pane
     }
 }

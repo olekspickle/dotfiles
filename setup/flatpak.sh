@@ -28,6 +28,9 @@ sudo snap remove --purge firefox
 
 flatpak install flathub org.mozilla.firefox
 
+# libre office
+flatpak install flathub org.libreoffice.LibreOffice
+
 # airshipper
 flatpak install flathub net.veloren.airshipper
 
