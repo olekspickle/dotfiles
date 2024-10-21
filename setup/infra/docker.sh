@@ -16,4 +16,4 @@ echo \
 sudo apt update
 sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
-./group_troubleshoot.sh
+sh $HOME/Documents/dotfiles/setup/infra/docker-group-fix.sh
