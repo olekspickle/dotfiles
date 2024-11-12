@@ -7,7 +7,7 @@
 find . -type f -name "*.sh" -exec chmod +x {} \;
 
 echo "Installing basic tools..."
-sudo apt install pkg-config build-essential curl cmake lld coreutils xclip \
+sudo apt install pkg-config build-essential curl llvm cmake lld coreutils xclip \
     libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev \
     libpcap-dev libasound2-dev libgtk-3-dev \
     fonts-firacode fonts-powerline nmap\
