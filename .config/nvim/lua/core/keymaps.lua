@@ -21,7 +21,7 @@ local map = vim.keymap.set
 local defaults = { noremap = true, silent = true }
 
 -- intuitive copy in visual mode
-map('v', '<C-c>', '"+y', { noremap = true, desc = "copy" })
+map({'v', "n"}, '<C-c>', '"+y', { noremap = true, desc = "copy" })
 -- Previous end of word
 map("n", "E", "ge", { desc = "Previous end of word" })
 -- make Y behave like C and D
@@ -41,7 +41,7 @@ map("n", "gp", "[v`]", { desc = "Reselect pasted text" })
 -- map('n', '<C-i>', [[:bn<cr>]], {})
 
 -- Unload current buffer
-map('n', '<leader>d', [[:w<cr>:bd<cr>]], { desc = "write and unload current"})
+map('n', '<leader>d', [[:bd<cr>]], { desc = "write and unload current"})
 -- map for quick quit, save files using leader key
 map('n', '<Leader>q', ':q<cr>', { desc = "quit" })
 map('n', '<Leader>s', ':w<cr>', m(defaults, { desc = "save" }))
