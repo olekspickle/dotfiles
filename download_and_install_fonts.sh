@@ -19,5 +19,9 @@ for type in Bold Light Medium Regular Retina; do
     fi;
 done
 
+curl -L https://download.jetbrains.com/fonts/JetBrainsMono-2.001.zip -o jetbrains.zip
+
+unzip jetbrains.zip -d ${HOME}/.local/share/fonts/.
+
 echo "fc-cache -f"
 fc-cache -f

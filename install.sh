@@ -1,4 +1,4 @@
-sudo apt-get install python3 build-essential \
+sudo apt-get install python3 build-essential curl cmake \
     && ./install_images_related.sh \
     && ./install_psql.sh \
     && ./install_fonts.sh \
