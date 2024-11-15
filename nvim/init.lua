@@ -20,17 +20,27 @@ end
 local packer_bootstrap = ensure_packer()
 
 -- IMPORTS
-require('vars')             -- Variables
-require('opts')             -- Options
-require('keys')             -- Keymaps
-require('plug')             -- Plugins
-require('ra')               -- rust-analyzer
-require('comment')          -- comments plugin
-require('tree')             -- nvim-tree config
+require('vars')                     -- Variables
+require('opts')                     -- Options
+require('keys')                     -- Keymaps
+require('plug')                     -- Plugins
+require('ra')                       -- rust-analyzer
+require('comment')                  -- comments plugin
+require('tree')                     -- nvim-tree config
 require('themes')
-require('log-cfg')          -- adds BaleiaColorize cmd for [m[3m logs
+require('log-cfg')                  -- adds BaleiaColorize cmd for [m[3m logs
 
-require('impatient')        -- speedup start up times
+require('impatient')                -- speedup start up times
 require('nvim-tree').setup{}
-require('nvim-autopairs').setup{}  -- Paired elements ({["'
-
+require('nvim-autopairs').setup{}   -- Paired elements ({["'
+require("ibl").setup{
+    indent = { char = "|" }
+}
+-- require("codesnap").setup({
+--     mac_window_bar = true,
+--     opacity = true,
+--     watermark = "pickle.share",
+--     preview_title = "CodeSnap.nvim", -- (Optional) preview page title
+--     editor_font_family = "CaskaydiaCove Nerd Font", -- (Optional) preview code font family
+--     watermark_font_family = "Pacifico", -- (Optional) watermark font family
+-- })
