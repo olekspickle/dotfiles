@@ -8,7 +8,14 @@ sudo rm -rf /var/backups/Pictures
 sudo rm -rf /var/backups/lmms
 
 # backup most of the data
-sudo rsync -avzh /home/pickle/Documents /var/backups/ --exclude "*/target/*" --exclude "*/Fyrox/*"  --exclude "*/node_modules/*" --exclude "*.git*" --max-size=5M
+sudo rsync -avzh /home/pickle/Documents /var/backups/ \
+    --exclude "*/target/*" \
+    --exclude "*/Fyrox/*"  \
+    --exclude "*/node_modules/*" \
+    --exclude "*.git*" \
+    --exclude ".venv" \
+    --exclude ".mypy_cache" \
+    --max-size=5M
 sudo rsync -avzh /home/pickle/Downloads /var/backups/ --exclude "Telegram" --exclude "Telegram Desktop" --max-size=5M
 sudo rsync -avzh /home/pickle/Videos/obs /var/backups/Videos --max-size=5M
 sudo rsync -avzh /home/pickle/Pictures /var/backups/ --max-size=10M
