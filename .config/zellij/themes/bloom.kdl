@@ -1,0 +1,15 @@
+themes {
+    bloom {
+        fg "#f8e75c"
+        bg "#282a36"
+        red "#f74c17"
+        green "#44ffaa"
+        yellow "#FFFB96"
+        blue "#6272a4"
+        magenta "#ff79c6"
+        orange "#ffb86c"
+        cyan "#8be9fd"
+        black "#3639ba"
+        white "#ffffff"
+    }
+}

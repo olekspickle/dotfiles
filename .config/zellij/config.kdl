@@ -103,8 +103,21 @@ keybinds {
     session {
         bind "Ctrl o" { SwitchToMode "Normal"; }
         bind "Ctrl s" { SwitchToMode "Scroll"; }
-        bind "Ctrl q" { Quit; }
         bind "d" { Detach; }
+        bind "w" {
+            LaunchOrFocusPlugin "session-manager" {
+                floating true
+                move_to_focused_tab true
+            };
+            SwitchToMode "Normal"
+        }
+        bind "c" {
+            LaunchOrFocusPlugin "configuration" {
+                floating true
+                move_to_focused_tab true
+            };
+            SwitchToMode "Normal"
+        }
     }
     tmux {
         bind "[" { SwitchToMode "Scroll"; }
@@ -141,6 +154,53 @@ keybinds {
         bind "Alt -" { Resize "Decrease"; }
         bind "Alt [" { PreviousSwapLayout; }
         bind "Alt ]" { NextSwapLayout; }
+        bind "Ctrl y" {
+            LaunchOrFocusPlugin "file:~/.config/zellij/plugins/zj_forgot.wasm" {
+                "LOAD_ZELLIJ_BINDINGS"  "false"
+                "lock"                  "ctrl + g"
+                "unlock"                "ctrl + g"
+                "new pane"              "ctrl + p + n"
+                "change focus of pane"  "ctrl + p + arrow key"
+                "close pane"            "ctrl + p + x"
+                "rename pane"           "ctrl + p + c"
+                "toggle fullscreen"     "ctrl + p + f"
+                "toggle floating pane"  "ctrl + p + w"
+                "toggle embed pane"     "ctrl + p + e"
+                "choose right pane"     "ctrl + p + l"
+                "choose left pane"      "ctrl + p + r"
+                "choose upper pane"     "ctrl + p + k"
+                "choose lower pane"     "ctrl + p + j"
+                "new tab"               "ctrl + t + n"
+                "close tab"             "ctrl + t + x"
+                "change focus of tab"   "ctrl + t + arrow key"
+                "rename tab"            "ctrl + t + r"
+                "sync tab"              "ctrl + t + s"
+                "brake pane to new tab" "ctrl + t + b"
+                "brake pane left"       "ctrl + t + ["
+                "brake pane right"      "ctrl + t + ]"
+                "toggle tab"            "ctrl + t + tab"
+                "increase pane size"    "ctrl + n + +"
+                "decrease pane size"    "ctrl + n + -"
+                "increase pane top"     "ctrl + n + k"
+                "increase pane right"   "ctrl + n + l"
+                "increase pane bottom"  "ctrl + n + j"
+                "increase pane left"    "ctrl + n + h"
+                "decrease pane top"     "ctrl + n + K"
+                "decrease pane right"   "ctrl + n + L"
+                "decrease pane bottom"  "ctrl + n + J"
+                "decrease pane left"    "ctrl + n + H"
+                "move pane to top"      "ctrl + h + k"
+                "move pane to right"    "ctrl + h + l"
+                "move pane to bottom"   "ctrl + h + j"
+                "move pane to left"     "ctrl + h + h"
+                "search"                "ctrl + s + s"
+                "go into edit mode"     "ctrl + s + e"
+                "detach session"        "ctrl + o + w"
+                "open session manager"  "ctrl + o + w"
+                "quit zellij"           "ctrl + q"
+                floating true
+            }
+        }
     }
     shared_except "normal" "locked" {
         bind "Enter" "Esc" { SwitchToMode "Normal"; }
@@ -167,12 +227,19 @@ keybinds {
         bind "Ctrl b" { SwitchToMode "Tmux"; }
     }
 }
-
 plugins {
-    tab-bar { path "tab-bar"; }
-    status-bar { path "status-bar"; }
-    strider { path "strider"; }
-    compact-bar { path "compact-bar"; }
+    tab-bar location="zellij:tab-bar"
+    status-bar location="zellij:status-bar"
+    strider location="zellij:strider"
+    compact-bar location="zellij:compact-bar"
+    session-manager location="zellij:session-manager"
+    welcome-screen location="zellij:session-manager" {
+        welcome_screen true
+    }
+    filepicker location="zellij:strider" {
+        cwd "/"
+    }
+    configuration location="zellij:configuration"
 }
 
 // Choose the path to the default shell that zellij will use for opening new panes
@@ -187,15 +254,11 @@ plugins {
 //
 pane_frames false
 
+theme_dir "/home/pickle/.config/zellij/themes"
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
-theme "menace"
-
-// The name of the default layout to load on startup
-// Default: "default"
-//
-default_layout "main"
+theme "bloom"
 
 // Configure the scroll back buffer size
 // This is the number of lines zellij stores for each pane in the scroll back
@@ -210,3 +273,4 @@ scroll_buffer_size 100000
 //
 scrollback_editor "/usr/bin/nvim"
 
+// session_serialization false

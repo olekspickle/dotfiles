@@ -5,6 +5,8 @@ return require('lazy').setup({
         { 'echasnovski/mini.nvim', version = false },
         -- [[ Theme ]]
         'nvim-lualine/lualine.nvim',            -- statusline
+        -- colorizer
+        'norcalli/nvim-colorizer.lua',
         -- actual themes
         { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
         'Mofiqul/dracula.nvim',

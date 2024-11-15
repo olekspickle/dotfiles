@@ -1,0 +1,97 @@
+layout {
+    default_tab_template {
+        pane size=1 borderless=false {
+            plugin location="file:/home/pickle/.config/zellij/plugins/zjstatus.wasm" {
+                color_fg        "#eeee47"
+                color_bg        "#4466ee"
+                color_black     "#88aaff"
+                color_red       "#ff3355"
+                color_green     "#33bb66"
+                color_yellow    "#eed747"
+                color_blue      "#4a96ff"
+                color_magenta   "#b77ee0"
+                color_cyan      "#22cccc"
+                color_white     "#e5e9f0"
+                color_orange    "#ffbb55"
+
+                border_enabled  "false"
+                border_char     "─"
+                border_format   "#[fg=$fg]{char}"
+                border_position "bottom"
+
+                format_left   "{mode}#[bg=$bg,fg=$fg]{notifications}#[bg=$bg,fg=$fg]{command_weather}"
+                format_center "{tabs}"
+                format_right  "#[bg=$bg,fg=$green] {command_user}#[bg=$bg,fg=$cyan,bold] 󰀱 {datetime}"
+                format_space  "#[bg=$bg,fg=$fg] "
+
+                // {session}
+                hide_frame_for_single_pane "false"
+                border_enabled  "false"
+
+                mode_normal         "#[bg=$bg,fg=$yellow,bold]     "
+                mode_locked         "#[bg=$bg,fg=$red]   "
+                mode_tab            "#[bg=$blue,fg=$yellow,bold]  t  "
+                mode_rename_tab     "#[bg=$blue,fg=$yellow,bold]  tr "
+                mode_tmux           "#[bg=$cyan,fg=$yellow,bold]  ┳  "
+                mode_pane           "#[bg=$green,fg=$white]  p  "
+                mode_rename_pane    "#[bg=$green,fg=$white]  rp "
+                mode_scroll         "#[bg=$yellow,fg=$blue,bold]  s  "
+                mode_enter_search   "#[bg=$yellow,fg=$blue,bold]  se "
+                mode_session        "#[bg=$white,fg=$blue,bold]  o  "
+                mode_resize         "#[bg=$orange,fg=$blue,bold]  ⇱⇲ "
+                mode_move           "#[bg=$cyan,fg=$yellow,bold]   ⥄ "
+                mode_prompt         "#[bg=$fg,fg=$magenta]  ? "
+
+                //            〄
+                // ●  /   
+                // 󰀱 󰚄 󰝆 󰡄 󰨈   󰊓 󰹙
+                //   󰩖 󰩗       
+                // 󰎢 󰎣 󰎥 󰎦 󰎨 󰎩 󰎫 󰎬 󰎲 󰎮 󰎯 󰎰 󰎴 󰎵 󰎷 󰎸 󰎺 󰎻 󰎽 󰎾
+                // 󱂡 󱂛 󱂅 󰟹 󰟽
+
+                // formatting for inactive tabs
+                tab_normal              "#[bg=$bg,fg=$blue]{name}"
+                tab_normal_fullscreen   "#[bg=$bg,fg=$blue]{name}{fullscreen_indicator}"
+                tab_normal_sync         "#[bg=$bg,fg=$blue]{name}{sync_indicator}"
+
+                // formatting for the current active tab
+                tab_active              "#[bg=$bg,fg=$fg,bold]{name}#[bg=$bg,fg=$yellow,bold]"
+                tab_active_fullscreen   "#[bg=$bg,fg=$fg,bold]{name}#[bg=$bg,fg=$yellow,bold]{fullscreen_indicator}"
+                tab_active_sync         "#[bg=$bg,fg=$fg,bold]{name}#[bg=$bg,fg=$yellow,bold]{sync_indicator}"
+
+                // separator between the tabs
+                tab_separator           "#[bg=$bg,fg=$green,bold] ⋮ "
+
+                // indicators
+                tab_sync_indicator       " "
+                tab_fullscreen_indicator " 󰊓"
+                tab_floating_indicator   " 󰹙"
+
+
+                notification_format_unread "#[bg=$bg,fg=$yellow]  {message}"
+                notification_format_no_notifications ""
+                notification_show_interval "10"
+
+                command_user_command    "whoami"
+                command_user_format     "{stdout}"
+                command_user_interval   "10"
+                command_user_rendermode "static"
+
+                // weather. courtesy of merikan
+                command_weather_command "curl \"wttr.in/Burglengenfeld?format=%c+%t+%m+%w\""
+                command_weather_format " {stdout}"
+                command_weather_interval "10800" // three hours
+                command_weather_rendermode "raw"
+
+                datetime        "#[bg=$bg,fg=$fg,bold]{format}"
+                datetime_format "%a,%d-%m-%Y %H:%M"
+                datetime_timezone "Europe/Berlin"
+            }
+        }
+        children
+    }
+
+    tab name="ꆛdev" {
+        pane
+    }
+}

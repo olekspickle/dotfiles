@@ -9,16 +9,12 @@ local t = 'tokyonight-day'
 local now = tonumber(os.date("%H"))
 local max = 16
 local min = 10
--- if now > max or now < min then
---     t = "tokyonight-storm"
--- end
+if now > max or now < min then
+    t = "tokyonight-storm"
+end
 
 local s2 = string.format("colorscheme %s", t)
 cmd(s2)
-
--- Transparensy using package
--- require('transparent')
--- vim.g.transparent_groups = vim.list_extend(vim.g.transparent_groups or {}, { "ExtraGroup" })
 
 require('lualine').setup {
     -- options = {
@@ -47,5 +43,6 @@ function ColorMyPencils(color)
     vim.api.nvim_set_hl(0, "Normal", {bg = "none"})
     vim.api.nvim_set_hl(0, "NormalFloat", {bg = "none"})
 end
-
 -- ColorMyPencils()
+
+require'colorizer'.setup()
