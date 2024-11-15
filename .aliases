@@ -1,3 +1,6 @@
+# copy_remote_file root@192.168.0.1 ~/remote/path local/path
+alias copy_remote_file="rsync -avzh --progress -e "ssh -i ~/.ssh/id_ed25519"  $1:~/$2 $3"
+
 alias gc="git checkout"
 alias ga="git add"
 alias gs="git status"
