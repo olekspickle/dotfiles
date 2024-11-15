@@ -21,7 +21,7 @@ cyan = "#22aaff"
 green = "#55ff77"
 magenta = "#b77ee0"
 red = "#ff3355"
-white = "#1155ff"
+white = "#bbeeff"
 yellow = "#eed747"
 
 [colors.normal]
@@ -43,7 +43,10 @@ foreground = "0xeeeeee"
 # program = "notify-send"
 
 [font]
-size = 11.5
+# wayland
+size = 17.5
+# X11
+# size = 11.5
 
 [font.bold]
 family = "JetBrains Mono"
