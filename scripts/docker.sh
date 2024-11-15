@@ -20,6 +20,7 @@ docker container ls --format "{{.ID}}" | xargs -I {} docker exec {} "docker insp
 docker ps -q
 
 # save docker image and load it afterwards
+# let's say you run it on CCI and use CIRCLE_SHA1, which is just a git tag
 docker tag $CIRCLE_SHA1 image-local
 docker save --output image.tar image-local
 docker load < "image.tar"
