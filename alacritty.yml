@@ -191,52 +191,42 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true 
 
-# Colors (Tomorrow Night)
-
-# Colors (Tender)
-# Colors (Tango)
+# Colors (Tomorrow Night Bright, tweaked)
 colors:
-  # Default colors
-  primary:
-    background: '#282828'
-    foreground: '#eeeeee'
-
   # Normal colors
   normal:
-    black:   '#282828'
-    red:     '#f43753'
-    green:   '#c9d05c'
-    yellow:  '#ffc24b'
-    blue:    '#b3deef'
-    magenta: '#d3b987'
-    cyan:    '#73cef4'
-    white:   '#eeeeee'
+    black:   '#00eeee'
+    red:     '#ff1111'
+    green:   '#55ff66'
+    yellow:  '#eeee47'
+    blue:    '#7aa6da'
+    magenta: '#c397d8'
+    cyan:    '#22aaff'
+    white:   '#424242'
 
   # Bright colors
-  bright:
-    black:   '#4c4c4c'
-    red:     '#f43753'
-    green:   '#c9d05c'
-    yellow:  '#ffc24b'
-    blue:    '#b3deef'
-    magenta: '#d3b987'
-    cyan:    '#73cef4'
-    white:   '#feffff'
+  bright:               # some anchors to make sense of a colors (zsh + starship)
+    black:   '#66eeaa'
+    red:     '#ff3355'  # directory hints
+    green:   '#77dd55'  # rust compiling
+    yellow:  '#eed747'  # aws region hint
+    blue:    '#7aa6ff'  # directories in ls output
+    magenta: '#b77ee0'  # branch 
+    cyan:    '#22aaff'  # current directory
+    white:   '#55dddd'  # alsa middle sticks
 
-# colors:
-#   # Default colors
   primary:
     background: '0x013931'
-    foreground: '0xeeeeee'
-# 
-#     # Bright and dim foreground colors
-#     #
-#     # The dimmed foreground color is calculated automatically if it is not
-#     # present. If the bright foreground color is not set, or
-#     # `draw_bold_text_with_bright_colors` is `false`, the normal foreground
-#     # color will be used.
-#     dim_foreground: '#eeeeee'
-#     bright_foreground: '#ffffff'
+    foreground: '0xeeeeee' # commands tyou type
+ 
+    # Bright and dim foreground colors
+    #
+    # The dimmed foreground color is calculated automatically if it is not
+    # present. If the bright foreground color is not set, or
+    # `draw_bold_text_with_bright_colors` is `false`, the normal foreground
+    # color will be used.
+    #dim_foreground: '#eeeeee'
+    #bright_foreground: '#ffffff'
 
   # Cursor colors
   #
@@ -800,7 +790,8 @@ live_config_reload: true
 #
 # If the same trigger is assigned to multiple actions, all of them are executed
 # in the order they were defined in.
-#key_bindings:
+key_bindings:
+  #- { key: Z, mods: Control, command: {program: "/home/pickle/.cargo/bin/zellij", args: ["--session", "main"]} } }
   #- { key: Paste,                                       action: Paste          }
   #- { key: Copy,                                        action: Copy           }
   #- { key: L,         mods: Control,                    action: ClearLogNotice }
@@ -886,7 +877,8 @@ live_config_reload: true
   #- { key: NumpadAdd,      mods: Control,                         action: IncreaseFontSize }
   #- { key: Minus,          mods: Control,                         action: DecreaseFontSize }
   #- { key: NumpadSubtract, mods: Control,                         action: DecreaseFontSize }
-
+  - { key: F11, action: ToggleFullscreen }
+  
   # (Windows only)
   #- { key: Return,   mods: Alt,           action: ToggleFullscreen }
 
