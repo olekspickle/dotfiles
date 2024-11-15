@@ -2,9 +2,18 @@
 local opt = vim.opt
 local cmd = vim.api.nvim_command
 
+
+
 -- Installed:
 -- everforest | dracula | tokyonight-day | catpuccin
 local t = 'tokyonight-day'
+-- Theme color depends on time (e.g., 19 for 7 PM)
+local now = tonumber(os.date("%H"))
+local max = 19
+local min = 8
+if now > max or now < min then
+    t = "tokyonight"
+end
 
 require('lualine').setup {
     -- options = {
