@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# cargo fmt
+result=$(cargo fmt --all -- --check)
+if [ $? -ne 0 ]; then
+    echo "There are formatting errors"
+    echo "${result}"
+    exit 1
+fi
+
+# cargo docs
+result=$(cargo test --doc --all-features)
+if [ $? -ne 0 ] && [ $? -ne 101 ]; then
+    echo "Errors found in the documentation"
+    echo "${result}"
+    exit 1
+fi
+
+# Run machete and clippy on each commit
+if [ "$(which cargo-machete)" ]; then
+    result=$(cargo machete)
+    if [ $? -ne 0 ]; then
+        echo "There are unused dependencies:"
+        echo "${result}"
+        exit 1
+    fi
+fi
+
+if [ "$(which cargo-clippy)" ]; then
+    result=$(cargo clippy  --all-features -- -D warnings)
+    if [ $? -ne 0 ]; then
+        echo "There there are unhandled warnings:"
+        echo "${result}"
+        exit 1
+    fi
+fi
