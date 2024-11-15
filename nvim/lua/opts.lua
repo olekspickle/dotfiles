@@ -66,7 +66,4 @@ autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
 -- Indent blankline customization
 vim.opt.list = true
 vim.opt.listchars:append "eol:↴"
-require("indent_blankline").setup {
-    show_end_of_line = true,
-}
 

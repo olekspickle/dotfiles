@@ -1,10 +1,16 @@
 local function on_attach(client, buffer)
+    local opts = { buffer = buffer }
     -- This callback is called when the LSP is atttached/enabled for this buffer
     -- we could set keymaps related to LSP, etc here.
     --       -- Hover actions
     --       vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
     --       -- Code action groups
     --       vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+    --
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+    -- vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+    -- vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
 end
 
 -- Configure LSP through rust-tools.nvim plugin.

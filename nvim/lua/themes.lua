@@ -9,8 +9,8 @@ local cmd = vim.api.nvim_command
 local t = 'tokyonight-day'
 -- Theme color depends on time (e.g., 19 for 7 PM)
 local now = tonumber(os.date("%H"))
-local max = 17
-local min = 8
+local max = 16
+local min = 10
 if now > max or now < min then
     t = "tokyonight-storm"
 end

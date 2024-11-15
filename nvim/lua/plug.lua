@@ -25,6 +25,9 @@ return require('packer').startup({
         -- KDL syntax highlight
         use 'imsnif/kdl.vim'
 
+        -- cool screenshot maker
+        -- use { "mistricky/codesnap.nvim", build = "make" }
+
         -- Debugging
         -- Log syntax highlighting
         use 'mtdl9/vim-log-highlighting'
