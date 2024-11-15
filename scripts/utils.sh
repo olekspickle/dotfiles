@@ -1,5 +1,21 @@
 #!/bin/bash 
 
+# check LAN cable for all network interfaces
+function check-lan() {
+    for interface in /sys/class/net/*; do
+        echo "$interface: carrier $(cat $interface/carrier), operstate $(cat $interface/operstate)"
+    done
+}
+
+# execute command forever with timeout
+function run-forever(){
+    timeout=${2:-1}
+    while true; do
+        eval $1
+        sleep $timeout
+    done
+}
+
 # iterate through all subdirs and execute a command
 function execr(){
     for dir in */; do
@@ -49,8 +65,22 @@ function size-check() {
 }
 
 # convert all m4a files in the folder to ogg
-function mp4-to-ogg(){
+function m4a-to-ogg(){
     for f in *.m4a; do
         ffmpeg -i "$f" -c:a libvorbis "${f%.m4a}.ogg"
+    done
+}
+
+# convert all ogg files in the folder to mp3
+function ogg-to-mp3(){
+    for f in *.ogg; do
+        ffmpeg -i "$f" "${f%.ogg}.mp3"
+    done
+}
+
+# convert all m4a files in the folder to mp3
+function m4a-to-mp3(){
+    for f in *.m4a; do
+        ffmpeg -i "$f" "${f%.m4a}.mp3"
     done
 }
