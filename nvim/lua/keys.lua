@@ -19,19 +19,24 @@ map('i', 'jk', '', {})
 
 -- intuitive copy in visual mode
 map('v', '<C-c>', '"+y', { noremap = true })
-
 -- Toggle plugin stuff
+-- Tree toggle
 map('n', '<C-b>', [[:NvimTreeToggle<cr>]], {})
+-- vim.keymap.set("n", "<C-b>", ":Neotree filesystem reveal left<CR>", {})
+-- vim.keymap.set("n", "<leader>bf", ":Neotree buffers reveal float<CR>", {})
+-- map('n', 'L', [[:IndentLinesToggle<cr>]], {})
+-- map('n', 't', [[:TagbarToggle<cr>]], {})
 
-map('n', 'L', [[:IndentLinesToggle<cr>]], {})
-map('n', 't', [[:TagbarToggle<cr>]], {})
-map('n', 'ff', [[:Telescope find_files<cr>]], {})
+-- Telescope setup
+local builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
+vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
 
 -- Rust compile
 -- map('n', '<C-r>', [[:FloatermNew --height=0.6 --width=0.4 --wintype=float --name=floaterm1 --position=topleft --autoclose=2 ranger --cmd="echo lol"]], {})
 
 -- Buffer switch
 map('n', '<C-i>', [[:bn<cr>]], {})
-map('n', 'S-i', [[:bp<cr>]], {})
+-- map('n', 'S-i', [[:bp<cr>]], {})
 --map('n', 'cs-Right', [[:bn<cr>]], {})
 --map('n', 'cs-Left', [[:bp<cr>]], {})

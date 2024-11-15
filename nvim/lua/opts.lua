@@ -21,7 +21,6 @@ opt.clipboard = "unnamedplus"
 -- [[ Reset default indent line behavior ]]
 vim.g.indentLine_setColors = 0
 vim.g.indentLine_enabled = 0
-
 -- [[ Filetypes ]]
 opt.encoding = 'utf8'            -- str:  String encoding to use
 opt.fileencoding = 'utf8'        -- str:  File encoding to use
@@ -66,4 +65,5 @@ autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
 -- Indent blankline customization
 vim.opt.list = true
 vim.opt.listchars:append "eol:↴"
+
 

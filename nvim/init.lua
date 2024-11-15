@@ -3,8 +3,12 @@
 -- LEADER
 -- These keybindings need to be defined before the first /
 -- is called; otherwise, it will default to "\"
-vim.g.mapleader = ","
+vim.g.mapleader = " "
 vim.g.localleader = "\\"
+
+-- disable netrw in favor of nvim-tree
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 -- ensure the packer plugin manager is installed
 local ensure_packer = function()
@@ -23,19 +27,20 @@ local packer_bootstrap = ensure_packer()
 require('vars')                     -- Variables
 require('opts')                     -- Options
 require('keys')                     -- Keymaps
-require('plug')                     -- Plugins
+require('plugins')                  -- Plugins
 require('ra')                       -- rust-analyzer
 require('comment')                  -- comments plugin
-require('tree')                     -- nvim-tree config
 require('themes')
 require('log-cfg')                  -- adds BaleiaColorize cmd for [m[3m logs
+require('tree')                     -- nvim-tree config
 
 require('impatient')                -- speedup start up times
-require('nvim-tree').setup{}
+require('treesitter')               -- treesitter highlight
 require('nvim-autopairs').setup{}   -- Paired elements ({["'
 require("ibl").setup{
-    indent = { char = "|" }
+    -- indent = { char = "|" }
 }
+
 -- require("codesnap").setup({
 --     mac_window_bar = true,
 --     opacity = true,
