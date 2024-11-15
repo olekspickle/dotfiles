@@ -4,7 +4,7 @@ set -x
 
 # Convert exported wav files to an mp3 with metadata
 artist="oleks pickle"
-input=${1:-$(date "+%d-%m-%Y-%H-%M.wav")}
+input=$1
 output=${2:-$(date "+%d-%m-%Y-%H-%M.mp3")}
 name=${3-"${output%.*}"}
 ext=${4:-"${output##*.}"}
