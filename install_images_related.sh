@@ -1,3 +1,3 @@
 # image metadata edition and ffmpeg
-sudo apt-get install libimage-exiftool-perl ffmpeg checkinstall 
+sudo apt-get install -y libimage-exiftool-perl ffmpeg checkinstall 
   
