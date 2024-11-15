@@ -1,5 +1,10 @@
 --[[ keys.lua ]]
--- most of this magic is a soup I respectfully yanked from: ThePrimeagen,mhinz and other wonderful people I was not smart enough to record here
+-- most of this magic is a soup I respectfully yanked from:
+-- ThePrimeagen, mhinz, merikan
+-- and other wonderful people I was not smart enough to record here
+
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
 -- merge options
 function m(...)
@@ -17,8 +22,22 @@ local defaults = { noremap = true, silent = true }
 
 -- intuitive copy in visual mode
 map('v', '<C-c>', '"+y', { noremap = true, desc = "copy" })
+-- Previous end of word
+map("n", "E", "ge", { desc = "Previous end of word" })
+-- make Y behave like C and D
+map("n", "Y", "y$", { desc = "Yank to end of line" })
+-- paste without yank
+map("v", "p", '"_dP', { desc = "Paste without yank" })
+-- delete without yanking
+map({ "n", "x" }, "<leader>d", '"_d', { desc = "Delete without yank" })
+-- delete char without yanking
+map({ "n", "v" }, "x", '"_x', { desc = "Delete char without yank" })
+map({ "n", "v" }, "X", '"_X', { desc = "Delete char without yank" })
+-- reselect pasted text
+map("n", "gp", "[v`]", { desc = "Reselect pasted text" })
 
--- scroll through buffers with Tab (kind of useless using mini.tabline)
+-- scroll through buffers with Tab
+-- kind of useless using mini.tabline with it's neat hjkl motions
 -- map('n', '<C-i>', [[:bn<cr>]], {})
 
 -- Unload current buffer
@@ -65,14 +84,18 @@ map("i", "<c-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "move line up" })
 map("v", "<c-j>", ":m '>+1<cr>gv=gv", { desc = "move line down" })
 map("v", "<c-k>", ":m '<-2<cr>gv=gv", { desc = "move line up" })
 
--- leave cursor in place after J
-map("n", "J", "mzJ`z", { desc = "move line up" })
 -- move up and down a page but leave cursor in the middle: far less disorienting
-map("n", "<c-d>", "<C-d>zz")
-map("n", "<c-u>", "<C-u>zz")
+map("n", "<c-d>", "<C-d>zz", m(defaults, { desc = "Half page down" }))
+map("n", "<c-u>", "<C-u>zz", m(defaults, { desc = "half page up" }))
 -- search and stay in the middle
-map("n", "n", "nzzzv")
-map("n", "N", "Nzzzv")
+map("n", "n", "nzzzv", m(defaults, { desc = "Next search result" }))
+map("n", "N", "Nzzzv", m(defaults, { desc = "Prev search result" }))
+-- leave cursor in place after join
+map("n", "J", "mzJ`z", { desc = "move line up" })
+-- duplicate line(s) with Alt+d
+map("i", "<A-d>", "<Esc>yypi", { desc = "Duplicate line(s)" })
+map("n", "<A-d>", "<Esc>yyp", { desc = "Duplicate line(s)" })
+map("v", "<A-d>", "oYPgv<Esc>gv=gv", { desc = "Duplicate line(s)" })
 
 map('n', '<leader>h', ':lua vim.o.hlsearch = not vim.o.hlsearch<CR>', m(defaults, {desc = "toggle hlsearch"}))
 
@@ -99,3 +122,13 @@ map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
 map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
 map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
+--  Mode letters:
+--    n: normal only
+--    v: visual and select
+--    o: operator-pending
+--    x: visual only
+--    s: select only
+--    i: insert
+--    c: command-line
+--    t: terminal window
+--    l: insert, command-line, regexp-search (and others. Collectively called "Lang-Arg" pseudo-mode)

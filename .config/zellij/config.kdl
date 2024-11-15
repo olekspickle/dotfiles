@@ -262,7 +262,9 @@ plugins {
         border_format   "#[fg=$fg]{char}"
         border_position "bottom"
 
-        format_left   "{mode}#[bg=$bg,fg=$fg]{notifications}#[bg=$bg,fg=$fg]{command_weather}"
+        // bug: when weather loads everything to the right shifts by 1 char to the left
+        // format_left   "{mode}#[bg=$bg,fg=$fg]{command_weather}"
+        format_left   "{mode}"
         format_center "{tabs}"
         format_right  "#[bg=$bg,fg=$green] {command_user}#[bg=$bg,fg=$cyan,bold] 󰀱 {datetime}"
         format_space  "#[bg=$bg,fg=$fg] "
@@ -275,7 +277,7 @@ plugins {
         mode_locked         "#[bg=$bg,fg=$red]   "
         mode_tab            "#[bg=$blue,fg=$yellow,bold]  t  "
         mode_rename_tab     "#[bg=$blue,fg=$yellow,bold]  tr "
-        mode_tmux           "#[bg=$cyan,fg=$yellow,bold]  ┳  "
+        mode_tmux           "#[bg=$yellow,fg=$black,bold]  ┳  "
         mode_pane           "#[bg=$green,fg=$white]  p  "
         mode_rename_pane    "#[bg=$green,fg=$white]  rp "
         mode_scroll         "#[bg=$yellow,fg=$blue,bold]  s  "
@@ -322,11 +324,11 @@ plugins {
 
         // weather. courtesy of merikan
         command_weather_command "curl \"wttr.in/Burglengenfeld?format=%c+%t+%m+%w\""
-        command_weather_format " {stdout}"
+        command_weather_format "#[bg=#ffffff]{stdout} "
         command_weather_interval "10800" // three hours
-        command_weather_rendermode "raw"
+        command_weather_rendermode "static"
 
-        datetime        "#[bg=$bg,fg=$fg,bold]{format}"
+        datetime        "#[bg=$bg,fg=$fg,bold]{format} "
         datetime_format "%a,%d-%m-%Y %H:%M"
         datetime_timezone "Europe/Berlin"
     }
