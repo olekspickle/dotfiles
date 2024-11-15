@@ -1,7 +1,7 @@
 #! /bin/bash 
 
 echo "Installing basic tools..."
-sudo apt-get install -y python3 pkg-config build-essential curl cmake 
+sudo apt install -y python3 pkg-config build-essential curl cmake 
 
 echo "Installing image related tools..."
 ./images_related.sh 
@@ -21,4 +21,4 @@ echo "Installing rust..."
 echo "Installing snap packages..."
 ./snap.sh
 
-./noise_cancellation.sh
+# ./noise_cancellation.sh
