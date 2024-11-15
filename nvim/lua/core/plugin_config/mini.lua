@@ -6,12 +6,7 @@ require("mini.notify").setup {}
 require("mini.comment").setup {}
 require("mini.bracketed").setup {}
 require("mini.pairs").setup {}
-require("mini.completion").setup {
-    window = {
-        -- info = {  border = ["╔","═","╗","║","╝","═","╚","║"]},
-        -- signature = { border = ["╔","═","╗","║","╝","═","╚","║"]},
-    },
-}
+-- require("mini.completion").setup {}
 
 -- require("mini.statusline").setup {}
 require("mini.files").setup {
@@ -122,5 +117,5 @@ vim.keymap.set('n', '<Leader>mt', minimap.toggle, {desc = "map toggle"})
 -- mini.files
 vim.keymap.set('n', '<leader>b', MiniFiles.open, {desc = "open file tree"})
 -- mini.cpmpletion
-vim.keymap.set('i', '<Tab>',   [[pumvisible() ? "\<C-n>" : "\<Tab>"]],   { noremap = true, expr = true })
-vim.keymap.set('i', '<S-Tab>', [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { noremap = true, expr = true })
+-- vim.keymap.set('i', '<Tab>',   [[pumvisible() ? "\<C-n>" : "\<Tab>"]],   { noremap = true, expr = true })
+-- vim.keymap.set('i', '<S-Tab>', [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { noremap = true, expr = true })

@@ -39,3 +39,13 @@ require('lualine').setup {
 opt.syntax = "ON"                -- str:  Allow syntax highlighting
 opt.termguicolors = true         -- bool: If term supports ui color then enable
 
+-- transparency Primeagen hack
+function ColorMyPencils(color)
+    color = color or t
+    vim.cmd.colorscheme(color)
+
+    vim.api.nvim_set_hl(0, "Normal", {bg = "none"})
+    vim.api.nvim_set_hl(0, "NormalFloat", {bg = "none"})
+end
+
+-- ColorMyPencils()

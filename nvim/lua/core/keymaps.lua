@@ -3,16 +3,14 @@ local map = vim.keymap.set
 -- local map = vim.api.nvim_set_keymap
 local defaults = { noremap = true, silent = true }
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
 -- intuitive copy in visual mode
 map('v', '<C-c>', '"+y', { noremap = true, desc = "copy" })
+
 -- scroll through buffers with Tab (kind of useless using mini.tabline)
 -- map('n', '<C-i>', [[:bn<cr>]], {})
 
 -- Unload current buffer
-map('n', '<C-d>', [[:bd<cr>]], { desc = "write and unload current"})
+map('n', '<leader>d', [[:bd<cr>]], { desc = "write and unload current"})
 -- map for quick quit, save files using leader key
 map('n', '<Leader>q', ':q<cr>', { desc = "quit" })
 map('n', '<Leader>w', ':w<cr>', { desc = "save"})
@@ -22,12 +20,6 @@ map('n', '<Leader>a', ':wqa<cr>', { desc = "save and quit all" })
 map('n', '<Leader>s', ':w<cr>:source %<cr>', { desc = "write and sync" })
 
 map('n', '<leader>i', 'gg=G<cr>', { desc = "format"})
--- Immediate insert mode
-map('i', ';w', '<esc>:write<CR>', {})
-map('i', ';x', '<esc>:wq<CR>', {})
-
--- map for quick open the file init.lua
-map('n', '<leader>nv', ':vsplit ~/.config/nvim/init.lua<cr>', {})
 
 -- use U for redo :))
 map('n', 'U', '<C-r>', {})
@@ -62,17 +54,7 @@ map("i", "<c-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "move line up" })
 map("v", "<c-j>", ":m '>+1<cr>gv=gv", { desc = "move line down" })
 map("v", "<c-k>", ":m '<-2<cr>gv=gv", { desc = "move line up" })
 
--- Clear search with <esc>
-map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
-
--- Clear search, diff update and redraw
--- taken from runtime/lua/_editor.lua
-map(
-    "n",
-    "<leader>ur",
-    "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
-    { desc = "Redraw / Clear hlsearch / Diff Update" }
-)
+map('n', '<leader>h', ':lua vim.o.hlsearch = not vim.o.hlsearch<CR>', merge(defaults, {desc = "toggle hlsearch"}))
 
 map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
 map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
@@ -93,7 +75,6 @@ local diagnostic_goto = function(next, severity)
         go({ severity = severity })
     end
 end
-map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
 map("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
 map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })

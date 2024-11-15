@@ -19,6 +19,9 @@ vim.opt.backspace = '2'
 -- vim.opt.cursorline = true
 vim.opt.autoread = true
 
+-- nvim-cmp
+vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
+
 vim.cmd [[ set noswapfile ]]
 vim.cmd [[ set termguicolors ]]
 

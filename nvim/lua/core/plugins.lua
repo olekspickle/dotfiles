@@ -19,6 +19,8 @@ return require('lazy').setup({
         { "nvim-telescope/telescope.nvim", tag = "0.1.4", dependencies = { "nvim-lua/plenary.nvim" }},
 
         -- [[ Dev ]]
+        -- git
+        'tpope/vim-fugitive',
         -- KDL syntax highlight
         'imsnif/kdl.vim',
         -- Syntax AST highlighting
@@ -42,15 +44,19 @@ return require('lazy').setup({
 
         -- Find and replace with rg
         'MagicDuck/grug-far.nvim',
+        'mbbill/undotree',
+
         -- Collection of common configurations for the Nvim LSP client
+        {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
         'neovim/nvim-lspconfig',
-        -- Completion
-        -- "hrsh7th/nvim-cmp",
-        -- 'hrsh7th/cmp-nvim-lsp',
-        -- 'hrsh7th/cmp-nvim-lua',
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/nvim-cmp',
+        'L3MON4D3/LuaSnip',
+        'saadparwaiz1/cmp_luasnip',
+        'hrsh7th/cmp-buffer',   -- get completiong based on buffer (wotrks without LSP)
+        'hrsh7th/cmp-path',     -- get completions based on path
+        'hrsh7th/cmp-nvim-lua',
         -- 'hrsh7th/cmp-nvim-lsp-signature-help',
-        -- 'hrsh7th/cmp-buffer',
-        -- 'hrsh7th/cmp-path',
         -- 'hrsh7th/cmp-vsnip',
         -- 'hrsh7th/vim-vsnip',
 
