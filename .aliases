@@ -1,3 +1,10 @@
+
+# EC2 instance rsync
+alias ec2-copy='rsync -avzh --progress -e "ssh -i ~/.ssh/agnatovskyi.pem" $1  $2:~/'
+
+# Connect my droplet
+alias botinok="ssh -i ~/.ssh/id_rsa root@167.172.97.246"
+
 #py flask postgres go to dir & activate virtual environment
 alias init_current_py='cd Documents/py/flask-pg-api/ && source flask-pg-api/bin/activate && export FLASK_APP=run.py'
 
