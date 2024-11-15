@@ -14,3 +14,5 @@ curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
 # rust analyzer
 rustup component add rust-analyzer
+# install wasm target
+rustup target add wasm32-unknown-unknown
