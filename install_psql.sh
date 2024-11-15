@@ -1,3 +1,7 @@
+#!/bin/bash
+
+set -euo pipefail; shopt -s failglob # safe mode 
+
 # psql
 echo "Installing postgresql..." \
     && sudo apt-get install -y wget ca-certificates \
