@@ -1,6 +1,6 @@
 keybinds {
     normal {
-        bind "Ctrl l" { Clear; NewPane; CloseFocus; }
+        // bind "Ctrl l" { Clear; Run "kill"{args " -9 $$"; }; }
         bind "Ctrl q" { Detach; }
     }
     resize {

@@ -1,3 +1,3 @@
 # my-vimrc
 
-nothing fancy, just packages I need 
+nothing fancy, just packages I need

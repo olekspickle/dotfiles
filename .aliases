@@ -1,31 +1,49 @@
-alias speedtest='curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -'
-alias co-main='git checkout $(gh repo view --json defaultBranchRef --jq .defaultBranchRef.name)'
+function restart-plasma(){
+    killall plasmashell
+        plasmashell &
+}
 
-function rabbit-inspect() {
-    rabbitmqctl list_queues | grep -v -e "0"
+function mp4-to-mp3(){
+    ffmpeg -i $1 -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 $2
+}
+
+function to-slack-gif() {
+# for gif it's mostly fps
+    ffmpeg -i $1 -vf "fps=10,scale=128:128:flags=lanczos" -c:v gif -b:v 256k $2
+}
+
+function resize-to-slack() {
+# -c:v libx264: This option sets the efficient video codec to H.264
+# -crf 28: The Constant Rate Factor (CRF) determines the video quality
+# A lower value results in higher quality but larger file size. moderate - 28
+# -preset slow: This preset option controls the encoding speed and quality trade-off.
+# The "slow" preset provides better compression efficiency, but it's slower.
+# If you want faster encoding, you can choose a different preset like "medium" or "fast".
+# -c:a aac -b:a 128k: These options specify the audio codec as AAC and set the audio bitrate to 128kbps.
+    ffmpeg -i $1 -vf "scale=128:128" -c:v libx264 -crf 28 -preset slow -c:a aac -b:a 128k $2
 }
 
 function import() {
     set -a
-    source $1
-    set +a
+        source $1
+        set +a
 }
 
 to-ogg-all () {
     path=${1:-"."}
     ext=${1:-"mp4"}
     for file in "${path}/*.${ext}"; do
-      if [[ -f "$file" ]]; then
-        filename="${file%.*}"
-        ffmpeg -i "$file" -vn -acodec libvorbis -aq 5 "${filename}.ogg"
-      fi
-    done
+        if [[ -f "$file" ]]; then
+            filename="${file%.*}"
+                ffmpeg -i "$file" -vn -acodec libvorbis -aq 5 "${filename}.ogg"
+                fi
+                done
 }
 
 docker-clean-all () {
-	docker container prune -f
-	docker image prune -f
-	docker volume prune -f
+    docker container prune -f
+    docker image prune -f
+    docker volume prune -f
 }
 
 # show logs without weird sequences
@@ -35,27 +53,20 @@ logless(){
 }
 
 strip-logs() {
-    # Strips all escape sequences and control codes from stdin.
+# Strips all escape sequences and control codes from stdin.
     cat $1 | sed -e 's,[\x00-\x08\x0E-\x1F]\|\x1B\(\[[0-?]*[ -/]*[@-~]\),,g' > $2
 }
 
+alias 'uv'='uv pip'
 alias 'docker-compose'='docker compose'
-
-# run
-# python -m venv .my-env
-# and then each time you need to use it
-# penv .my-env
-penv() {
-    source ~/$1/bin/activate
-}
+alias docker-container-rm-all-force='docker ps -q | xargs -I {} docker rm -f {}'
+alias speedtest='curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -'
+alias co-main='git checkout $(gh repo view --json defaultBranchRef --jq .defaultBranchRef.name)'
+alias rabbit-inspect='rabbitmqctl list_queues | grep -v -e "0"'
 
 # oxidize
 alias cat='bat'
-alias fd='fdfind'
-
-# check that crate is not banned on lib.rs and only then Install
-# alias cargo_install='curl -Ss https://lib.rs/crates/$1 | rg banned | if [ "$?" -eq 0 ]; then cargo install $1; else echo "You are sure you want to install this crate: $1? It is banned from lib.rs"; fi'
-alias cargo_install='read 1; output=$(curl -Ss https://lib.rs/crates/$1 | rg -q banned) && if [ ! "$output" -eq 0 ]; then cargo install $1; else echo "You are sure you want to install this crate: $1? It is banned from lib.rs"; fi'
+alias find='fdfind'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -64,16 +75,18 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 # Alias definitions.
 # Clean log from colors
 alias cleanup="sed 's/\x1b\[[0-9;]*m//g'"
-alias zjm="zj -s main -l main"
+
+# zellij hotkeys
+alias zj="zellij"
+alias zjp="zj -s ollama -l pi || zj attach ollama"
+alias zjm="zj -s main -l main || zj attach main"
+alias zjs="zj -s simple -l simple || zj attach simple"
 alias vim="nvim"
-alias vi="vim"
+alias vi="nvim"
 alias python='python3'
 
-alias awslocal="aws --endpoint-url=http://localhost:4566"
-alias zj="zellij"
-
-# copy_remote_file root@192.168.0.1 ~/remote/path local/path
-alias copy_remote_file="rsync -avzh --progress -e 'ssh -i ~/.ssh/id_ed25519'  $1 $2"
+# cp-remote root@192.168.0.1 ~/remote/path local/path
+alias cp-remote="rsync -avzh --progress -e 'ssh -i ~/.ssh/id_ed25519'  $1 $2"
 
 alias gb="git branch"
 alias gc="git checkout"
@@ -83,136 +96,72 @@ alias gs="git status"
 alias tf="terraform"
 
 alias bored="nmap -Pn -sS -p 80 -iR 0 --open"
-
 alias battery="upower -i `upower -e | grep 'BAT'`"
-
 alias bombard="docker run -ti --rm alpine/bombardier -c 1000 -d 3600s -l $1"
 
 alias myip="curl http://ipecho.net/plain; echo"
 
-# elastio hetzner runner
-alias hetzner_runner_connect='ssh -i ./.ssh/id_ed25519 root@5.9.22.202'
-
 # EC2 instance rsync
 # example: remote-copy some_dir remote_user@address.com
-alias remote-copy='rsync -avzh --progress -e "ssh -i ~/.ssh/agnatovskyi.pem" $1  $2:~/'
->>>>>>> 0912d4a (refresh aliases)
 
 # Connect my droplet
 alias botinok="ssh -i ~/.ssh/id_rsa root@167.172.97.246"
+alias remote-copy='rsync -avzh --progress -e "ssh -i ~/.ssh/pickle.pem" $1  $2:~/'
 
 # pretty xev
 alias xev-pretty="xev | grep -A2 --line-buffered '^KeyRelease' | sed -n '/keycode /s/^.*keycode \([0-9]*\).* (.*, \(.*\)).*$/\1 \2/p'"
 
 # Alias for aws command that connects to localstack instead of real AWS server
-alias aws-mock="aws --endpoint-url http://127.0.0.1:4566"
-# Install cli completions for AWS cli
-complete -C '/usr/local/bin/aws_completer' aws aws-mock
-
-#py flask postgres go to dir & activate virtual environment
-alias init_current_py='cd Documents/py/flask-pg-api/ && source flask-pg-api/bin/activate && export FLASK_APP=run.py'
-
-#the graph container id after running new the graph node
-alias set_graph_node=`CONTAINER_ID=$(docker container ls | grep graph-node | cut -d' ' -f1)`
+alias aws-local="aws --endpoint-url http://127.0.0.1:4566"
 
 #musl
 alias rust-musl-builder='docker run --rm -it -v "$(pwd)":/home/rust/src ekidd/rust-musl-builder'
 
-#git-rename 
-alias git-rename="
-OLD=${1:- };
-NEW=${2:- };
-echo old: $OLD new: $NEW;
-git ls-files -z | xargs -0 sed -i -e 's/$OLD/$NEW/g'"
+#git-rename
+function git-rename() {
+    OLD=${1:- };
+    NEW=${2:- };
+    echo old: $OLD new: $NEW;
+    git ls-files -z | xargs -0 sed -i -e 's/$OLD/$NEW/g'
+}
 
-#say
-alias say='
-TEXT=${1:-"Hello there"}
-
-spd-say $TEXT
-'
-
-#custom alert
-alias alrt='
-SLEE=${1:-300};
-TEXT=$2;
-echo "meeting in $DELAY";
-HEADER="ALERT";
-MESSAGE=$(echo "Zoom. Meeting. In " $DELAY "Seconds.");
-notify-send -i terminal $HEADER $MESSAGE;
-
-sleep $((SLEE-20));
-
-MESSAGE="Zoom. Meeting. Now.";
-notify-send -i terminal $HEADER $MESSAGE;
-
-spd-say {$MESSAGE:-"Zoom. Meeting. Now"}
-'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# dumb screen tracker exploit
 alias explore='
-  rnds=${1:-100};
-  echo "rnds" $rnds
-  for ((c=1; c<=$rnds; c++ ));
-  do
-      sleep 5;
-      WIDS=`xdotool search --onlyvisible "gnome-terminal"`;
-      xdotool search "Mozilla" windowactivate --sync;
-      sleep 540;
-      xdotool search "Visual Studio Code" windowactivate --sync;
-      for id in $WIDS;
-      do
-          sleep 540;
-          xdotool windowactivate $id;
-      done;
-      echo "done $c"
-  done
-  echo "done end"
-  '
-  alias work_test='
-  rnds=${1:-3};
-  echo "rnds" $rnds
-  for ((c=1; c<=$rnds; c++ ));
-  do
-      sleep 5;
-      WIDS=`xdotool search --onlyvisible "gnome-terminal"`;
-      xdotool search "Mozilla" windowactivate --sync;
-      sleep 1;
-      xdotool search "Visual Studio Code" windowactivate --sync;
-      for id in $WIDS;
-      do
-          sleep 1;
-          xdotool windowactivate $id;
-      done;
-      echo "done $c"
-  done
-  echo "done end"
-  '
+rnds=${1:-100};
+echo "rnds" $rnds
+for ((c=1; c<=$rnds; c++ ));
+do
+sleep 5;
+WIDS=`xdotool search --onlyvisible "gnome-terminal"`;
+xdotool search "Mozilla" windowactivate --sync;
+sleep 540;
+xdotool search "Visual Studio Code" windowactivate --sync;
+for id in $WIDS;
+do
+sleep 540;
+xdotool windowactivate $id;
+done;
+echo "done $c"
+done
+echo "done end"
+'
+alias work_test='
+rnds=${1:-3};
+echo "rnds" $rnds
+for ((c=1; c<=$rnds; c++ ));
+do
+sleep 5;
+WIDS=`xdotool search --onlyvisible "gnome-terminal"`;
+xdotool search "Mozilla" windowactivate --sync;
+sleep 1;
+xdotool search "Visual Studio Code" windowactivate --sync;
+for id in $WIDS;
+do
+sleep 1;
+xdotool windowactivate $id;
+done;
+echo "done $c"
+done
+echo "done end"
+'
 

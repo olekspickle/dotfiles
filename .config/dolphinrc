@@ -1,0 +1,28 @@
+[$Version]
+update_info=dolphin_detailsmodesettings.upd:rename-leading-padding,dolphin_detailsmodesettings.upd:move-content-display
+
+[ExtractDialog]
+1920x1200 screen: Height=712
+1920x1200 screen: Width=1280
+DirHistory[$e]=$HOME/Documents/resume/recovery/,$HOME/Videos/The Forbidden Kingdom (2008) [1080p] [BluRay] [5.1] [YTS.MX]/
+
+[General]
+Version=202
+ViewPropsTimestamp=2023,2,16,11,30,37.653
+
+[KFileDialog Settings]
+Places Icons Auto-resize=false
+Places Icons Static Size=22
+Recent Files[$e]=file:$HOME/Documents/resume/recovery,file:$HOME/Documents/resume/recovery
+Recent URLs[$e]=file:$HOME/Documents/resume/recovery/
+detailViewIconSize=16
+
+[KPropertiesDialog]
+1920x1200 screen: Height=700
+1920x1200 screen: Width=555
+eDP-1 Height 1920x1200=511
+eDP-1 Width 1920x1200=491
+
+[MainWindow]
+MenuBar=Disabled
+ToolBarsMovable=Disabled

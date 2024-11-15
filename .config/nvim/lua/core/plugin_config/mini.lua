@@ -3,7 +3,11 @@ require("mini.tabline").setup {}
 require("mini.indentscope").setup {}
 require("mini.trailspace").setup {}
 require("mini.notify").setup {}
-require("mini.comment").setup {}
+require("mini.comment").setup {
+  mappings = {
+        comment_line = '<C-_>',
+    }
+}
 require("mini.bracketed").setup {}
 require("mini.pairs").setup {}
 require("mini.icons").setup()
