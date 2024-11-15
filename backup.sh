@@ -25,18 +25,18 @@ sudo rsync -avzh "$HOME"/Pictures /var/backups --max-size=10M
 sudo rsync -avzh "$HOME"/lmms /var/backups --max-size=15M
 
 # dotfiles
-rsync -avzh "$HOME"/.config/nvim "$HOME"/Documents/my-vimrc/.config --exclude "*lazy-lock*"
-rsync -avzh "$HOME"/.config/alacritty "$HOME"/Documents/my-vimrc/.config
-rsync -avzh "$HOME"/.config/starship.toml "$HOME"/Documents/my-vimrc/.config
-rsync -avzh "$HOME"/.config/zellij "$HOME"/Documents/my-vimrc/.config \
+rsync -avzh "$HOME"/.config/nvim "$HOME"/Documents/dotfiles/.config --exclude "*lazy-lock*"
+rsync -avzh "$HOME"/.config/alacritty "$HOME"/Documents/dotfiles/.config
+rsync -avzh "$HOME"/.config/starship.toml "$HOME"/Documents/dotfiles/.config
+rsync -avzh "$HOME"/.config/zellij "$HOME"/Documents/dotfiles/.config \
     --exclude "main*" --exclude "beasts*" --exclude "*plugins*"
 
 # KDE
-rsync -avzh "$HOME"/.config/kdeglobals "$HOME"/Documents/my-vimrc/.config
-rsync -avzh "$HOME"/.config/plasmarc "$HOME"/Documents/my-vimrc/.config
-rsync -avzh "$HOME"/.config/plasma-workspace/env "$HOME"/Documents/my-vimrc/.config
-rsync -avzh "$HOME"/.config/kwinrc "$HOME"/Documents/my-vimrc/.config
-rsync -avzh "$HOME"/.config/krunnerrc "$HOME"/Documents/my-vimrc/.config
-rsync -avzh "$HOME"/.config/kscreenlockerrc "$HOME"/Documents/my-vimrc/.config
-rsync -avzh "$HOME"/.config/khotkeysrc "$HOME"/Documents/my-vimrc/.config
+rsync -avzh "$HOME"/.config/kdeglobals "$HOME"/Documents/dotfiles/.config
+rsync -avzh "$HOME"/.config/plasmarc "$HOME"/Documents/dotfiles/.config
+rsync -avzh "$HOME"/.config/plasma-workspace/env "$HOME"/Documents/dotfiles/.config
+rsync -avzh "$HOME"/.config/kwinrc "$HOME"/Documents/dotfiles/.config
+rsync -avzh "$HOME"/.config/krunnerrc "$HOME"/Documents/dotfiles/.config
+rsync -avzh "$HOME"/.config/kscreenlockerrc "$HOME"/Documents/dotfiles/.config
+rsync -avzh "$HOME"/.config/khotkeysrc "$HOME"/Documents/dotfiles/.config
 
