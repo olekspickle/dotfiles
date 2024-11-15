@@ -9,11 +9,11 @@ sudo rm -rf /var/backups/lmms
 
 # backup most of the data
 sudo rsync -avzh "$HOME"/Documents /var/backups \
+    --exclude "*/target/*" \
     --exclude "*/zellij/*" \
     --exclude "*/Fyrox/*" \
     --exclude "*/logs/*" \
     --exclude "*.venv*" \
-    --exclude "*/target/*" \
     --exclude "*.mypy_cache*" \
     --exclude "*/node_modules/*" \
     --max-size=5M
@@ -24,6 +24,7 @@ sudo rsync -avzh "$HOME"/Pictures /var/backups --max-size=10M
 sudo rsync -avzh "$HOME"/lmms /var/backups --max-size=15M
 
 # dotfiles
+rsync -avzh "$HOME"/.aliases "$HOME"/Documents/dotfiles
 rsync -avzh "$HOME"/.config/nvim "$HOME"/Documents/dotfiles/.config --exclude "*lazy-lock*"
 rsync -avzh "$HOME"/.config/alacritty "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/starship.toml "$HOME"/Documents/dotfiles/.config

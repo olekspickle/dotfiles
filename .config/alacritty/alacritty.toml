@@ -44,9 +44,9 @@ foreground = "0xeeeeee"
 
 [font]
 # wayland
-#size = 17.5
+size = 17.2
 # X11
-size = 11.5
+#size = 11.5
 
 [font.bold]
 family = "JetBrains Mono"

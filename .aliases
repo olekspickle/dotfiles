@@ -113,11 +113,10 @@ alias fd='fdfind'
 
 alias adbsync='~/.venv/bin/adbsync'
 alias 'yt'='yt-dlp -x --audio-format mp3'
-alias 'docker-compose'='docker compose'
-alias docker-container-rm-all-force='docker ps -q | xargs -I {} docker rm -f {}'
-alias speedtest='curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -'
-alias co-main='git checkout $(gh repo view --json defaultBranchRef --jq .defaultBranchRef.name)'
 alias rabbit-inspect='rabbitmqctl list_queues | grep -v -e "0"'
+alias docker-container-rm-all-force='docker ps -q | xargs -I {} docker rm -f {}'
+alias co-main='git checkout $(gh repo view --json defaultBranchRef --jq .defaultBranchRef.name)'
+alias speedtest='cat ~/Documents/py/speedtest.py | python -'
 
 # zellij hotkeys
 alias zj="zellij"
