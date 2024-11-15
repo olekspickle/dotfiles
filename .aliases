@@ -1,6 +1,14 @@
 
+alias battery="upower -i `upower -e | grep 'BAT'`"
+
+alias bombard="docker run -ti --rm alpine/bombardier -c 1000 -d 3600s -l $1"
+
+alias myip="curl http://ipecho.net/plain; echo"
+
 # EC2 instance rsync
-alias ec2-copy='rsync -avzh --progress -e "ssh -i ~/.ssh/agnatovskyi.pem" $1  $2:~/'
+# example: remote-copy some_dir remote_user@address.com
+alias remote-copy='rsync -avzh --progress -e "ssh -i ~/.ssh/agnatovskyi.pem" $1  $2:~/'
+>>>>>>> 0912d4a (refresh aliases)
 
 # Connect my droplet
 alias botinok="ssh -i ~/.ssh/id_rsa root@167.172.97.246"
