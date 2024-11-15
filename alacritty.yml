@@ -167,7 +167,7 @@ font:
     style: Bold Italic
 
   # Point size
-  size: 10.5
+  size: 11.5
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
@@ -197,7 +197,7 @@ draw_bold_text_with_bright_colors: true
 colors:
   # Normal colors
   normal:
-    black:   '#111111' # htop font color
+    black:   '#ff1111' # htop font color
     red:     '#ff1111'
     green:   '#55ff77' # htop unselected background/alsa
     yellow:  '#eeee47'
@@ -472,11 +472,10 @@ live_config_reload: true
 # Default:
 #   - (Linux/BSD/macOS) `$SHELL` or the user's login shell, if `$SHELL` is unset
 #   - (Windows) powershell
-#shell:
-#  program: /home/pickle/.cargo/bin/zellij
+shell:
+  program: /usr/bin/zsh
 #  args:
-#    - -l
-#    - main
+#    - --login
 
 # Startup directory
 #
@@ -795,7 +794,7 @@ live_config_reload: true
 # in the order they were defined in.
 key_bindings:
   - { key: F11, action: ToggleFullscreen }
-  
+ 
   # neovim escape overrides
   #- {key: F5, mods: Control|Shift, chars: "\x1b[15;6;5~"}
   #- {key: F5, mods: Control, chars: "\x1b[>15;5~"}
@@ -883,6 +882,7 @@ key_bindings:
   #- { key: Return, mods: Shift,   mode: Search|~Vi, action: SearchFocusPrevious   }
 
   # (Windows, Linux, and BSD only)
+  - { key: I,              mods: Control|Shift, chars: "\x1b[73;5u"                        }
   #- { key: V,              mods: Control|Shift, mode: ~Vi,        action: Paste            }
   #- { key: C,              mods: Control|Shift,                   action: Copy             }
   #- { key: F,              mods: Control|Shift, mode: ~Search,    action: SearchForward    }
