@@ -1,3 +1,9 @@
+alias gc="git checkout"
+alias ga="git add"
+alias gs="git status"
+alias tf="terraform"
+
+alias bored="nmap -Pn -sS -p 80 -iR 0 --open"
 
 alias battery="upower -i `upower -e | grep 'BAT'`"
 
