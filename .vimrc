@@ -58,6 +58,8 @@ let g:rustfmt_autosave = 1
 
 "colorschemes
 "colorscheme sublimemonokai
+hi Pmenu ctermbg=lightgrey
+hi PmenuSel ctermbg=darkblue
 
 set guifont=Fura\ Code\ Light\ Nerd\ Font\ Complete:h16
 "set guifont=JetBrainsMono-Regular:h16
