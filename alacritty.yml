@@ -473,9 +473,10 @@ live_config_reload: true
 #   - (Linux/BSD/macOS) `$SHELL` or the user's login shell, if `$SHELL` is unset
 #   - (Windows) powershell
 #shell:
-#  program: /bin/bash
+#  program: /home/pickle/.cargo/bin/zellij
 #  args:
-#    - --login
+#    - -l
+#    - main
 
 # Startup directory
 #

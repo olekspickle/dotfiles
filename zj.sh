@@ -11,4 +11,4 @@ cp zj-config.kdl ~/.config/zellij/config.kdl
 cp zj-layout-config.kdl ~/.config/zellij/layouts/config.kdl
 
 # adding KDL syntax for nvim
-cd ~/.config/nvim/site/pack/packer/start && git clonee https://github.com/imsnif/kdl.vim
+cd ~/.config/nvim/site/pack/packer/start && git clone https://github.com/imsnif/kdl.vim

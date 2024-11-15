@@ -4,20 +4,25 @@ layout {
             plugin location="zellij:tab-bar"
         }
         children
-        pane size=2 borderless=true {
-            plugin location="zellij:status-bar"
+            pane size=2 borderless=true {
+                plugin location="zellij:status-bar"
+            }
+    }
+
+    tab name="dev" focus=true split_direction="vertical" {
+        pane cwd="/home/pickle/Documents" {
+
+        }
+        pane split_direction="horizontal" {
+            pane cwd="/home/pickle/Documents"
+            pane cwd="/home/pickle/Documents"
         }
     }
 
     tab name="alsa" cwd="/home/pickle/" {
-        pane command="alsamixer"
-    }
-    
-    tab name="dev" focus=true cwd="/home/pickle/Documents" {
-        pane 
-    }
-
-    tab name="misc" cwd="/home/pickle/" {
-        pane 
+        pane command="alsamixer" {
+            close_on_exit true
+            start_suspended false
+        }
     }
 }
