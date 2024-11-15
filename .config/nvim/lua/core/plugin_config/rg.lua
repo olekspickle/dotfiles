@@ -1,7 +1,7 @@
 local grug = require('grug-far')
 local opts = {
   -- extra args that you always want to pass to rg
-  extraRgArgs = '',
+  extraArgs = '',
   -- whether to start in insert mode,
   -- startInInsertMode = false,
   -- row in the window to position the cursor at at start
