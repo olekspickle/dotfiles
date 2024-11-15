@@ -68,4 +68,15 @@ autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
 vim.opt.list = true
 vim.opt.listchars:append "eol:↴"
 
+-- Automatically format on save
+vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
 
+function merge(...)
+    local result = {}
+    for _, tbl in ipairs{...} do
+        for key, value in pairs(tbl) do
+            result[key] = value
+        end
+    end
+    return result
+end

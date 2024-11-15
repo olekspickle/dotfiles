@@ -1,4 +1,4 @@
--- log colrizer
+-- log colorizer
 local baleia = require('baleia').setup({})
 function BaleiaColorize()
     baleia.once(vim.fn.bufnr('%'))
