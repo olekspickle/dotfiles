@@ -16,9 +16,13 @@ sudo rsync -avzh /home/pickle/Documents /var/backups/ \
     --exclude ".venv" \
     --exclude ".mypy_cache" \
     --max-size=5M
-sudo rsync -avzh /home/pickle/Downloads /var/backups/ --exclude "Telegram" --exclude "Telegram Desktop" --max-size=5M
+sudo rsync -avzh /home/pickle/Downloads /var/backups/ --exclude "*Telegram*" --max-size=5M
 sudo rsync -avzh /home/pickle/Videos/obs /var/backups/Videos --max-size=5M
 sudo rsync -avzh /home/pickle/Pictures /var/backups/ --max-size=10M
 sudo rsync -avzh /home/pickle/lmms /var/backups/ --max-size=15M
-rsync -avzh /home/pickle/.config/nvim /home/pickle/Documents/my-vimrc
-rsync -avzh /home/pickle/.config/alacritty/alacritty.toml /home/pickle/Documents/my-vimrc/alacritty.toml
+
+# dotfiles
+rsync -avzh /home/pickle/.config/nvim /home/pickle/Documents/my-vimrc/.config
+rsync -avzh /home/pickle/.config/alacritty /home/pickle/Documents/my-vimrc/.config
+rsync -avzh /home/pickle/.config/zellij /home/pickle/Documents/my-vimrc/.config --exclude "*main*"
+

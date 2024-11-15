@@ -1,0 +1,135 @@
+live_config_reload = true
+
+[bell]
+animation = "EaseOutExpo"
+duration = 0
+
+[cursor]
+style = "Block"
+unfocused_hollow = false
+
+[debug]
+render_timer = false
+
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[colors.bright]
+black = "#7788ff"
+blue = "#7aa6ff"
+cyan = "#22aaff"
+green = "#77dd55"
+magenta = "#b77ee0"
+red = "#ff3355"
+white = "#55ddff"
+yellow = "#eed747"
+
+
+[colors.normal]
+black = "#ff1111"
+blue = "#7aa6da"
+cyan = "#2288ff"
+green = "#55ff77"
+magenta = "#c9a8e9"
+red = "#ff1111"
+white = "#ffffff"
+yellow = "#eeee47"
+
+[colors.primary]
+background = "0x013931"
+foreground = "0xeeeeee"
+
+# [command]
+# args = ["Hey, you should take a look on something in session: ", "zellij ls | grep current"]
+# program = "notify-send"
+
+[font]
+size = 11.5
+
+[font.bold]
+family = "JetBrains Mono"
+style = "Bold"
+
+[font.bold_italic]
+family = "JetBrains Mono"
+style = "Bold Italic"
+
+[font.italic]
+family = "JetBrains Mono Italic"
+style = "Italic"
+
+[font.normal]
+family = "JetBrains Mono"
+
+[font.offset]
+x = 1
+y = 0
+
+[font.glyph_offset]
+x = 0
+y = 0
+
+[[keyboard.bindings]]
+action = "ToggleFullscreen"
+key = "F11"
+
+[[keyboard.bindings]]
+chars = "\u001B[105;5u"
+key = "I"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[73;5u"
+key = "I"
+mods = "Control|Shift"
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[shell]
+program = "/usr/bin/zsh"
+
+[window]
+decorations = "full"
+decorations_theme_variant = "None"
+dynamic_padding = true
+dynamic_title = true
+opacity = 0.75
+startup_mode = "Fullscreen"
+title = "pickleshit"
+
+[window.class]
+general = "Alacritty"
+instance = "Alacritty"
+
+[window.padding]
+x = 0
+y = 0
+
+[env]
+LANG = "en_US.UTF-8"
+TERM = "xterm-256color"
+
+[[hints.enabled]]
+command = "xdg-open"
+hyperlinks = true
+post_processing = true
+regex = "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-<>\"\\s{-}\\^⟨⟩`]+"
+
+[hints.enabled.binding]
+key = "U"
+mods = "Control|Shift"
+
+[hints.enabled.mouse]
+enabled = true
+mods = "None"
+
+[mouse]
+hide_when_typing = true
+
+[[mouse.bindings]]
+action = "PasteSelection"
+mouse = "Middle"
+
+

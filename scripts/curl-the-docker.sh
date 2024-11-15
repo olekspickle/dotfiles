@@ -7,7 +7,9 @@ else
     DOCKER_SOCKET=$PROVIDERS_SOCKET
 fi
 
-API_VERSION=$(curl -s --unix-socket $DOCKER_SOCKET http://v/version | jq '.Components[0].Version' | sed 's/\"//g')
+API_VERSION=$(curl -s --unix-socket $DOCKER_SOCKET http://v/version | jq -r '.Components[0].Version')
+echo $API_VERSION
+exit 1
 
 container_id=$(
     curl --unix-socket $DOCKER_SOCKET -s http://$API_VERSION/containers/json \

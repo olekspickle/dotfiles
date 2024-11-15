@@ -1,6 +1,6 @@
-sudo apt install -y lld 
+sudo apt install -y lld
 
-CONFIG='\n
+CONFIG='
 [build]\n
 rustflags = [
   "-C", "link-arg=-fuse-ld=lld",
