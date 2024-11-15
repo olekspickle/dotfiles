@@ -13,4 +13,4 @@ require('gen').setup({
         debug = false -- Prints errors and the command which is run.
 })
 
-vim.keymap.set({ 'n', 'v' }, '<leader>]', ':Gen<CR>')
+vim.keymap.set({ 'n', 'v' }, '<leader>g', ':Gen<CR>')

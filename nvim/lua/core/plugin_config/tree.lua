@@ -28,5 +28,8 @@ local function open_nvim_tree(data)
   require("nvim-tree.api").tree.open()
 end
 
-vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
+-- Open nvim-tree automatically when open vim on directory
+-- vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
 
+-- Tree toggle
+vim.api.nvim_set_keymap('n', '<C-b>', [[:NvimTreeToggle<cr>]], {})
