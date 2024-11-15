@@ -1,8 +1,12 @@
-
+set splitright
 set encoding=utf-8        
 set nocompatible           
+set hlsearch
 syntax enable               
 filetype plugin indent on
+set wildmenu
+set path+=**
+
 
 " vim-plug
 if empty(glob('~/.vim/autoload/plug.vim'))  
@@ -54,7 +58,9 @@ let g:rustfmt_autosave = 1
 
 "colorschemes
 "colorscheme sublimemonokai
+
 set guifont=Fura\ Code\ Light\ Nerd\ Font\ Complete:h16
+"set guifont=JetBrainsMono-Regular:h16
 
 " misc conf
 filetype plugin indent on
@@ -76,12 +82,15 @@ nnoremap <silent> <Up> gk
 " EDITOR
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
-"let g:netrw_browse_split = 4
+let g:netrw_browse_split = 3
 let g:netrw_altv = 1
 let g:netrw_winsize = 20
 set wmw=0
 set number
 
+" Per default, netrw leaves unmodified buffers open. This autocommand
+" deletes netrw's buffer once it's hidden (using ':q', for example)
+autocmd FileType netrw setl bufhidden=delete
 
 " fix typos
 command Q q
