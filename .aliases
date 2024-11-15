@@ -1,0 +1,104 @@
+#py flask postgres go to dir & activate virtual environment
+alias init_current_py='cd Documents/py/flask-pg-api/ && source flask-pg-api/bin/activate && export FLASK_APP=run.py'
+
+#the graph container id after running new the graph node
+alias set_graph_node=`CONTAINER_ID=$(docker container ls | grep graph-node | cut -d' ' -f1)`
+
+#musl
+alias rust-musl-builder='docker run --rm -it -v "$(pwd)":/home/rust/src ekidd/rust-musl-builder'
+
+#git-rename 
+alias git-rename="
+OLD=${1:- };
+NEW=${2:- };
+echo old: $OLD new: $NEW;
+git ls-files -z | xargs -0 sed -i -e 's/$OLD/$NEW/g'"
+
+#custom alert
+alias alrt='
+SLEE=$1;
+TEXT=$2;
+echo "meeting in $DELAY";
+HEADER="Akropolis";
+MESSAGE="Zoom. Meeting. In $DELAY Seconds.";
+notify-send -i terminal $HEADER $MESSAGE;
+
+sleep ${SLEE=300};
+
+MESSAGE="Zoom. Meeting. Now.";
+notify-send -i terminal $HEADER $MESSAGE;
+
+spd-say {$MESSAGE:-"Zoom. Meeting. Now"}
+#sleep $DELAY2;
+#spd-say "Zoom. Meeting. Now" 
+'
+
+#aragon clean
+alias aragon_clean='rm -Rf ~/.aragon/aragen-db*'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+alias explore='
+rnds=${1:-100};
+echo "rnds" $rnds
+for ((c=1; c<=$rnds; c++ ));
+do
+ sleep 5;
+ WIDS=`xdotool search --onlyvisible "gnome-terminal"`;
+ xdotool search "Mozilla" windowactivate --sync;
+ sleep 540;
+ xdotool search "Visual Studio Code" windowactivate --sync;
+ for id in $WIDS;
+ do
+  sleep 540;
+  xdotool windowactivate $id;
+ done;
+ echo "done $c"
+done
+echo "done end"
+'
+alias work_test='
+rnds=${1:-3};
+echo "rnds" $rnds
+for ((c=1; c<=$rnds; c++ ));
+do
+ sleep 5;
+ WIDS=`xdotool search --onlyvisible "gnome-terminal"`;
+ xdotool search "Mozilla" windowactivate --sync;
+ sleep 1;
+ xdotool search "Visual Studio Code" windowactivate --sync;
+ for id in $WIDS; 
+ do	
+  sleep 1;
+  xdotool windowactivate $id;
+ done;
+ echo "done $c"
+done
+echo "done end"
+'
+
