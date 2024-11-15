@@ -8,8 +8,9 @@ ln -s $(which fdfind) ~/.local/bin/fd
 cargo install --locked bat
 
 cargo install cargo-binstall
-cargo binstall --no-confirm ripgrep flamegraph zellij \
-    cargo-deny cargo-readme cargo-machete cargo-bloat cargo-tree
+cargo install --no-confirm ripgrep flamegraph zellij \
+    cargo-deny cargo-readme cargo-machete cargo-bloat cargo-tree \
+    cargo-audit
 
 # enable perf to be used by unprivileged for flamegraph
 # echo -1 | sudo tee /proc/sys/kernel/perf_event_paranoid
