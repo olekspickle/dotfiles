@@ -1,9 +1,23 @@
 #! /bin/bash 
 
-sudo apt-get install -y python3 build-essential curl cmake \
-    && ./install_images_related.sh \
-    && ./install_psql.sh \
-    && ./install_fonts.sh \
-    && ./install_node.sh \
-    && ./install_rust.sh \
-    && ./snap.sh
+
+echo "Installing basic tools..."
+sudo apt-get install -y python3 pkg-config build-essential curl cmake 
+
+echo "Installing image related tools..."
+./install_images_related.sh 
+
+echo "Installing postgress..."
+./install_psql.sh 
+
+echo "Installing fonts..."
+./install_fonts.sh 
+
+echo "Installing node..."
+./install_node.sh 
+
+echo "Installing rust..."
+./install_rust.sh 
+
+echo "Installing snap packages..."
+./snap.sh
