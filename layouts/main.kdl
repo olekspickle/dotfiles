@@ -1,0 +1,31 @@
+layout {
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="zellij:tab-bar"
+        }
+        children
+        pane size=2 borderless=true {
+            plugin location="zellij:status-bar"
+        }
+    }
+
+    tab name="dev" cwd="/home/pickle/Documents/rust" {
+        pane
+    }
+
+    tab name="debug" cwd="/home/pickle/" {
+        pane
+    }
+
+    tab name="zellij" split_direction="vertical" {
+        pane cwd="/home/pickle/Documents/rust/zellij" name="zj"
+        pane cwd="/home/pickle/Documents/rust" name="zj-debug" 
+    }
+
+    /* tab name="alsa" cwd="/home/pickle/" { */
+    /*     pane command="alsamixer" { */
+    /*         close_on_exit true */
+    /*         start_suspended false */
+    /*     } */
+    /* } */
+}
