@@ -1,8 +1,15 @@
-# copy_remote_file root@192.168.0.1 ~/remote/path local/path
-alias copy_remote_file="rsync -avzh --progress -e "ssh -i ~/.ssh/id_ed25519"  $1:~/$2 $3"
 
+
+alias awslocal="aws --endpoint-url=http://localhost:4566"
+alias zj="zellij"
+
+# copy_remote_file root@192.168.0.1 ~/remote/path local/path
+alias copy_remote_file="rsync -avzh --progress -e 'ssh -i ~/.ssh/id_ed25519'  $1 $2"
+
+alias gb="git branch"
 alias gc="git checkout"
 alias ga="git add"
+alias gd="git diff"
 alias gs="git status"
 alias tf="terraform"
 
@@ -13,6 +20,9 @@ alias battery="upower -i `upower -e | grep 'BAT'`"
 alias bombard="docker run -ti --rm alpine/bombardier -c 1000 -d 3600s -l $1"
 
 alias myip="curl http://ipecho.net/plain; echo"
+
+# elastio hetzner runner
+alias hetzner_runner_connect='ssh -i ./.ssh/id_ed25519 root@5.9.22.202'
 
 # EC2 instance rsync
 # example: remote-copy some_dir remote_user@address.com
@@ -46,6 +56,13 @@ NEW=${2:- };
 echo old: $OLD new: $NEW;
 git ls-files -z | xargs -0 sed -i -e 's/$OLD/$NEW/g'"
 
+#say
+alias say='
+TEXT=${1:-"Hello there"}
+
+spd-say $TEXT
+'
+
 #custom alert
 alias alrt='
 SLEE=${1:-300};
@@ -55,15 +72,14 @@ HEADER="ALERT";
 MESSAGE=$(echo "Zoom. Meeting. In " $DELAY "Seconds.");
 notify-send -i terminal $HEADER $MESSAGE;
 
-sleep $SLEE-20;
+sleep $((SLEE-20));
 
 MESSAGE="Zoom. Meeting. Now.";
 notify-send -i terminal $HEADER $MESSAGE;
 
 spd-say {$MESSAGE:-"Zoom. Meeting. Now"}
-#sleep $DELAY2;
-#spd-say "Zoom. Meeting. Now" 
 '
+
 
 
 
@@ -93,41 +109,41 @@ spd-say {$MESSAGE:-"Zoom. Meeting. Now"}
 
 
 alias explore='
-rnds=${1:-100};
-echo "rnds" $rnds
-for ((c=1; c<=$rnds; c++ ));
-do
- sleep 5;
- WIDS=`xdotool search --onlyvisible "gnome-terminal"`;
- xdotool search "Mozilla" windowactivate --sync;
- sleep 540;
- xdotool search "Visual Studio Code" windowactivate --sync;
- for id in $WIDS;
- do
-  sleep 540;
-  xdotool windowactivate $id;
- done;
- echo "done $c"
-done
-echo "done end"
-'
-alias work_test='
-rnds=${1:-3};
-echo "rnds" $rnds
-for ((c=1; c<=$rnds; c++ ));
-do
- sleep 5;
- WIDS=`xdotool search --onlyvisible "gnome-terminal"`;
- xdotool search "Mozilla" windowactivate --sync;
- sleep 1;
- xdotool search "Visual Studio Code" windowactivate --sync;
- for id in $WIDS; 
- do	
-  sleep 1;
-  xdotool windowactivate $id;
- done;
- echo "done $c"
-done
-echo "done end"
-'
+  rnds=${1:-100};
+  echo "rnds" $rnds
+  for ((c=1; c<=$rnds; c++ ));
+  do
+      sleep 5;
+      WIDS=`xdotool search --onlyvisible "gnome-terminal"`;
+      xdotool search "Mozilla" windowactivate --sync;
+      sleep 540;
+      xdotool search "Visual Studio Code" windowactivate --sync;
+      for id in $WIDS;
+      do
+          sleep 540;
+          xdotool windowactivate $id;
+      done;
+      echo "done $c"
+  done
+  echo "done end"
+  '
+  alias work_test='
+  rnds=${1:-3};
+  echo "rnds" $rnds
+  for ((c=1; c<=$rnds; c++ ));
+  do
+      sleep 5;
+      WIDS=`xdotool search --onlyvisible "gnome-terminal"`;
+      xdotool search "Mozilla" windowactivate --sync;
+      sleep 1;
+      xdotool search "Visual Studio Code" windowactivate --sync;
+      for id in $WIDS;
+      do
+          sleep 1;
+          xdotool windowactivate $id;
+      done;
+      echo "done $c"
+  done
+  echo "done end"
+  '
 
