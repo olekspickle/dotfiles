@@ -91,36 +91,40 @@ logless(){
     ansi2txt < $1 | less
 }
 
+#git-rename
+function git-rename() {
+    OLD=${1:- };
+    NEW=${2:- };
+    echo old: $OLD new: $NEW;
+    git ls-files -z | xargs -0 sed -i -e 's/$OLD/$NEW/g'
+}
+
 strip-logs() {
 # Strips all escape sequences and control codes from stdin.
     cat $1 | sed -e 's,[\x00-\x08\x0E-\x1F]\|\x1B\(\[[0-?]*[ -/]*[@-~]\),,g' > $2
 }
 
+# Clean log from colors
+alias cleanup="sed 's/\x1b\[[0-9;]*m//g'"
+
+# oxidize
+alias cat='bat'
+alias fd='fdfind'
+
+alias adbsync='~/.venv/bin/adbsync'
 alias 'yt'='yt-dlp -x --audio-format mp3'
-alias 'uv'='uv pip'
 alias 'docker-compose'='docker compose'
 alias docker-container-rm-all-force='docker ps -q | xargs -I {} docker rm -f {}'
 alias speedtest='curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -'
 alias co-main='git checkout $(gh repo view --json defaultBranchRef --jq .defaultBranchRef.name)'
 alias rabbit-inspect='rabbitmqctl list_queues | grep -v -e "0"'
 
-# oxidize
-alias cat='bat'
-alias find='fdfind'
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-# Alias definitions.
-# Clean log from colors
-alias cleanup="sed 's/\x1b\[[0-9;]*m//g'"
-
 # zellij hotkeys
 alias zj="zellij"
 alias zjp="zj -s ollama -l pi || zj attach ollama"
 alias zjm="zj -s main -l main || zj attach main"
 alias zjs="zj -s simple -l simple || zj attach simple"
+
 alias vim="nvim"
 alias vi="nvim"
 alias python='python3'
@@ -140,6 +144,8 @@ alias battery="upower -i `upower -e | grep 'BAT'`"
 alias bombard="docker run -ti --rm alpine/bombardier -c 1000 -d 3600s -l $1"
 
 alias myip="curl http://ipecho.net/plain; echo"
+#musl
+alias rust-musl-builder='docker run --rm -it -v "$(pwd)":/home/rust/src ekidd/rust-musl-builder'
 
 # EC2 instance rsync
 # example: remote-copy some_dir remote_user@address.com
@@ -148,22 +154,19 @@ alias myip="curl http://ipecho.net/plain; echo"
 alias botinok="ssh -i ~/.ssh/id_rsa root@167.172.97.246"
 alias remote-copy='rsync -avzh --progress -e "ssh -i ~/.ssh/pickle.pem" $1  $2:~/'
 
-# pretty xev
-alias xev-pretty="xev | grep -A2 --line-buffered '^KeyRelease' | sed -n '/keycode /s/^.*keycode \([0-9]*\).* (.*, \(.*\)).*$/\1 \2/p'"
-
 # Alias for aws command that connects to localstack instead of real AWS server
 alias aws-local="aws --endpoint-url http://127.0.0.1:4566"
 
-#musl
-alias rust-musl-builder='docker run --rm -it -v "$(pwd)":/home/rust/src ekidd/rust-musl-builder'
 
-#git-rename
-function git-rename() {
-    OLD=${1:- };
-    NEW=${2:- };
-    echo old: $OLD new: $NEW;
-    git ls-files -z | xargs -0 sed -i -e 's/$OLD/$NEW/g'
-}
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+
+# pretty xev
+alias xev-pretty="xev | grep -A2 --line-buffered '^KeyRelease' | sed -n '/keycode /s/^.*keycode \([0-9]*\).* (.*, \(.*\)).*$/\1 \2/p'"
+
+
 
 # dumb screen tracker exploit
 alias explore='
