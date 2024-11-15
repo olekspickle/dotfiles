@@ -1,0 +1,17 @@
+{
+    "workbench.colorTheme": "Default Light+",
+    "editor.fontSize": 16,
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
+    "rust-analyzer.inlayHints.closingBraceHints.enable": false,
+    "rust-analyzer.inlayHints.parameterHints.enable": false,
+    "rust-analyzer.inlayHints.typeHints.enable": false,
+    "rust-analyzer.inlayHints.chainingHints.enable": false,
+    "editor.fontFamily": "'JetBrains Mono','Droid Sans Mono', 'monospace', monospace",
+    "extensions.ignoreRecommendations": true,
+    "git.openRepositoryInParentFolders": "never",
+    "window.zoomLevel": 1
+}
