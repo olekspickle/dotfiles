@@ -20,13 +20,14 @@ end
 local packer_bootstrap = ensure_packer()
 
 -- IMPORTS
-require('vars')      -- Variables
-require('opts')      -- Options
-require('keys')      -- Keymaps
-require('plug')      -- Plugins
-require('ra')        -- rust-analyzer
+require('vars')             -- Variables
+require('opts')             -- Options
+require('keys')             -- Keymaps
+require('plug')             -- Plugins
+require('ra')               -- rust-analyzer
+require('comment')          -- comments plugin
 
-require('impatient')
+require('impatient')        -- speedup start up times
 require('nvim-tree').setup{}
 require("mason").setup{}
 require('lualine').setup {
@@ -37,15 +38,10 @@ require('lualine').setup {
 
 require('nvim-autopairs').setup{}  -- Paired elements ({["'
 
--- Rust support
--- local rt = require("rust-tools")
--- rt.setup({
---   server = {
---     on_attach = function(_, bufnr)
---       -- Hover actions
---       vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
---       -- Code action groups
---       vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
---     end,
---   },
--- })
+-- Indent blankline customization
+vim.opt.list = true
+vim.opt.listchars:append "eol:↴"
+require("indent_blankline").setup {
+    show_end_of_line = true,
+}
+
