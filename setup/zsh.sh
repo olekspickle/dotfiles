@@ -1,7 +1,5 @@
 #! /bin/bash
 
-set -euo pipefail; shopt -s failglob # safe mode
-
 echo "Installing zsh..."
 sudo apt install zsh
 
@@ -32,16 +30,14 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 # completions for alacritty
 mkdir -p ${ZDOTDIR:-~}/.zsh_functions
 echo 'fpath+=${ZDOTDIR:-~}/.zsh_functions' >> ${ZDOTDIR:-~}/.zshrc
-cp extra/completions/_alacritty ${ZDOTDIR:-~}/.zsh_functions/_alacritty
 
 # starship prompt initialization
 echo 'eval "$(starship init zsh)"
 export LC_CTYPE=en_US.UTF-8 # starship char leftover override
 ' >> ~/.zshrc
 
-# Manually add the plugin to the list of plugins for Oh My Zsh to load (inside ~/.zshrc):
-#
-# plugins=(
-#     # other plugins...
-#     zsh-autosuggestions
-# )
+echo '
+plugins=(
+    zsh-autosuggestions
+)
+' >> ~/.zshrc
