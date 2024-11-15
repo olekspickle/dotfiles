@@ -1,1 +1,1 @@
-sudo apt install fonts-firacode
+sudo apt install fonts-firacode fonts-powerline 
