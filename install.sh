@@ -1,7 +1,5 @@
 #! /bin/bash 
 
-set -euo pipefail; shopt -s failglob # safe mode 
-
 echo "Installing basic tools..."
 sudo apt-get install -y python3 pkg-config build-essential curl cmake 
 
@@ -22,3 +20,5 @@ echo "Installing rust..."
 
 echo "Installing snap packages..."
 ./snap.sh
+
+./noise_cancellation.sh
