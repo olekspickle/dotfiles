@@ -7,7 +7,7 @@ local cmd = vim.api.nvim_command
 --------------------------------------------------------------------------------
 -- Core
 --------------------------------------------------------------------------------
-o.clipboard:prepend { "unnamed", "unnamedplus" } -- use system buffer (cross-platform), share clipboard between instances
+o.clipboard:prepend { "unnamedplus" } -- use system buffer (cross-platform), share clipboard between instances
 o.fileencoding = "utf-8" -- the encoding written to a file
 o.mouse = "a" -- allow the mouse to be used in neovim
 o.autoread = true -- automatically reload a file
