@@ -15,21 +15,20 @@ render_timer = false
 draw_bold_text_with_bright_colors = true
 
 [colors.bright]
-black = "#7788ff"
-blue = "#7aa6ff"
+black = "#88aaff"
+blue = "#4a96ff"
 cyan = "#22aaff"
-green = "#77dd55"
+green = "#55ff77"
 magenta = "#b77ee0"
 red = "#ff3355"
-white = "#55ddff"
+white = "#1155ff"
 yellow = "#eed747"
 
-
 [colors.normal]
-black = "#ff1111"
+black = "#4466ee"
 blue = "#7aa6da"
-cyan = "#2288ff"
-green = "#55ff77"
+cyan = "#22cccc"
+green = "#33bb66"
 magenta = "#c9a8e9"
 red = "#ff1111"
 white = "#ffffff"
