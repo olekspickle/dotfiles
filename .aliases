@@ -1,17 +1,55 @@
+alias speedtest='curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -'
+
+function rabbit-inspect() {
+    rabbitmqctl list_queues | grep -v -e "0"
+}
+
+function import() {
+    set -a
+    source $1
+    set +a
+}
+
+to-ogg-all () {
+    path=${1:-"."}
+    ext=${1:-"mp4"}
+    for file in "${path}/*.${ext}"; do
+      if [[ -f "$file" ]]; then
+        filename="${file%.*}"
+        ffmpeg -i "$file" -vn -acodec libvorbis -aq 5 "${filename}.ogg"
+      fi
+    done
+}
+
+docker-clean-all () {
+	docker container prune -f
+	docker image prune -f
+	docker volume prune -f
+}
+
 # show logs without weird sequences
 # sudo apt install colorized-logs
 logless(){
     ansi2txt < $1 | less
 }
 
+strip-logs() {
+    # Strips all escape sequences and control codes from stdin.
+    cat $1 | sed -e 's,[\x00-\x08\x0E-\x1F]\|\x1B\(\[[0-?]*[ -/]*[@-~]\),,g' > $2
+}
+
 alias 'docker-compose'='docker compose'
 
-# python3 -m venv <env-name>
-# penv <env-name>
+# run
+# python -m venv .my-env
+# and then each time you need to use it
+# penv .my-env
 penv() {
     source ~/$1/bin/activate
 }
 
+# oxidize
+alias cat='bat'
 alias fd='fdfind'
 
 # check that crate is not banned on lib.rs and only then Install
@@ -28,6 +66,7 @@ alias cleanup="sed 's/\x1b\[[0-9;]*m//g'"
 alias zjm="zj -s main -l main"
 alias vim="nvim"
 alias vi="vim"
+alias python='python3'
 
 alias awslocal="aws --endpoint-url=http://localhost:4566"
 alias zj="zellij"
