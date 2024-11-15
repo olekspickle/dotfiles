@@ -9,10 +9,10 @@ local cmd = vim.api.nvim_command
 local t = 'tokyonight-day'
 -- Theme color depends on time (e.g., 19 for 7 PM)
 local now = tonumber(os.date("%H"))
-local max = 19
+local max = 17
 local min = 8
 if now > max or now < min then
-    t = "tokyonight"
+    t = "tokyonight-storm"
 end
 
 require('lualine').setup {

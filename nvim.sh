@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Check if the "--sync" flag is present
+# ./nvim --sync
+if [[ "$*" == *"--sync"* ]]; then
+    rsync -avzh ~/.config/nvim/ ./nvim/ --exclude="*site" --exclude="*plugin"
+    exit 0;
+fi
+
 if [ -d "/squashfs-root" ]; then
     rm -rf /squashfs-root
     rm /usr/bin/nvim
