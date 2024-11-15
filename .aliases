@@ -5,6 +5,14 @@ alias ec2-copy='rsync -avzh --progress -e "ssh -i ~/.ssh/agnatovskyi.pem" $1  $2
 # Connect my droplet
 alias botinok="ssh -i ~/.ssh/id_rsa root@167.172.97.246"
 
+# pretty xev
+alias xev_pretty="xev | grep -A2 --line-buffered '^KeyRelease' | sed -n '/keycode /s/^.*keycode \([0-9]*\).* (.*, \(.*\)).*$/\1 \2/p'"
+
+# Alias for aws command that connects to localstack instead of real AWS server
+alias aws-mock="aws --endpoint-url http://127.0.0.1:4566"
+# Install cli completions for AWS cli
+complete -C '/usr/local/bin/aws_completer' aws aws-mock
+
 #py flask postgres go to dir & activate virtual environment
 alias init_current_py='cd Documents/py/flask-pg-api/ && source flask-pg-api/bin/activate && export FLASK_APP=run.py'
 
