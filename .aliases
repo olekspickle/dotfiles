@@ -48,14 +48,14 @@ git ls-files -z | xargs -0 sed -i -e 's/$OLD/$NEW/g'"
 
 #custom alert
 alias alrt='
-SLEE=$1;
+SLEE=${1:-300};
 TEXT=$2;
 echo "meeting in $DELAY";
-HEADER="Akropolis";
-MESSAGE="Zoom. Meeting. In $DELAY Seconds.";
+HEADER="ALERT";
+MESSAGE=$(echo "Zoom. Meeting. In " $DELAY "Seconds.");
 notify-send -i terminal $HEADER $MESSAGE;
 
-sleep ${SLEE=300};
+sleep $SLEE-20;
 
 MESSAGE="Zoom. Meeting. Now.";
 notify-send -i terminal $HEADER $MESSAGE;
@@ -64,9 +64,6 @@ spd-say {$MESSAGE:-"Zoom. Meeting. Now"}
 #sleep $DELAY2;
 #spd-say "Zoom. Meeting. Now" 
 '
-
-#aragon clean
-alias aragon_clean='rm -Rf ~/.aragon/aragen-db*'
 
 
 
