@@ -8,3 +8,10 @@ chmod u+x nvim.appimage
 # Optional: exposing nvim globally.
 sudo mv squashfs-root /
 sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
+
+# install packer
+cd ~
+git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.config/nvim/site/pack/packer/start/packer.nvim
+
+rsync -avzh nvim .config/nvim
+
