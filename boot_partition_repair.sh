@@ -22,4 +22,4 @@ dpkg --list | egrep -i 'linux-image|linux-headers' | awk '/ii/{ print $2}' | egr
 
 # sudo -i
 
-apt-get --purge remove $(dpkg --list | egrep -i 'linux-image|linux-headers' | awk '/ii/{ print $2}' | egrep -v "$i")
+apt --purge remove $(dpkg --list | egrep -i 'linux-image|linux-headers' | awk '/ii/{ print $2}' | egrep -v "$i")
