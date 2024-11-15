@@ -5,10 +5,42 @@ function rename-all() {
     done
 }
 
+# prefix all, lowercase and remove anything that matches " \[[*]]*\]"
+# which is a usual yt-dlp residual
+# usage:
+# prefix-all the-group
+function prefix-all(){
+    prefix=${1:-""}
+    if [ -n "$prefix" ];
+    then
+        prefix="$prefix-";
+    fi
+        echo $prefix
+
+        for f in *.mp3;
+    do
+        new="$prefix$(echo "$f" | tr '[:upper:]' '[:lower:]' | \
+             sed 's/ \[[^]]*\]//g' | \
+             sed 's/[＂"]\|[＂"]//g' | \
+             sed 's/\.-\| \./-/g' | \
+             sed 's/ /-/g'
+             )";
+    echo new: $new;
+
+    mv "$f" "$new";
+    done
+}
+
 function restart-plasma(){
     killall plasmashell
         plasmashell &
 }
+
+
+function webm-all-to-mp3(){
+    find . -type f -iname "*.webm" -exec bash -c 'FILE="$1"; ffmpeg -i "${FILE}" -vn -ab 128k -ar 44100 -y "${FILE%.webm}.mp3";' _ '{}' \;
+}
+
 
 function mp4-to-mp3(){
     ffmpeg -i $1 -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 $2
@@ -49,8 +81,8 @@ to-ogg-all () {
 
 docker-clean-all () {
     docker container prune -f
-    docker image prune -f
-    docker volume prune -f
+        docker image prune -f
+        docker volume prune -f
 }
 
 # show logs without weird sequences
@@ -64,6 +96,7 @@ strip-logs() {
     cat $1 | sed -e 's,[\x00-\x08\x0E-\x1F]\|\x1B\(\[[0-?]*[ -/]*[@-~]\),,g' > $2
 }
 
+alias 'yt'='yt-dlp -x --audio-format mp3'
 alias 'uv'='uv pip'
 alias 'docker-compose'='docker compose'
 alias docker-container-rm-all-force='docker ps -q | xargs -I {} docker rm -f {}'

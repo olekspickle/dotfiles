@@ -134,4 +134,7 @@ hide_when_typing = true
 action = "PasteSelection"
 mouse = "Middle"
 
-
+# start zellij on alacritty init
+# [shell]
+# program = "/bin/bash"
+# args = ["-l", "-c", "zellij"]

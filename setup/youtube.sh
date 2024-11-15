@@ -5,5 +5,6 @@
 # moreover if you try the following - you'll get error 451: Unavailable for legal reasons
 # sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
 # sudo chmod a+rx /usr/local/bin/youtube-dl
-curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o ~/.local/bin/yt-dlp
-chmod a+rx ~/.local/bin/yt-dlp  # Make executable
+path="/usr/local/bin/yt-dlp"
+curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o "$path"
+chmod a+rx "$path" # Make executable
