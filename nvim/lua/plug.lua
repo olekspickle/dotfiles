@@ -21,14 +21,19 @@ return require('packer').startup({
         }
 
         -- [[ Dev ]]
-        -- LSP and formatters manager
-        use 'williamboman/mason.nvim'
-        use 'williamboman/mason-lspconfig.nvim'
         -- Collection of common configurations for the Nvim LSP client
         use 'neovim/nvim-lspconfig'
+        -- KDL syntax highlight
+        use 'imsnif/kdl.vim'
 
         -- Debugging
+        -- Log syntax highlighting
+        use 'mtdl9/vim-log-highlighting'
+
+        -- Fully fledged debugger inside nvim
+        -- use 'vlopes11/rrust.nvim'
         use 'mfussenegger/nvim-dap'
+        use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
 
         use 'majutsushi/tagbar'                         -- code structure
         use 'lukas-reineke/indent-blankline.nvim'       -- see indentation
@@ -63,6 +68,8 @@ return require('packer').startup({
                 opt = true
             }
         }
+
+        -- actual themes
         use 'Mofiqul/dracula.nvim'
 
         -- Speedup startup time ()
