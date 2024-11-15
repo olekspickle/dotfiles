@@ -18,6 +18,10 @@ return require('packer').startup({
         use 'tpope/vim-fugitive'                        -- git integration
         use 'junegunn/gv.vim'                           -- commit history
         use 'windwp/nvim-autopairs' 
+       
+        -- [[ manage LSP and formatters ]]
+        use 'williamboman/mason.nvim'
+        use 'williamboman/mason-lspconfig.nvim'
 
         -- Rust analyzer support
         use 'simrat39/rust-tools.nvim'
