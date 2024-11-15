@@ -11,3 +11,5 @@ eval "$(starship init zsh)"
 export LC_CTYPE=en_US.UTF-8
 ` >> ~/.zshrc
 
+cp ./starship.toml ~/.config/starship.toml
+

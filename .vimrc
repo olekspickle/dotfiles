@@ -20,8 +20,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'vim-airline/vim-airline'
 Plug 'jpalardy/vim-slime'
 "Plug 'ErichDonGubler/vim-sublime-monokai'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'Valloric/YouCompleteMe'
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'Valloric/YouCompleteMe'
 Plug 'rust-lang/rust.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'Raimondi/delimitMate'

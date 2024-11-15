@@ -36,6 +36,8 @@ cp extra/completions/_alacritty ${ZDOTDIR:-~}/.zsh_functions/_alacritty
 
 cd ..
 
+mkdir ~/.config/alacritty
+
 # copy config file
 cp alacritty.yml ~/.config/alacritty/alacritty.yml
 

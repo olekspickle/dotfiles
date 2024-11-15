@@ -19,11 +19,12 @@ sudo mv squashfs-root /
 sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
 
 # clean up
-rm nvim.appimage
+rm ./nvim.appimage
+mkdir ~/.config/nvim
 
 # install packer
 cd ~
 git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.config/nvim/site/pack/packer/start/packer.nvim
 
-rsync -avzh nvim ~/.config/nvim
+rsync -avzh ./nvim/ ~/.config/nvim/
 
