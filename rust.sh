@@ -1,9 +1,9 @@
 #!/bin/bash
 
-set -euo pipefail; shopt -s failglob # safe mode 
+set -euo pipefail; shopt -s failglob # safe mode
 
 
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh 
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source $HOME/.cargo/env
 
 # linker upgrade
@@ -11,3 +11,6 @@ source $HOME/.cargo/env
 
 # wasm-pack for WebAssembly compilation
 curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+
+# rust analyzer
+rustup component add rust-analyzer

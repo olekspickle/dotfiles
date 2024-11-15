@@ -14,4 +14,4 @@ sudo rsync -avzh /home/pickle/Videos /var/backups/ --max-size=5M
 sudo rsync -avzh /home/pickle/Pictures /var/backups/ --max-size=10M
 sudo rsync -avzh /home/pickle/lmms /var/backups/ --max-size=15M
 rsync -avzh /home/pickle/.config/nvim /home/pickle/Documents/my-vimrc
-rsync -avzh /home/pickle/.config/alacritty/alacritty.yml /home/pickle/Documents/my-vimrc/alacritty.yml
+rsync -avzh /home/pickle/.config/alacritty/alacritty.toml /home/pickle/Documents/my-vimrc/alacritty.toml
