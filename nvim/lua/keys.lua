@@ -19,13 +19,11 @@ map('i', 'jk', '', {})
 
 -- intuitive copy in visual mode
 map('v', '<C-c>', '"+y', { noremap = true })
+
 -- Toggle plugin stuff
 -- Tree toggle
 map('n', '<C-b>', [[:NvimTreeToggle<cr>]], {})
--- vim.keymap.set("n", "<C-b>", ":Neotree filesystem reveal left<CR>", {})
--- vim.keymap.set("n", "<leader>bf", ":Neotree buffers reveal float<CR>", {})
--- map('n', 'L', [[:IndentLinesToggle<cr>]], {})
--- map('n', 't', [[:TagbarToggle<cr>]], {})
+-- map('n', '<leader>t', [[:TransparentToggle<cr>]], {})
 
 -- Telescope setup
 local builtin = require("telescope.builtin")

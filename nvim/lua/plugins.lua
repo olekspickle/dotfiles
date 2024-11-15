@@ -1,5 +1,4 @@
 -- [[ packer.lua ]]
-
 return require('packer').startup({
     function(use)
 
@@ -97,6 +96,7 @@ return require('packer').startup({
                 opt = true
             }
         }
+        -- use 'xiyaowong/transparent.nvim'
 
         -- actual themes
         use 'Mofiqul/dracula.nvim'
@@ -110,7 +110,8 @@ return require('packer').startup({
         -- Persistent undo
         -- use 'mbbill/undotree'
 
-
+        -- Ollama with zephyr setup
+        use "David-Kunz/gen.nvim"
     end,
     config = {
         package_root = vim.fn.stdpath('config') .. '/site/pack'

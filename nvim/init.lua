@@ -33,6 +33,7 @@ require('comment')                  -- comments plugin
 require('themes')
 require('log-cfg')                  -- adds BaleiaColorize cmd for [m[3m logs
 require('tree')                     -- nvim-tree config
+require('ollama')                   -- ollama stuff
 
 require('impatient')                -- speedup start up times
 require('treesitter')               -- treesitter highlight

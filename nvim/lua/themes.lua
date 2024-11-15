@@ -2,8 +2,6 @@
 local opt = vim.opt
 local cmd = vim.api.nvim_command
 
-
-
 -- Installed:
 -- everforest | dracula | tokyonight-day | catpuccin
 local t = 'tokyonight-day'
@@ -14,6 +12,13 @@ local min = 10
 if now > max or now < min then
     t = "tokyonight-storm"
 end
+
+local s2 = string.format("colorscheme %s", t)
+cmd(s2)
+
+-- Transparensy using package
+-- require('transparent')
+-- vim.g.transparent_groups = vim.list_extend(vim.g.transparent_groups or {}, { "ExtraGroup" })
 
 require('lualine').setup {
     -- options = {
@@ -30,15 +35,7 @@ require('lualine').setup {
     }
 }
 
--- if t == 'everforest' or t == 'catppuccin' then
--- vim.o.background = 'light'
--- end
-
-local s2 = string.format("colorscheme %s", t)
-cmd(s2)
-
 -- [[ Opts ]]
 opt.syntax = "ON"                -- str:  Allow syntax highlighting
 opt.termguicolors = true         -- bool: If term supports ui color then enable
-
 
