@@ -18,3 +18,8 @@ docker container ls --format "{{.ID}}" | xargs -I {} docker exec {} "docker insp
 
 # gives you only ids
 docker ps -q
+
+# save docker image and load it afterwards
+docker tag $CIRCLE_SHA1 image-local
+docker save --output image.tar image-local
+docker load < "image.tar"
