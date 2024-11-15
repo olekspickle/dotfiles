@@ -18,5 +18,10 @@
 #     stats_mode (palettegen). You can force the filters to focus the palette on the general picture (full which is the default), only the moving parts (diff), or each individual frame (single). For example, to generate a palette for each individual frame use palettegen=stats_mode=single & paletteuse=new=1.
 #
 #     dither (paletteuse). Choose the dithering algorithm. There are three main types: deterministic (bayer), error diffusion (all the others including the default sierra2_4a), and none. Your GIF may look better using a particular dithering algorithm, or no dithering at all. If you want to try bayer be sure to test the bayer_scale option too.
+out=${2:-"output.gif"}
 
-ffmpeg -i $1 -filter_complex "fps=24,scale=640:-1:flags=lanczos" -loop 0 output.gif
+# simple
+ffmpeg -i "$1" -filter_complex "fps=24" -loop 0 "$out"
+
+# resize
+# ffmpeg -i "$1" -filter_complex "fps=24,scale=640:-1:flags=lanczos" -loop 0 "$out"
