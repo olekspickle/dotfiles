@@ -197,7 +197,7 @@ draw_bold_text_with_bright_colors: true
 colors:
   # Normal colors
   normal:
-    black:   '#444444' # htop font color
+    black:   '#111111' # htop font color
     red:     '#ff1111'
     green:   '#55ff77' # htop unselected background/alsa
     yellow:  '#eeee47'
@@ -205,7 +205,6 @@ colors:
     magenta: '#c9a8e9'
     cyan:    '#22aaff' # htop selected background
     white:   '#ffffff' # docker pull logs
-    #white:   '#424242'
 
   # Bright colors
   bright:               # some anchors to make sense of a colors (zsh + starship)
