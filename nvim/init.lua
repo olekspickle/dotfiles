@@ -27,23 +27,10 @@ require('plug')             -- Plugins
 require('ra')               -- rust-analyzer
 require('comment')          -- comments plugin
 require('tree')             -- nvim-tree config
+require('themes')
+require('log-cfg')          -- adds BaleiaColorize cmd for [m[3m logs
 
 require('impatient')        -- speedup start up times
 require('nvim-tree').setup{}
-
-require("mason").setup{}
-require('lualine').setup {
-    options = {
-        theme = 'dracula-nvim'
-    }
-}
-
 require('nvim-autopairs').setup{}  -- Paired elements ({["'
-
--- Indent blankline customization
-vim.opt.list = true
-vim.opt.listchars:append "eol:↴"
-require("indent_blankline").setup {
-    show_end_of_line = true,
-}
 

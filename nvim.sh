@@ -3,7 +3,7 @@
 if [ -d "/squashfs-root" ]; then
     rm -rf /squashfs-root
     rm /usr/bin/nvim
-    rm -rf ~/.config/nvim
+#    rm -rf ~/.config/nvim
 fi
 
 if [ ! -f "nvim.appimage" ]; then

@@ -26,11 +26,6 @@ vim.g.indentLine_enabled = 0
 opt.encoding = 'utf8'            -- str:  String encoding to use
 opt.fileencoding = 'utf8'        -- str:  File encoding to use
 
--- [[ Theme ]]
-opt.syntax = "ON"                -- str:  Allow syntax highlighting
-opt.termguicolors = true         -- bool: If term supports ui color then enable
-cmd('colorscheme dracula')
-
 -- [[ Search ]]
 opt.ignorecase = true            -- bool: Ignore case in search patterns
 opt.smartcase = true             -- bool: Override ignorecase if search contains capitals
@@ -67,4 +62,11 @@ vim.cmd([[
 set signcolumn=yes
 autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
 ]])
+
+-- Indent blankline customization
+vim.opt.list = true
+vim.opt.listchars:append "eol:↴"
+require("indent_blankline").setup {
+    show_end_of_line = true,
+}
 

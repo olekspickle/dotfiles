@@ -16,11 +16,16 @@ local opts = {
             use_telescope = true,
         },
         inlay_hints = {
-            auto = false,
+            -- auto = false,
             only_current_line = true,
             -- show_parameter_hints = false,
-            parameter_hints_prefix = "",
-            other_hints_prefix = "",
+            -- parameter_hints_prefix = "<-",
+            -- other_hints_prefix = "=>",
+            -- max_len_align = false,
+            -- max_len_align_padding = 1,
+            -- right_align = false,
+            -- right_align_padding = 7,
+            highlight = "Comment",
         },
     },
     hover_actions = {
@@ -41,7 +46,7 @@ local opts = {
     -- these override the defaults set by rust-tools.nvim
     -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
     server = {
-        cmd = {'/home/pickle/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer'},
+        cmd = {'/home/pickle/.local/bin/rust-analyzer'},
         -- on_attach is a callback called when the language server attachs to the buffer
         on_attach = on_attach,
         settings = {

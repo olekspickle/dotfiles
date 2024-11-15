@@ -22,13 +22,13 @@ return require('packer').startup({
 
         -- [[ Dev ]]
         -- Collection of common configurations for the Nvim LSP client
-        use 'neovim/nvim-lspconfig'
         -- KDL syntax highlight
         use 'imsnif/kdl.vim'
 
         -- Debugging
         -- Log syntax highlighting
         use 'mtdl9/vim-log-highlighting'
+        use { 'm00qek/baleia.nvim', tag = 'v1.3.0' }
 
         -- Fully fledged debugger inside nvim
         -- use 'vlopes11/rrust.nvim'
@@ -43,6 +43,7 @@ return require('packer').startup({
         use 'numToStr/Comment.nvim'                     -- comments
 
         -- Rust analyzer support
+        use 'neovim/nvim-lspconfig'
         use 'simrat39/rust-tools.nvim'
 
         -- Completion framework
@@ -71,6 +72,9 @@ return require('packer').startup({
 
         -- actual themes
         use 'Mofiqul/dracula.nvim'
+        use 'neanias/everforest-nvim'
+        use 'folke/tokyonight.nvim'
+        use { "catppuccin/nvim", as = "catppuccin" }
 
         -- Speedup startup time ()
         use 'lewis6991/impatient.nvim'

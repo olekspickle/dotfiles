@@ -28,11 +28,10 @@ map('n', 't', [[:TagbarToggle<cr>]], {})
 map('n', 'ff', [[:Telescope find_files<cr>]], {})
 
 -- Rust compile
-map('n', '<C-r>', [[:FloatermNew --height=0.6 --width=0.4 --wintype=float --name=floaterm1 --position=topleft --autoclose=2 ranger --cmd="echo lol"]], {})
+-- map('n', '<C-r>', [[:FloatermNew --height=0.6 --width=0.4 --wintype=float --name=floaterm1 --position=topleft --autoclose=2 ranger --cmd="echo lol"]], {})
 
 -- Buffer switch
 map('n', '<C-i>', [[:bn<cr>]], {})
---map('n', 'c-i', [[:bn<cr>]], {})
---map('n', 'c-s-H', [[:bp<cr>]], {})
+map('n', 'S-i', [[:bp<cr>]], {})
 --map('n', 'cs-Right', [[:bn<cr>]], {})
 --map('n', 'cs-Left', [[:bp<cr>]], {})
