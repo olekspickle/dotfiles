@@ -136,7 +136,8 @@ ForegroundPositive=39,174,96
 ForegroundVisited=155,89,182
 
 [DirSelect Dialog]
-DirSelectDialog Size=960,1114
+DirSelectDialog Size=1126,749
+History Items[$e]=file:$HOME/Videos/obs
 
 [General]
 BrowserApplication=firefox.desktop

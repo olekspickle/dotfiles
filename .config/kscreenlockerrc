@@ -2,6 +2,6 @@
 update_info=kscreenlocker.upd:0.1-autolock
 
 [Greeter][Wallpaper][org.kde.image][General]
-Image=/home/pickle/Pictures/Wallpapers/iss.png
-PreviewImage=/home/pickle/Pictures/Wallpapers/iss.png
+Image=/home/pickle/Pictures/Wallpapers/dmitry-bogoljubov-sunset.jpg
+PreviewImage=/home/pickle/Pictures/Wallpapers/dmitry-bogoljubov-sunset.jpg
 SlidePaths=/usr/share/plasma/wallpapers,/usr/share/wallpapers
