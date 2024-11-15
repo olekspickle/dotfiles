@@ -8,14 +8,14 @@ vim.g.localleader = "\\"
 
 -- ensure the packer plugin manager is installed
 local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-    vim.cmd([[packadd packer.nvim]])
-    return true
-  end
-  return false
+    local fn = vim.fn
+    local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+    if fn.empty(fn.glob(install_path)) > 0 then
+        fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+        vim.cmd([[packadd packer.nvim]])
+        return true
+    end
+    return false
 end
 local packer_bootstrap = ensure_packer()
 
@@ -29,11 +29,12 @@ require('comment')          -- comments plugin
 
 require('impatient')        -- speedup start up times
 require('nvim-tree').setup{}
+require('tree')             -- nvim-tree config
 require("mason").setup{}
 require('lualine').setup {
-  options = {
-    theme = 'dracula-nvim'
-  }
+    options = {
+        theme = 'dracula-nvim'
+    }
 }
 
 require('nvim-autopairs').setup{}  -- Paired elements ({["'
