@@ -4,6 +4,13 @@
 # drill holes on image
 convert -size 20x20 xc:white -fill black -draw "circle 10,10 14,14" miff:- | composite -tile - input.png -compose over miff:- | composite - input.png -compose copyopacity output.png
 
+# Compress image.
+# q:v is the main metric 0 being the best quality and 31 being the most compressed one
+ffmpeg -i input.jpg -q:v 3 output.jpg
+
+# Resize the image
+ffmpeg -i input.png -vf scale=300:300 out.png
+
 # convert video to gif. r arg for compression (less - more compression)
 ffmpeg -i my-sample.mkv -r 8 out.gif
 
