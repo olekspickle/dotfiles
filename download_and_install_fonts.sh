@@ -25,3 +25,5 @@ unzip jetbrains.zip -d ${HOME}/.local/share/fonts/.
 
 echo "fc-cache -f"
 fc-cache -f
+
+rm jetbrains.zip
