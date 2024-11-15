@@ -24,6 +24,8 @@ require('vars')      -- Variables
 require('opts')      -- Options
 require('keys')      -- Keymaps
 require('plug')      -- Plugins
+require('ra')        -- rust-analyzer
+
 require('impatient')
 require('nvim-tree').setup{}
 require("mason").setup{}
