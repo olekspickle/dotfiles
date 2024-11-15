@@ -1,0 +1,22 @@
+# Read more about SSH config files: https://linux.die.net/man/5/ssh_config
+Host hz server
+    HostName 5.9.22.202
+    User pickle 
+    IdentityFile ~/.ssh/hz.ed25519
+
+# This will set the hz as proxy server for the proxied.server.com
+Host proxied
+    HostName proxy.server.com
+    ProxyJump hz
+    User pickle 
+    IdentityFile ~/.ssh/hz.ed25519
+
+Host *
+    PreferredAuthentications publickey
+    IdentitiesOnly yes
+    SendEnv LANG LC_*
+    Compression yes
+    ServerAliveInterval 20
+    TCPKeepAlive no
+    # INSECURE
+    #    ForwardAgent yes 
