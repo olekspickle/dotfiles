@@ -31,6 +31,9 @@ flatpak install flathub org.mozilla.firefox
 # airshipper
 flatpak install flathub net.veloren.airshipper
 
+# OBS
+flatpak install flathub com.obsproject.Studio
+
 # slack
 # flatpak install flathub com.slack.Slack
 # give slack permission to pictures
