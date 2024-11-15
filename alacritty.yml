@@ -195,13 +195,13 @@ draw_bold_text_with_bright_colors: true
 colors:
   # Normal colors
   normal:
-    black:   '#00eeee'
+    black:   '#444444' # htop font color
     red:     '#ff1111'
-    green:   '#55ff66'
+    green:   '#55ff77' # htop unselected background/alsa
     yellow:  '#eeee47'
     blue:    '#7aa6da'
-    magenta: '#c397d8'
-    cyan:    '#22aaff'
+    magenta: '#c9a8e9'
+    cyan:    '#22aaff' # htop selected background
     white:   '#424242'
 
   # Bright colors
@@ -212,8 +212,8 @@ colors:
     yellow:  '#eed747'  # aws region hint
     blue:    '#7aa6ff'  # directories in ls output
     magenta: '#b77ee0'  # branch 
-    cyan:    '#22aaff'  # current directory
-    white:   '#55dddd'  # alsa middle sticks
+    cyan:    '#22aaff'  # current directory/alsa frames
+    white:   '#55ddff'  # alsa middle sticks
 
   primary:
     background: '0x013931'
