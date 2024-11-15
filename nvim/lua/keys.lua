@@ -17,6 +17,9 @@ local map = vim.api.nvim_set_keymap
 -- remap the key used to leave insert mode
 map('i', 'jk', '', {})
 
+-- intuitive copy in visual mode
+map('v', '<C-c>', '"+y', { noremap = true })
+
 -- Toggle plugin stuff
 map('n', '<C-b>', [[:NvimTreeToggle<cr>]], {})
 
@@ -25,7 +28,7 @@ map('n', 't', [[:TagbarToggle<cr>]], {})
 map('n', 'ff', [[:Telescope find_files<cr>]], {})
 
 -- Rust compile
-map('n', 'c-r', [[:FloatermNew --height=0.6 --width=0.4 --wintype=float --name=floaterm1 --position=topleft --autoclose=2 ranger --cmd="echo lol"]], {})
+map('n', '<C-r>', [[:FloatermNew --height=0.6 --width=0.4 --wintype=float --name=floaterm1 --position=topleft --autoclose=2 ranger --cmd="echo lol"]], {})
 
 -- Buffer switch
 map('n', '<C-i>', [[:bn<cr>]], {})
