@@ -15,6 +15,10 @@ convert -compress jpeg *.jpg mydoc.pdf
 ffmpeg -i 30-minute.mp3
 ffprobe 30-minute.mp3
 
+# Add metadata to a composition
+# Note: pitput must be a different file
+ffmpeg -i input.mp3 -c copy -metadata artist="Someone" output.mp3
+
 # convert mp3 to WAV
 ffmpeg -i 30-minute.mp3 -acodec pcm_u8 test.wav
 

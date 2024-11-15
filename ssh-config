@@ -1,4 +1,5 @@
 # Read more about SSH config files: https://linux.die.net/man/5/ssh_config
+# https://stephane-cheatsheets.readthedocs.io/en/latest/networks/ssh/
 Host hz server
     HostName 5.5.55.555
     User pickle 
