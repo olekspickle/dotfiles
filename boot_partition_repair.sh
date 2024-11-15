@@ -20,6 +20,6 @@ echo "To be deleted:"
 
 dpkg --list | egrep -i 'linux-image|linux-headers' | awk '/ii/{ print $2}' | egrep -v "$i"
 
-sudo -i
+# sudo -i
 
 apt-get --purge remove $(dpkg --list | egrep -i 'linux-image|linux-headers' | awk '/ii/{ print $2}' | egrep -v "$i")
