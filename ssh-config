@@ -1,6 +1,6 @@
 # Read more about SSH config files: https://linux.die.net/man/5/ssh_config
 Host hz server
-    HostName 5.9.22.202
+    HostName 5.5.55.555
     User pickle 
     IdentityFile ~/.ssh/hz.ed25519
 
