@@ -10,6 +10,8 @@
 # to the user's home directory starting with `~/`.
 #import:
 #  - /path/to/alacritty.yml
+#import:
+#  - /home/pickle/.config/alacritty/keys.yml
 
 # Any items in the `env` entry below will be added as
 # environment variables. Some entries may override variables
@@ -51,7 +53,7 @@ window:
     y: 0
 
   # Spread additional padding evenly around the terminal content.
-  #dynamic_padding: false
+  dynamic_padding: true
 
   # Window decorations
   #
@@ -68,7 +70,7 @@ window:
   #
   # Window opacity as a floating point number from `0.0` to `1.0`.
   # The value `0.0` is completely transparent and `1.0` is opaque.
-  opacity: 0.6
+  opacity: 0.75
 
   # Startup Mode (changes require restart)
   #
@@ -165,7 +167,7 @@ font:
     style: Bold Italic
 
   # Point size
-  size: 10.0
+  size: 10.5
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
@@ -202,7 +204,8 @@ colors:
     blue:    '#7aa6da'
     magenta: '#c9a8e9'
     cyan:    '#22aaff' # htop selected background
-    white:   '#424242'
+    white:   '#ffffff' # docker pull logs
+    #white:   '#424242'
 
   # Bright colors
   bright:               # some anchors to make sense of a colors (zsh + starship)
@@ -791,6 +794,21 @@ live_config_reload: true
 # If the same trigger is assigned to multiple actions, all of them are executed
 # in the order they were defined in.
 key_bindings:
+  - { key: F11, action: ToggleFullscreen }
+  
+  # neovim escape overrides
+  #- {key: F5, mods: Control|Shift, chars: "\x1b[15;6;5~"}
+  #- {key: F5, mods: Control, chars: "\x1b[>15;5~"}
+  #- {key: F5, mods: Shift, chars: "\x1b[15;4~"}
+  #- {key: F5, mods: Alt, chars: "\x1b[15;6~"}
+  #- {key: Plus, mods: Control|Shift, chars: "\x1b[43;5u"}
+  #- {key: Equals, mods: Control, chars: "\x1b[61;5u"}
+  #- {key: Period, mods: Control, chars: "\x1b[46;5u"}
+  #- {key: L, mods: Control|Shift, chars: "\x1b[45;5u"}
+  #- {key: H, mods: Control|Shift, chars: "\x1b[41;5u"}
+  - { key: I, mods: Control, chars: "\x1b[105;5u" }
+  
+  
   #- { key: Z, mods: Control, command: {program: "/home/pickle/.cargo/bin/zellij", args: ["--session", "main"]} } }
   #- { key: Paste,                                       action: Paste          }
   #- { key: Copy,                                        action: Copy           }
@@ -877,7 +895,6 @@ key_bindings:
   #- { key: NumpadAdd,      mods: Control,                         action: IncreaseFontSize }
   #- { key: Minus,          mods: Control,                         action: DecreaseFontSize }
   #- { key: NumpadSubtract, mods: Control,                         action: DecreaseFontSize }
-  - { key: F11, action: ToggleFullscreen }
   
   # (Windows only)
   #- { key: Return,   mods: Alt,           action: ToggleFullscreen }
