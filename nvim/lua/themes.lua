@@ -2,12 +2,22 @@
 local opt = vim.opt
 local cmd = vim.api.nvim_command
 
+-- Installed:
 -- everforest | dracula | tokyonight-day | catpuccin
--- local t = 'everforest'
 local t = 'tokyonight-day'
+
 require('lualine').setup {
-    options = {
-        theme = t
+    -- options = {
+    --     theme = t
+    -- },
+    sections = {
+      lualine_c = {
+        {
+          'filename',
+          file_status = true, -- displays file status (readonly status, modified status)
+          path = 1 -- 0 = just filename, 1 = relative path, 2 = absolute path
+        }
+      }
     }
 }
 
@@ -21,4 +31,5 @@ cmd(s2)
 -- [[ Opts ]]
 opt.syntax = "ON"                -- str:  Allow syntax highlighting
 opt.termguicolors = true         -- bool: If term supports ui color then enable
+
 
