@@ -48,3 +48,9 @@ function size-check() {
     du -h -d 1 --threshold=$th $path | sort -hr
 }
 
+# convert all m4a files in the folder to ogg
+function mp4-to-ogg(){
+    for f in *.m4a; do
+        ffmpeg -i "$f" -c:a libvorbis "${f%.m4a}.ogg"
+    done
+}

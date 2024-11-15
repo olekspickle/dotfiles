@@ -4,6 +4,22 @@ set -e
 
 # Convert exported wav files to an mp3 with metadata
 
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    echo "
+        Usage: ./wav-to-mp3.sh -i input.wav -o out.mp3
+        Flags:
+        --input,-i  -   Input file
+        --output,-o -   Output file
+        --title,-t  -   Track title
+        --artist,-a -   Artists name
+        --album     -   Album name
+        --genre     -   Track genre (electro,rock)
+        --style     -   Track style (ambient,synth,rhytmic,dnb)
+        --cover     -   Track cover photo path
+        --ext       -   Extension of an output
+    "
+    exit 0
+fi
 # Parse named arguments
 while [[ $# -gt 0 ]]; do
     key="$1"
@@ -33,11 +49,6 @@ while [[ $# -gt 0 ]]; do
             shift # past argument
             shift # past value
             ;;
-        --ext)
-            album="$2"
-            shift # past argument
-            shift # past value
-            ;;
         --cover | -c)
             cover="$2"
             shift # past argument
@@ -49,7 +60,12 @@ while [[ $# -gt 0 ]]; do
             shift # past value
             ;;
         --style | -s)
-            genre="$2"
+            style="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        --ext)
+            ext="$2"
             shift # past argument
             shift # past value
             ;;
