@@ -1,11 +1,26 @@
 --[[ opts.lua ]]
 local opt = vim.opt
 local cmd = vim.api.nvim_command
+local g = vim.g
 
--- [[ Mouse ]]
--- vim.g["mouse"] = ""
--- vim.api.nvim_set_var("mouse", "a")
--- vim.o.mouse = "ni"
+-- LEADER
+-- These keybindings need to be defined before the first /
+-- is called; otherwise, it will default to "\"
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+g.t_co = 256
+g.background = "light"
+
+vim.opt.backspace = '2'
+--vim.opt.showcmd = true
+--vim.opt.laststatus = 2
+--vim.opt.autowrite = true
+-- vim.opt.cursorline = true
+vim.opt.autoread = true
+
+vim.cmd [[ set noswapfile ]]
+vim.cmd [[ set termguicolors ]]
 
 -- [[ Context ]]
 -- opt.colorcolumn = '80'           -- str:  Show col for max line length
@@ -18,9 +33,6 @@ opt.signcolumn = "yes"           -- str:  Show the sign column
 -- [[ Share clipboard between instances ]]
 opt.clipboard = "unnamedplus"
 
--- [[ Reset default indent line behavior ]]
-vim.g.indentLine_setColors = 0
-vim.g.indentLine_enabled = 0
 -- [[ Filetypes ]]
 opt.encoding = 'utf8'            -- str:  String encoding to use
 opt.fileencoding = 'utf8'        -- str:  File encoding to use
@@ -36,22 +48,12 @@ opt.expandtab = true             -- bool: Use spaces instead of tabs
 opt.shiftwidth = 4               -- num:  Size of an indent
 opt.softtabstop = 4              -- num:  Number of spaces tabs count for in insert mode
 opt.tabstop = 4                  -- num:  Number of spaces tabs count for
+opt.shiftround = true
+opt.expandtab = true
 
 -- [[ Splits ]]
 opt.splitright = true            -- bool: Place new window to right of current one
 opt.splitbelow = true            -- bool: Place new window below the current one
-
--- [[ rust-analyzer stuff ]]
---Set completeopt to have a better completion experience
--- :help completeopt
--- menuone: popup even when there's only one match
--- noinsert: Do not insert text until a selection is made
--- noselect: Do not select, force to select one from the menu
--- shortness: avoid showing extra messages when using completion
--- updatetime: set updatetime for CursorHold
-vim.opt.completeopt = {'menuone', 'noselect', 'noinsert'}
-vim.opt.shortmess = vim.opt.shortmess + { c = true}
-vim.api.nvim_set_option('updatetime', 300)
 
 -- Fixed column for diagnostics to appear
 -- Show autodiagnostic popup on cursor hover_range

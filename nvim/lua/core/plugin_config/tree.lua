@@ -9,9 +9,6 @@ require("nvim-tree").setup({
   renderer = {
     group_empty = true,
   },
-  filters = {
-    dotfiles = true,
-  },
 })
 
 -- Open for directories and change nvim's directory
