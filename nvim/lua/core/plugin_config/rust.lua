@@ -6,7 +6,8 @@ vim.g.rustaceanvim = {
     server = {
         on_attach = function(client, bufnr)
             local opts = { noremap = true, buffer = bufnr }
-            -- vim.keymap.set('n', 'gD', vim.cmd.RustLsp {''}, merge(opts, {desc = ""}))
+            -- seems to be the same as definition in rust
+            -- vim.keymap.set('n', 'gD', vim.cmd.RustLsp {'declaration'}, merge(opts, {desc = ""}))
             vim.keymap.set('n', 'gd', vim.cmd.RustLsp {'definition'}, merge(opts, {desc = "definition"}))
             vim.keymap.set('n', 'gi', vim.cmd.RustLsp {'implementation'}, merge(opts, {desc = "impl"}))
             vim.keymap.set('n', 'K', vim.cmd.RustLsp {'hover'}, merge(opts, {desc = "hover"}))

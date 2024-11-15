@@ -6,8 +6,9 @@ require("mini.notify").setup {}
 require("mini.comment").setup {}
 require("mini.bracketed").setup {}
 require("mini.pairs").setup {}
+require("mini.icons").setup()
+MiniIcons.mock_nvim_web_devicons()
 -- require("mini.completion").setup {}
-
 -- require("mini.statusline").setup {}
 require("mini.files").setup {
     options = {
@@ -17,7 +18,6 @@ require("mini.files").setup {
 require("mini.sessions").setup {
     directory = vim.fn.stdpath "config" .. "/sessions",
 }
-
 local minimap = require("mini.map")
 minimap.setup {
     symbols = {

@@ -60,26 +60,35 @@ local t = ls.text_node
 local i = ls.insert_node
 ls.add_snippets("rust", {
     s({
-        trig = "#test",
+        trig = "#tt",
         namr = "Testmod",
         dscr = "Generate test mod"
     }, {
-      t({"#[cfg(test)]", "mod tests {", "    use super::*;", "", "    #[test]", "    fn "}),
-      i(1, "test_name"),
-      t({"() {", "    ", "    }", "}"})
-    }),
-   s({
-        trig = "#derive",
+            t({"#[test]", "fn "}),
+            i(1, "test_name"),
+            t({"() {", "    ", "}"})
+        }),
+    s({
+        trig = "#tm",
+        namr = "Testmod",
+        dscr = "Generate test mod"
+    }, {
+            t({"#[cfg(test)]", "mod tests {", "    use super::*;", "", "    #[test]", "    fn "}),
+            i(1, "test_name"),
+            t({"() {", "    ", "    }", "}"})
+        }),
+    s({
+        trig = "#der",
         namr = "Derive",
         dscr = "Derive main traits"
     }, {
-      t({"#[derive(Debug, Clone, Default)]"}),
-    }),
+            t({"#[derive(Debug, Clone, Default)]"}),
+        }),
 })
 
 require("luasnip.loaders.from_vscode").lazy_load()
 require("luasnip").config.set_config({
-  history = true,
-  updateevents = "TextChanged,TextChangedI",
+    history = true,
+    updateevents = "TextChanged,TextChangedI",
 })
 

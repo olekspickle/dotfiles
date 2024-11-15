@@ -1,8 +1,6 @@
 --[[ keys.lua ]]
---
 -- most of this magic is a soup I respectfully yanked from: ThePrimeagen,mhinz and other wonderful people I was not smart enough to record here
 local map = vim.keymap.set
--- local map = vim.api.nvim_set_keymap
 local defaults = { noremap = true, silent = true }
 
 -- intuitive copy in visual mode
@@ -15,19 +13,18 @@ map('v', '<C-c>', '"+y', { noremap = true, desc = "copy" })
 map('n', '<leader>d', [[:w<cr>:bd<cr>]], { desc = "write and unload current"})
 -- map for quick quit, save files using leader key
 map('n', '<Leader>q', ':q<cr>', { desc = "quit" })
-map('n', '<Leader>w', ':w<cr>', { desc = "save"})
+map('n', '<Leader>s', ':w<cr>', merge(defaults, { desc = "save" }))
 map('n', '<C-x>', ':wq<cr>', { desc = "save and quit" })
 map('n', '<Leader>a', ':wqa<cr>', { desc = "save and quit all" })
--- write and sync current buffer immediately. Useful when editing nvim setup
-map('n', '<Leader>s', ':w<cr>:source %<cr>', { desc = "write and sync" })
 
-map('n', '<leader>i', 'gg=G<cr>', { desc = "format"})
+map('n', '<leader>i', "gg=G''<cr>", merge(defaults, { desc = "indent file"}))
 
+-- highlight the current line
+map('n', '<Leader>cc', ':set cursorline!<cr>', { desc = "toggle hl current line" })
 -- use U for redo :))
 map('n', 'U', '<C-r>', {})
 
--- lazy useful defaults
--- https://github.com/mhinz/vim-galore
+-- lazy deps managing panel
 map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
 -- Resize window using <ctrl> arrow keys
@@ -70,8 +67,6 @@ map('n', '<leader>h', ':lua vim.o.hlsearch = not vim.o.hlsearch<CR>', merge(defa
 -- quickfix nav (TODO: figure out later)
 -- vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 -- vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
--- vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
--- vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 -- better indenting
 map("v", "<", "<gv")

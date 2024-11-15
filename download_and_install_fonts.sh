@@ -22,7 +22,7 @@ done
 curl -L https://download.jetbrains.com/fonts/JetBrainsMono-2.001.zip -o jetbrains.zip
 unzip jetbrains.zip -d ${HOME}/.local/share/fonts/.
 
-curl -L https://github.com/ryanoasis/nerd-fonts/releases/download/v2.2.2/NerdFontsSymbolsOnly.zip -o nerd-symbols.zip
+curl -L https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/NerdFontsSymbolsOnly.zip -o nerd-symbols.zip
 unzip nerd-symbols.zip -d ${HOME}/.local/share/fonts/.
 
 echo "fc-cache -f"

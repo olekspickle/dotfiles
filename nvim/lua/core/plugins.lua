@@ -3,10 +3,7 @@ return require('lazy').setup({
     {
         -- Awesome lightweight overall life improvement collection of plugins
         { 'echasnovski/mini.nvim', version = false },
-        "nvim-tree/nvim-web-devicons",
-        "nvim-lualine/lualine.nvim",
         -- [[ Theme ]]
-        'DanilaMihailov/beacon.nvim',           -- cursor jump
         'nvim-lualine/lualine.nvim',            -- statusline
         -- actual themes
         { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
@@ -48,13 +45,13 @@ return require('lazy').setup({
 
         -- Collection of common configurations for the Nvim LSP client
         {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
-        'neovim/nvim-lspconfig',
-        'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/nvim-cmp',
-        'L3MON4D3/LuaSnip',
         'saadparwaiz1/cmp_luasnip',
-        'hrsh7th/cmp-buffer',   -- get completiong based on buffer (wotrks without LSP)
+        'L3MON4D3/LuaSnip',
+        'neovim/nvim-lspconfig',
+        'hrsh7th/nvim-cmp',
         'hrsh7th/cmp-path',     -- get completions based on path
+        'hrsh7th/cmp-buffer',   -- get completiong based on buffer (works without LSP)
+        'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-nvim-lua',
         -- 'hrsh7th/cmp-nvim-lsp-signature-help',
         -- 'hrsh7th/cmp-vsnip',
