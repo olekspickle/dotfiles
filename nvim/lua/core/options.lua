@@ -32,6 +32,10 @@ opt.relativenumber = true        -- bool: Show relative line numbers
 opt.scrolloff = 4                -- int:  Min num lines of context
 opt.signcolumn = "yes"           -- str:  Show the sign column
 
+opt.scrolloff = 4
+opt.updatetime = 50
+-- opt.colorcolumn = "100"
+
 
 -- [[ Share clipboard between instances ]]
 opt.clipboard = "unnamedplus"
@@ -43,8 +47,8 @@ opt.fileencoding = 'utf8'        -- str:  File encoding to use
 -- [[ Search ]]
 opt.ignorecase = true            -- bool: Ignore case in search patterns
 opt.smartcase = true             -- bool: Override ignorecase if search contains capitals
-opt.incsearch = true             -- bool: Use incremental search
 opt.hlsearch = false             -- bool: Highlight search matches
+opt.incsearch = true             -- bool: Use incremental search
 
 -- [[ Whitespace ]]
 opt.expandtab = true             -- bool: Use spaces instead of tabs

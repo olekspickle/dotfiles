@@ -1,4 +1,6 @@
 --[[ keys.lua ]]
+--
+-- most of this magic is a soup I respectfully yanked from: ThePrimeagen,mhinz and other wonderful people I was not smart enough to record here
 local map = vim.keymap.set
 -- local map = vim.api.nvim_set_keymap
 local defaults = { noremap = true, silent = true }
@@ -10,11 +12,11 @@ map('v', '<C-c>', '"+y', { noremap = true, desc = "copy" })
 -- map('n', '<C-i>', [[:bn<cr>]], {})
 
 -- Unload current buffer
-map('n', '<leader>d', [[:bd<cr>]], { desc = "write and unload current"})
+map('n', '<leader>d', [[:w<cr>:bd<cr>]], { desc = "write and unload current"})
 -- map for quick quit, save files using leader key
 map('n', '<Leader>q', ':q<cr>', { desc = "quit" })
 map('n', '<Leader>w', ':w<cr>', { desc = "save"})
-map('n', '<Leader>x', ':wq<cr>', { desc = "save and quit" })
+map('n', '<C-x>', ':wq<cr>', { desc = "save and quit" })
 map('n', '<Leader>a', ':wqa<cr>', { desc = "save and quit all" })
 -- write and sync current buffer immediately. Useful when editing nvim setup
 map('n', '<Leader>s', ':w<cr>:source %<cr>', { desc = "write and sync" })
@@ -54,14 +56,22 @@ map("i", "<c-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "move line up" })
 map("v", "<c-j>", ":m '>+1<cr>gv=gv", { desc = "move line down" })
 map("v", "<c-k>", ":m '<-2<cr>gv=gv", { desc = "move line up" })
 
+-- leave cursor in place after J
+map("n", "J", "mzJ`z", { desc = "move line up" })
+-- move up and down a page but leave cursor in the middle: far less disorienting
+map("n", "<c-d>", "<C-d>zz")
+map("n", "<c-u>", "<C-u>zz")
+-- search and stay in the middle
+map("n", "n", "nzzzv")
+map("n", "N", "Nzzzv")
+
 map('n', '<leader>h', ':lua vim.o.hlsearch = not vim.o.hlsearch<CR>', merge(defaults, {desc = "toggle hlsearch"}))
 
-map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
-map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
-map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
-map("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Prev Search Result" })
-map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
-map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
+-- quickfix nav (TODO: figure out later)
+-- vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
+-- vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+-- vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
+-- vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 -- better indenting
 map("v", "<", "<gv")

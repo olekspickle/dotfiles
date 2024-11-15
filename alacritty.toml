@@ -36,15 +36,15 @@ foreground = "0xeeeeee"
 size = 11.5
 
 [font.bold]
-family = "Fira Code"
+family = "JetBrains Mono"
 style = "Bold"
 
 [font.bold_italic]
-family = "Fira Code"
+family = "JetBrains Mono"
 style = "Bold Italic"
 
 [font.italic]
-family = "Fira Code"
+family = "JetBrains Mono Italic"
 style = "Italic"
 
 [font.normal]

@@ -27,8 +27,9 @@ zero.on_attach(function(client, bufnr)
 end)
 
 local cmp = require('cmp')
-local luasnip = require('luasnip')
+local ls = require('luasnip')
 local cmp_action = zero.cmp_action()
+local cmp_format = zero.cmp_format({details = true})
 local select_opts = {behavior = cmp.SelectBehavior.Select}
 cmp.setup({
     window = {
@@ -51,19 +52,34 @@ cmp.setup({
         ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
         ['<CR>'] = cmp.mapping.confirm({select = true}),
     },
-    snippet = {
-        expand = function(args)
-            luasnip.lsp_expand(args.body)
-        end
-    },
+    formatting = cmp_format,
 })
 
--- custom snippets
--- #[cfg(test)]
--- mod tests {
---     use super::*;
---
---     #[test]
---     fn 
--- }
+local s = ls.snippet
+local t = ls.text_node
+local i = ls.insert_node
+ls.add_snippets("rust", {
+    s({
+        trig = "#test",
+        namr = "Testmod",
+        dscr = "Generate test mod"
+    }, {
+      t({"#[cfg(test)]", "mod tests {", "    use super::*;", "", "    #[test]", "    fn "}),
+      i(1, "test_name"),
+      t({"() {", "    ", "    }", "}"})
+    }),
+   s({
+        trig = "#derive",
+        namr = "Derive",
+        dscr = "Derive main traits"
+    }, {
+      t({"#[derive(Debug, Clone, Default)]"}),
+    }),
+})
+
+require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip").config.set_config({
+  history = true,
+  updateevents = "TextChanged,TextChangedI",
+})
 
