@@ -5,6 +5,11 @@ function rename-all() {
     done
 }
 
+function reset-author() {
+    git rebase -r --root \
+        --exec 'git commit --amend --no-edit --reset-author'
+}
+
 # prefix all, lowercase and remove anything that matches " \[[*]]*\]"
 # which is a usual yt-dlp residual
 # usage:
@@ -121,8 +126,8 @@ alias speedtest='cat ~/Documents/py/speedtest.py | python -'
 # zellij hotkeys
 alias zj="zellij"
 alias zjp="zj -s ollama -l pi || zj attach ollama"
-alias zjm="zj -s main -l main || zj attach main"
-alias zjs="zj -s simple -l simple || zj attach simple"
+alias zjm="zj -s main -n main || zj attach main"
+alias zjs="zj -s simple -n simple || zj attach simple"
 
 alias vim="nvim"
 alias vi="nvim"
