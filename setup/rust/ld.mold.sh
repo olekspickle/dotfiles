@@ -3,21 +3,20 @@
 set -e
 
 # installs mold linker and adds its config to global cargo config
+sudo apt-get update -y
+sudo apt-get install -y mold clang
 
-git clone https://github.com/rui314/mold.git
-mkdir mold/build && cd mold/build
-git checkout v1.5.1
-../install-build-deps.sh
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=c++ ..
-cmake --build . -j $(nproc)
-sudo cmake --install .
+# Create cargo config file if it doesn't exist
+cargo_config_file=~/.cargo/config
+mkdir -p $(dirname "$cargo_config_file")
 
-cargo_mold='
+# Write mold configuration to cargo config
+cat <<EOF >> "$cargo_config_file"
 [target.x86_64-unknown-linux-gnu]
+linker = "clang"
 rustflags = ["-C", "link-arg=-fuse-ld=$(which mold)"]
-'
+EOF
 
-cat $cargo_mold >> ~/.cargo/config
+# Print a confirmation message
+echo "Mold configuration added to $cargo_config_file"
 
-cd ../../
-rm -rf mold
