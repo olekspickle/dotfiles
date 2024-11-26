@@ -21,10 +21,10 @@ sudo rsync -avzh "$HOME"/Documents /var/backups \
 sudo rsync -avzh "$HOME"/Downloads /var/backups --exclude "*elegram*" --max-size=5M
 sudo rsync -avzh "$HOME"/Videos/obs /var/backups/Videos --max-size=5M
 sudo rsync -avzh "$HOME"/Pictures /var/backups --max-size=10M
-sudo rsync -avzh "$HOME"/lmms /var/backups --max-size=15M
+sudo rsync -avzh "$HOME"/lmms /var/backups --max-size=15M --exclude "gdc*"
 
 # dotfiles
-rsync -avzh "$HOME"/.aliases "$HOME"/Documents/dotfiles
+rsync -avzh "$HOME"/.aliases.sh "$HOME"/Documents/dotfiles
 rsync -avzh "$HOME"/.config/nvim "$HOME"/Documents/dotfiles/.config --exclude "*lazy-lock*"
 rsync -avzh "$HOME"/.config/alacritty "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/starship.toml "$HOME"/Documents/dotfiles/.config

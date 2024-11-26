@@ -1,0 +1,5 @@
+[General]
+contrastOpacity=188
+filenamePattern=%F-%H-%M
+saveAsFileExtension=webp
+uiColor=#3604fe

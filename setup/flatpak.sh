@@ -30,8 +30,9 @@ flatpak install -y flathub org.mozilla.firefox
 
 # libre office
 flatpak install -y flathub org.libreoffice.LibreOffice
+
 # screenshots
-flatpak install flathub org.ksnip.ksnip
+flatpak install flathub org.flameshot.Flameshot
 
 # airshipper
 flatpak install -y flathub net.veloren.airshipper
@@ -44,6 +45,15 @@ flatpak install -y flathub com.discordapp.Discord
 
 # steam
 flatpak install -y flathub com.valvesoftware.Steam
+
+# Godot engine
+flatpak install -y flathub org.godotengine.Godot
+
+# Orion torrent streamer
+flatpak install flathub com.ktechpit.orion
+
+# telegram
+flatpak install flathub org.telegram.desktop
 
 # slack
 # flatpak install flathub com.slack.Slack
