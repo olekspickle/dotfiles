@@ -37,6 +37,9 @@ flatpak install flathub org.flameshot.Flameshot
 # airshipper
 flatpak install -y flathub net.veloren.airshipper
 
+# carla audio host for windows vst plugins
+flatpak install flathub studio.kx.carla
+
 # OBS
 flatpak install -y flathub com.obsproject.Studio
 
