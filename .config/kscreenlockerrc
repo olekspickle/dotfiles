@@ -1,6 +1,9 @@
 [$Version]
 update_info=kscreenlocker.upd:0.1-autolock
 
+[Daemon]
+Timeout=20
+
 [Greeter][Wallpaper][org.kde.image][General]
 Image=/home/pickle/Pictures/Wallpapers/dmitry-bogoljubov-sunset.jpg
 PreviewImage=/home/pickle/Pictures/Wallpapers/dmitry-bogoljubov-sunset.jpg
