@@ -28,12 +28,25 @@ function webm-all-to-mp3(){
     find . -type f -iname "*.webm" -exec bash -c 'FILE="$1"; ffmpeg -i "${FILE}" -vn -ab 128k -ar 44100 -y "${FILE%.webm}.mp3";' _ '{}' \;
 }
 
+function media-merge(){
+    # replace audio for a video with an offset
+    video=$1
+    audio=$2
+    offset=${3:-"00:00:00.000"}
+    # set offset for any of the inputs + or - sets it ahead or behind
+    # -itsoffset <+-00:00:00.000> -i <Input>
+    # map first(0) stream video to first(0) out, and second(1) audio stream to first(0)
+    # -map 0:v:0  -map 1:a:0
+    # -c:v copy copy video stream
+    ffmpeg -i "$video" -itsoffset "$offset" -i "$audio" -c:v copy -map 0:v:0 -map 1:a:0 merged.mp4
+}
+
 function mp4-to-mp3(){
     ffmpeg -i $1 -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 $2
 }
 
 function wav-to-ogg(){
-    find . -name "*.wav" -exec ffmpeg -i {} -acodec libvorbis {}.ogg \;
+    find . -name "*.wav" -exec sh -c 'ffmpeg -i "$0" -acodec libvorbis "${0%.wav}.ogg"' {} \;
 }
 
 function to-slack-gif() {
@@ -89,9 +102,10 @@ function docker-clean-all () {
 #
 # ```
 function normalize() {
-    f=${1:-""}
+    normalize_name=$(basename)
     prefix=${2:-""}
-    new="$prefix$(echo "$f" | tr '[:upper:]' '[:lower:]' | \
+
+    temp="$prefix$(echo "$normalize_name" | tr '[:upper:]' '[:lower:]' | \
         sed 's/ \[[^]]*\]//g' | \
         sed 's/[＂"]\|[＂"]//g' | \
         sed 's/\.-\| \./-/g' | \
@@ -101,36 +115,91 @@ function normalize() {
         sed 's/--/-/g' | \
         sed 's/,-/-/g')"
 
-    echo "$new"
+    echo "$temp"
 }
 
 # rename all files in directory
 function rename-all() {
-    for f in $(find . -type f);
-    do
-        new=$(normalize "$f")
-        mv -v "$f" "${new/$1/$2}"
-    done
+    old=${1:-""}
+    replace=${2:-""}
+    patt=${3:-"*"}
+
+    # first normalize all directories, without it the files inside aren't affected
+    find . -name "$patt" -type d -exec bash -c '
+    normalize() {
+        normalize_name="$1"
+        temp="$(echo "$normalize_name" | tr "[:upper:]" "[:lower:]" | \
+            sed "s/ \[[^]]*\]//g" | \
+            sed "s/[＂\"]\|[＂\"]//g" | \
+            sed "s/\.-\| \./-/g" | \
+            sed "s/ /-/g" | \
+            sed "s/---/-/g; s/--/-/g" | \
+            sed "s/-–-/-/g" | \
+            sed "s/--/-/g" | \
+            sed "s/_/-/g" | \
+            sed "s/,-/-/g")"
+
+        echo "$temp"
+    }
+
+    new=$(normalize "$0")
+    mv -v "$0" "${new/$1/$2}" ' {} "$old" "$replace" \;
+
+    # then move all files
+    find . -name "$patt" -type f -exec bash -c '
+    normalize() {
+        normalize_name="$1"
+        temp="$(echo "$normalize_name" | tr "[:upper:]" "[:lower:]" | \
+            sed "s/ \[[^]]*\]//g" | \
+            sed "s/[＂\"]\|[＂\"]//g" | \
+            sed "s/\.-\| \./-/g" | \
+            sed "s/ /-/g" | \
+            sed "s/---/-/g; s/--/-/g" | \
+            sed "s/-–-/-/g" | \
+            sed "s/--/-/g" | \
+            sed "s/_/-/g" | \
+            sed "s/,-/-/g")"
+
+        echo "$temp"
+    }
+
+    new=$(normalize "$0")
+    mv -v "$0" "${new/$1/$2}" ' {} "$old" "$replace" \;
 }
 
 # prefix all, lowercase and remove anything that matches " \[[*]]*\]"
 # which is a usual yt-dlp residual
 # usage:
-# prefix-all <the-group>
+# prefix-all <the-group> [PATTERN]
 function prefix-all(){
     prefix=${1:-""}
-    if [ -n "$prefix" ];
-    then
-        prefix="$prefix-";
-    fi
+    patt=${2:-"*"}
     echo "prefix $prefix"
 
-    for f in $(find . -type f);
-    do
-        new=$(normalize "$f" "$prefix")
-        echo "$f -> $new"
-        mv -v "$f" "$new";
-    done
+    find . -name "$patt" -type f -exec bash -c '
+    normalize() {
+        prefix=${2:-""}
+        normalize_name=$(basename "$1")
+        temp="$prefix$(echo "$normalize_name" | tr "[:upper:]" "[:lower:]" | \
+            sed "s/ \[[^]]*\]//g" | \
+            sed "s/[＂\"]\|[＂\"]//g" | \
+            sed "s/\.-\| \./-/g" | \
+            sed "s/ /-/g" | \
+            sed "s/---/-/g; s/--/-/g" | \
+            sed "s/-–-/-/g" | \
+            sed "s/--/-/g" | \
+            sed "s/_/-/g" | \
+            sed "s/,-/-/g")"
+
+        echo "$temp"
+
+    }
+
+    new=$(normalize "$0" "$1")
+    mv -v "$0" "$new"' {} "$prefix" \;
+
+    # will create a lot of empty directories
+    find . -type d -empty -delete
 }
 
 #git-rename
