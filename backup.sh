@@ -18,9 +18,9 @@ sudo rsync -avzh "$HOME"/Documents /var/backups \
     --exclude "*/node_modules/*" \
     --max-size=5M
 
-sudo rsync -avzh "$HOME"/Downloads /var/backups --exclude "*elegram*" --max-size=5M
+sudo rsync -avzh "$HOME"/Downloads /var/backups --exclude "*elegram*" --exclude "*gdc*" --max-size=5M
 sudo rsync -avzh "$HOME"/Videos/obs /var/backups/Videos --max-size=5M
-sudo rsync -avzh "$HOME"/Pictures /var/backups --max-size=10M
+sudo rsync -avzh "$HOME"/Pictures /var/backups --max-size=10M --exclude "*Camera*"
 sudo rsync -avzh "$HOME"/lmms /var/backups --max-size=15M --exclude "gdc*"
 
 # dotfiles
