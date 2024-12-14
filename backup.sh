@@ -21,7 +21,7 @@ sudo rsync -avzh "$HOME"/Documents /var/backups \
 sudo rsync -avzh "$HOME"/Downloads /var/backups --exclude "*elegram*" --exclude "*gdc*" --max-size=5M
 sudo rsync -avzh "$HOME"/Videos/obs /var/backups/Videos --max-size=5M
 sudo rsync -avzh "$HOME"/Pictures /var/backups --max-size=10M --exclude "*Camera*"
-sudo rsync -avzh "$HOME"/lmms /var/backups --max-size=15M --exclude "gdc*"
+sudo rsync -avzh "$HOME"/Sound /var/backups --max-size=15M --exclude "gdc*"
 
 # dotfiles
 rsync -avzh "$HOME"/.aliases.sh "$HOME"/Documents/dotfiles

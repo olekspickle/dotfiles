@@ -55,6 +55,9 @@ flatpak install -y flathub org.godotengine.Godot
 # Orion torrent streamer
 flatpak install flathub com.ktechpit.orion
 
+# mic effects
+flatpak install flathub com.github.wwmm.easyeffects
+
 # telegram
 flatpak install flathub org.telegram.desktop
 
