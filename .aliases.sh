@@ -88,6 +88,89 @@ function docker-clean-all () {
     docker volume prune -f
 }
 
+# usage
+# gifify -i <video> [-o OUTPUT] [-c CROP] [-f FPS] [-s SCALE] [-l LOOP]
+function gifify() {
+    set -ex
+
+    # unpack arguments
+    while [[ $# -gt 0 ]]; do
+        key="$1"
+        case $key in
+            --input | -i)
+                input="$2"
+                shift # past argument
+                shift # past value
+                ;;
+            --output | -o)
+                output="$2"
+                shift # past argument
+                shift # past value
+                ;;
+            --crop | -c)
+                crop="$2"
+                shift # past argument
+                shift # past value
+                ;;
+            --scale | -s)
+                scale="$2"
+                shift # past argument
+                shift # past value
+                ;;
+            --fps | -f)
+                fps="$2"
+                shift # past argument
+                shift # past value
+                ;;
+            --loop | -l)
+                loop="$2"
+                shift # past argument
+                shift # past value
+                ;;
+            --help | -h)
+                echo "-i,--input    input path"
+                echo "-o,--output   output path"
+                echo "-f,--fps      filter sets the frame rate"
+                echo "-s,--scale    scale filter will resize the output to 320 pixels wide and automatically determine the height while preserving the aspect ratio. The lanczos scaling algorithm is used in this example. example: 640:-1"
+                echo "-c,--crop     example: 'iw-100:ih' to crop 100px horizontally(50 from each side)"
+                echo "-l,--loop     Control looping with -loop output option but the values are confusing. A value of 0 is infinite looping, -1 is no looping, and 1 will loop once meaning it will play twice. So a value of 10 will cause the GIF to play 11 times"
+                exit 0
+                ;;
+            -*) # unknown option
+                echo "Unknown option: $1" >&2
+                exit 1
+                ;;
+        esac
+    done
+
+    if [ -z "$output" ]; then
+        base="${input%.*}"
+        output="$base.gif"
+    fi
+
+    if [ -z "$crop" ]; then
+        crop="w:h"
+    fi
+
+    if [ -z "$scale" ]; then
+        scale="iw:ih"
+    fi
+
+    if [ -z "$fps" ]; then
+        fps="24"
+    fi
+
+    if [ -z "$loop" ]; then
+        loop="0"
+    fi
+
+    echo "saving as $output"
+
+    ffmpeg -i "$input" -vf "fps=$fps,crop=$crop,scale=$scale\:flags=lanczos" -loop "$loop" "$output"
+
+    set +e
+}
+
 # normalize the name into kebab-case
 # replace all spaces with -
 # replace weird youtube ticks by normal ones
@@ -229,11 +312,12 @@ alias cat='bat'
 alias fd='fdfind'
 
 alias adbsync='~/.venv/bin/adbsync'
-alias 'yt'='yt-dlp -x --audio-format mp3'
+alias yt='yt-dlp -x --audio-format mp3'
 alias rabbit-inspect='rabbitmqctl list_queues | grep -v -e "0"'
 alias docker-container-rm-all-force='docker ps -q | xargs -I {} docker rm -f {}'
 alias co-main='git checkout $(gh repo view --json defaultBranchRef --jq .defaultBranchRef.name)'
 alias speedtest='cat ~/Documents/py/speedtest.py | python -'
+alias carla='flatpak run studio.kx.carla'
 
 # zellij hotkeys
 alias zj="zellij"
@@ -323,4 +407,120 @@ do
 done
 echo "done end"
 '
+
+
+function convert-audio() {
+    while [[ $# -gt 0 ]]; do
+        set -e
+        key="$1"
+        case $key in
+            --input | -i)
+                input="$2"
+                shift # past argument
+                shift # past value
+                ;;
+            --output | -o)
+                output="$2"
+                shift # past argument
+                shift # past value
+                ;;
+            --title | -t)
+                title="$2"
+                shift # past argument
+                shift # past value
+                ;;
+            --artist | -a)
+                artist="$2"
+                shift # past argument
+                shift # past value
+                ;;
+            --album)
+                album="$2"
+                shift # past argument
+                shift # past value
+                ;;
+            --ext)
+                album="$2"
+                shift # past argument
+                shift # past value
+                ;;
+            --cover | -c)
+                cover="$2"
+                shift # past argument
+                shift # past value
+                ;;
+            --genre | -g)
+                genre="$2"
+                shift # past argument
+                shift # past value
+                ;;
+            --style | -s)
+                style="$2"
+                shift # past argument
+                shift # past value
+                ;;
+            *) # unknown option
+                echo "Unknown option: $key"
+                exit 1
+                ;;
+        esac
+    done
+
+# Default if not present
+if [ -z "$input" ]; then
+    echo "No input file"
+    exit 1
+fi
+
+if [ -z "$ext" ]; then
+    ext="${output##*.}"
+fi
+
+if [ -z "$title" ]; then
+    title="${output%.*}"
+fi
+
+if [ -z "$output" ]; then
+    output="${title}.${ext}"
+    echo "No output file name, using input title ${output}"
+fi
+
+if [ -z "$artist" ]; then
+    artist="somnamboola"
+fi
+
+if [ -z "$album" ]; then
+    album="starter"
+fi
+
+if [ -z "$cover" ]; then
+    cover="cover.jpg"
+fi
+
+if [ -z "$genre" ]; then
+    genre="electro"
+fi
+
+if [ -z "$style" ]; then
+    style="synth rhytmic"
+fi
+
+echo "Convert $input > $output"
+echo "Artist: $artist"
+echo "Title: $title"
+echo "Album: $album, Genre: $genre, Style: $style"
+
+ffmpeg -hide_banner -loglevel warning \
+    -i ${input} -i $cover \
+    -map 0:a:0 -map 1:v:0 -c copy -id3v2_version 3 \
+    -codec:a libmp3lame -b:a 128k -vn -qscale:a 2  \
+    -metadata:s:v title="${album} album cover" \
+    -metadata:s:v comment="${album} cover (front)" \
+    -metadata artist="${artist}" \
+    -metadata title="${title}" \
+    -metadata album="${album}" \
+    -metadata genre="${genre}" \
+    -metadata style="${style}" \
+    "${output}"
+}
 
