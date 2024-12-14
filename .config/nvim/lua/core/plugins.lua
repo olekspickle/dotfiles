@@ -58,6 +58,7 @@ return require('lazy').setup({
         'hrsh7th/cmp-buffer',   -- get completiong based on buffer (works without LSP)
         'hrsh7th/cmp-nvim-lsp',
         'hrsh7th/cmp-nvim-lua',
+        'onsails/lspkind.nvim',
         -- 'hrsh7th/cmp-nvim-lsp-signature-help',
         -- 'hrsh7th/cmp-vsnip',
         -- 'hrsh7th/vim-vsnip',

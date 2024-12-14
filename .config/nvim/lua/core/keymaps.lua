@@ -29,19 +29,15 @@ map("n", "Y", "y$", { desc = "Yank to end of line" })
 -- paste without yank
 map("v", "p", '"_dP', { desc = "Paste without yank" })
 -- delete without yanking
-map({ "n", "x" }, "<leader>d", '"_d', { desc = "Delete without yank" })
+-- map({ "n", "x" }, "<leader>d", '"_d', { desc = "Delete without yank" })
 -- delete char without yanking
 map({ "n", "v" }, "x", '"_x', { desc = "Delete char without yank" })
 map({ "n", "v" }, "X", '"_X', { desc = "Delete char without yank" })
 -- reselect pasted text
 map("n", "gp", "[v`]", { desc = "Reselect pasted text" })
 
--- scroll through buffers with Tab
--- kind of useless using mini.tabline with it's neat hjkl motions
--- map('n', '<C-i>', [[:bn<cr>]], {})
-
 -- Unload current buffer
-map('n', '<leader>d', [[:bd<cr>]], { desc = "write and unload current"})
+map('n', '<leader>d', ":bd<cr>", { desc = "unload current buf"})
 -- map for quick quit, save files using leader key
 map('n', '<Leader>q', ':q<cr>', { desc = "quit" })
 map('n', '<Leader>s', ':w<cr>', m(defaults, { desc = "save" }))
@@ -102,6 +98,10 @@ map('n', '<leader>h', ':lua vim.o.hlsearch = not vim.o.hlsearch<CR>', m(defaults
 -- quickfix nav (TODO: figure out later)
 -- vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 -- vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+
+-- scroll through buffers with Tab
+-- kind of useless using mini.tabline with it's neat hjkl motions
+-- map('n', '<C-i>', [[:bn<cr>]], {})
 
 -- better indenting
 map("v", "<", "<gv")

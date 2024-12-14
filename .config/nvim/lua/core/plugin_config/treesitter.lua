@@ -1,6 +1,20 @@
 local config = require('nvim-treesitter.configs')
 config.setup({
     ensure_installed = { "rust", "ron", "toml", "dockerfile", "lua", "bash", "javascript", "python", "go", "c", "vim", "vimdoc" },
+    -- Automatically install missing parsers when entering buffer
+    sync_install = false,
+    auto_install = true,
+    highlight = { enable = true },
+    indent = { enable = true },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = "<c-space>",
+            node_incremental = "<c-space>",
+            -- scope_incremental = "<c-s>",
+            node_decremental = "<c-backspace>",
+        }
+    },
 
     -- Function for more flexibility, e.g. to disable slow treesitter highlight for large files
     disable = function(lang, buf)
@@ -14,11 +28,6 @@ config.setup({
             return true
         end
     end,
-    -- Automatically install missing parsers when entering buffer
-    sync_install = false,
-    auto_install = true,
-    highlight = { enable = true },
-    indent = { enable = true },
 })
 
 -- [[ Reset default indent line behavior ]]
