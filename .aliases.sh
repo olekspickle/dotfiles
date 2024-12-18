@@ -429,18 +429,18 @@ function convert-audio() {
                 shift # past argument
                 shift # past value
                 ;;
-            --artist | -a)
+            --artist)
                 artist="$2"
                 shift # past argument
                 shift # past value
                 ;;
-            --album)
+            --album | -a)
                 album="$2"
                 shift # past argument
                 shift # past value
                 ;;
-            --ext)
-                album="$2"
+            --ext | -e)
+                ext="$2"
                 shift # past argument
                 shift # past value
                 ;;
@@ -459,9 +459,23 @@ function convert-audio() {
                 shift # past argument
                 shift # past value
                 ;;
+            --help | -h)
+                echo "File IO:"
+                echo "-i,--input    input file"
+                echo "-o,--output   output file"
+                echo "-e,--ext      extension of the output file"
+                echo "\nMeta information:"
+                echo "-s,--style    music styles: 'synth rhytmic,slow beat'"
+                echo "-t,--title    composition title for meta"
+                echo "-g,--genre    music genre: 'synthwave'"
+                echo "-c,--cover    composition cover: 'cover.jpg'"
+                echo "-a,--album    album name"
+                echo "--artist      artist name"
+                exit 0
+                ;;
             *) # unknown option
                 echo "Unknown option: $key"
-                exit 1
+                exit 0
                 ;;
         esac
     done
@@ -498,7 +512,7 @@ if [ -z "$cover" ]; then
 fi
 
 if [ -z "$genre" ]; then
-    genre="electro"
+    genre="electronic"
 fi
 
 if [ -z "$style" ]; then
