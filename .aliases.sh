@@ -166,7 +166,13 @@ function gifify() {
 
     echo "saving as $output"
 
-    ffmpeg -i "$input" -vf "fps=$fps,crop=$crop,scale=$scale\:flags=lanczos" -loop "$loop" "$output"
+    # palettegen    https://ffmpeg.org/ffmpeg-filters.html#palettegen
+    # paletteuse    https://ffmpeg.org/ffmpeg-filters.html#paletteuse
+    # split         https://ffmpeg.org/ffmpeg-filters.html#split_002c-asplit
+    ffmpeg -i "$input" \
+        -vf "fps=$fps,crop=$crop,scale=$scale\:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" \
+        -loop "$loop" "${base}frame%04d.png"
+    gifski -o "$output" "${base}frame*.png"
 
     set +e
 }
