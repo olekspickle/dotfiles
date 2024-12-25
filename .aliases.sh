@@ -138,7 +138,7 @@ function gifify() {
                 ;;
             -*) # unknown option
                 echo "Unknown option: $1" >&2
-                exit 1
+                exit 0
                 ;;
         esac
     done
@@ -169,11 +169,15 @@ function gifify() {
     # palettegen    https://ffmpeg.org/ffmpeg-filters.html#palettegen
     # paletteuse    https://ffmpeg.org/ffmpeg-filters.html#paletteuse
     # split         https://ffmpeg.org/ffmpeg-filters.html#split_002c-asplit
+    mkdir -p gifski-in && cd $_
+
+    sleep 5
     ffmpeg -i "$input" \
         -vf "fps=$fps,crop=$crop,scale=$scale\:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" \
         -loop "$loop" "${base}frame%04d.png"
-    gifski -o "$output" "${base}frame*.png"
+    # gifski -o "$output" "${base}frame*.png"
 
+    cd .. && rm -rf gifski-in
     set +e
 }
 

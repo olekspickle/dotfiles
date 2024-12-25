@@ -61,6 +61,9 @@ flatpak install flathub com.github.wwmm.easyeffects
 # telegram
 flatpak install flathub org.telegram.desktop
 
+# pixelart editor
+flatpak install flathub com.orama_interactive.Pixelorama
+
 # slack
 # flatpak install flathub com.slack.Slack
 # give slack permission to pictures
