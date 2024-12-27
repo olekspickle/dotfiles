@@ -143,8 +143,14 @@ function gifify() {
         esac
     done
 
+
+    if [ -z "$input" ]; then
+        input="input.mp4"
+    fi
+
+    # save basename
+    base="${input%.*}"
     if [ -z "$output" ]; then
-        base="${input%.*}"
         output="$base.gif"
     fi
 
@@ -164,20 +170,22 @@ function gifify() {
         loop="0"
     fi
 
-    echo "saving as $output"
+    # create directory with png frames with random 4 alphanumeric char suffix
+    tmpd="gifski-in-$(tr -dc 'a-zA-Z0-9' </dev/urandom | head -c 4)"
+    mkdir -p "$tmpd" && cd $_
 
+    echo "saving png frames with base: $base"
     # palettegen    https://ffmpeg.org/ffmpeg-filters.html#palettegen
     # paletteuse    https://ffmpeg.org/ffmpeg-filters.html#paletteuse
     # split         https://ffmpeg.org/ffmpeg-filters.html#split_002c-asplit
-    mkdir -p gifski-in && cd $_
-
-    sleep 5
-    ffmpeg -i "$input" \
+    ffmpeg -i "../$input" \
         -vf "fps=$fps,crop=$crop,scale=$scale\:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" \
-        -loop "$loop" "${base}frame%04d.png"
-    # gifski -o "$output" "${base}frame*.png"
+        -loop "$loop" "${base}-frame%04d.png"
 
-    cd .. && rm -rf gifski-in
+    echo "saving final $output and cleaning up"
+    gifski -o "../$output" $base-frame*png
+
+    cd .. && rm -rf $tmpdir
     set +e
 }
 
