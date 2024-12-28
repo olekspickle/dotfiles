@@ -25,7 +25,6 @@ esac
 # purge snap package
 snap disable firefox
 sudo snap remove --purge firefox
-
 flatpak install -y flathub org.mozilla.firefox
 
 # libre office
@@ -36,9 +35,6 @@ flatpak install flathub org.flameshot.Flameshot
 
 # airshipper
 flatpak install -y flathub net.veloren.airshipper
-
-# carla audio host for windows vst plugins
-flatpak install flathub studio.kx.carla
 
 # OBS
 flatpak install -y flathub com.obsproject.Studio
@@ -55,8 +51,14 @@ flatpak install -y flathub org.godotengine.Godot
 # Orion torrent streamer
 flatpak install flathub com.ktechpit.orion
 
+# carla audio host for windows vst plugins
+flatpak install flathub studio.kx.carla
+
 # mic effects
 flatpak install flathub com.github.wwmm.easyeffects
+
+# midid virtual hub
+flatpak install flathub xyz.safeworlds.midiconn
 
 # telegram
 flatpak install flathub org.telegram.desktop
