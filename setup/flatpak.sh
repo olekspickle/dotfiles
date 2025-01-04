@@ -48,6 +48,9 @@ flatpak install -y flathub com.valvesoftware.Steam
 # Godot engine
 flatpak install -y flathub org.godotengine.Godot
 
+# Blender
+flatpak install flathub org.blender.Blender
+
 # Orion torrent streamer
 flatpak install flathub com.ktechpit.orion
 
