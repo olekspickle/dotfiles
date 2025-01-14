@@ -140,7 +140,7 @@ DirSelectDialog Size=1126,749
 History Items[$e]=file:$HOME/Games/steam,file:$HOME/Games,file:$HOME/Videos/steam,file:$HOME/Videos/obs
 
 [General]
-BrowserApplication=firefox_firefox.desktop
+BrowserApplication=org.mozilla.firefox.desktop
 ColorSchemeHash=01662607e36cd33eacc7d7d7189f69c26b9a2cc8
 TerminalApplication=alacritty
 TerminalService=Alacritty.desktop

@@ -154,8 +154,8 @@ function gifify() {
         output="$base.gif"
     fi
 
-    if [ -z "$crop" ]; then
-        crop="w:h"
+    if [ ! -z "$crop" ]; then
+        crop=",crop=$crop"
     fi
 
     if [ -z "$scale" ]; then
@@ -179,7 +179,7 @@ function gifify() {
     # paletteuse    https://ffmpeg.org/ffmpeg-filters.html#paletteuse
     # split         https://ffmpeg.org/ffmpeg-filters.html#split_002c-asplit
     ffmpeg -i "../$input" \
-        -vf "fps=$fps,crop=$crop,scale=$scale\:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" \
+        -vf "fps=$fps$crop,scale=$scale\:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" \
         -loop "$loop" "${base}-frame%04d.png"
 
     echo "saving final $output and cleaning up"
