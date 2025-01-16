@@ -1,0 +1,11 @@
+[user]
+	name = olekspickle
+	email = 22867443+olekspickle@users.noreply.github.com
+[init]
+	defaultBranch = main
+[core]
+	editor = nvim
+[maintenance]
+	repo = /home/pickle/Documents/rust/bevy_3pv_shooter
+	repo = /home/pickle/Documents/rust/axum-template
+	repo = /home/pickle/Documents/rust/actix-template
