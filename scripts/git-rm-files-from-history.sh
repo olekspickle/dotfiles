@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 
 # rm unwanted big files from git history.
 path=$1
@@ -7,7 +7,7 @@ function remove_files(){
     if [ -z "$1" ]
     then
         echo $1
-        echo You need to specify path, like: 
+        echo You need to specify path, like:
         echo ./git-rm-files-from-history.sh output/pic.png
         echo Here is what you might want to delete:
         git rev-list --objects --all \
@@ -22,9 +22,9 @@ function remove_files(){
 
 echo Note: this will make potentially disruptive changes, you might want to backup the repo before that.
 read -p "Continue (y/n)?" choice
-case "$choice" in 
+case "$choice" in
     y|Y ) remove_files $1;;
-    n|N ) 
+    n|N )
         echo "Operation canceled"
         exit 1;;
     * ) echo "invalid";;
