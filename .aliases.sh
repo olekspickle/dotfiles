@@ -203,17 +203,19 @@ function gifify() {
 #
 # ```
 function normalize() {
-    normalize_name=$(basename)
+    normalize_name="$1"
     prefix=${2:-""}
 
     temp="$prefix$(echo "$normalize_name" | tr '[:upper:]' '[:lower:]' | \
         sed 's/ \[[^]]*\]//g' | \
         sed 's/[＂"]\|[＂"]//g' | \
         sed 's/\.-\| \./-/g' | \
+        sed 's/\\//g' | \
         sed 's/ /-/g' | \
         sed 's/---/-/g; s/--/-/g' | \
         sed 's/-–-/-/g' | \
         sed 's/--/-/g' | \
+        sed 's/&/and/g' | \
         sed 's/,-/-/g')"
 
     echo "$temp"
@@ -226,25 +228,27 @@ function rename-all() {
     patt=${3:-"*"}
 
     # first normalize all directories, without it the files inside aren't affected
-    find . -name "$patt" -type d -exec bash -c '
-    normalize() {
-        normalize_name="$1"
-        temp="$(echo "$normalize_name" | tr "[:upper:]" "[:lower:]" | \
-            sed "s/ \[[^]]*\]//g" | \
-            sed "s/[＂\"]\|[＂\"]//g" | \
-            sed "s/\.-\| \./-/g" | \
-            sed "s/ /-/g" | \
-            sed "s/---/-/g; s/--/-/g" | \
-            sed "s/-–-/-/g" | \
-            sed "s/--/-/g" | \
-            sed "s/_/-/g" | \
-            sed "s/,-/-/g")"
-
-        echo "$temp"
-    }
+    find . -name "$patt" -type d -exec bash -c `
+    # normalize() {
+    #     normalize_name="$1"
+    #     temp="$(echo "$normalize_name" | tr "[:upper:]" "[:lower:]" | \
+    #         sed 's/ \[[^]]*\]//g' | \
+    #         sed 's/[＂\"]\|[＂\"]//g' | \
+    #         sed 's/\.-\| \./-/g' | \
+    #         sed 's/\\//g' | \
+    #         sed 's/ /-/g' | \
+    #         sed 's/---/-/g; s/--/-/g' | \
+    #         sed 's/-–-/-/g' | \
+    #         sed 's/--/-/g' | \
+    #         sed 's/_/-/g' | \
+    #         sed 's/&/and/g' | \
+    #         sed 's/,-/-/g')"
+    #
+    #     echo "$temp"
+    # }
 
     new=$(normalize "$0")
-    mv -v "$0" "${new/$1/$2}" ' {} "$old" "$replace" \;
+    mv -v "$0" "${new/$1/$2}" ` {} "$old" "$replace" \;
 
     # then move all files
     find . -name "$patt" -type f -exec bash -c '
@@ -324,7 +328,8 @@ function strip-logs() {
 
 # Clean log from colors
 alias cleanup="sed 's/\x1b\[[0-9;]*m//g'"
-
+# sudo not knowing aliases workaround
+alias sudo='sudo '
 # oxidize
 alias cat='bat'
 alias fd='fdfind'

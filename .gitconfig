@@ -1,6 +1,7 @@
 [user]
 	name = olekspickle
 	email = 22867443+olekspickle@users.noreply.github.com
+	signingkey = /home/pickle/.ssh/pickle_ed25519.pub
 [init]
 	defaultBranch = main
 [core]
@@ -9,3 +10,13 @@
 	repo = /home/pickle/Documents/rust/bevy_3pv_shooter
 	repo = /home/pickle/Documents/rust/axum-template
 	repo = /home/pickle/Documents/rust/actix-template
+[alias]
+	bb = !/home/pickle/Documents/dotfiles/scripts/git-better-branch.sh
+[rerere]
+	enabled = true
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate
+[gpg]
+	format = ssh
