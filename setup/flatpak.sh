@@ -57,6 +57,9 @@ flatpak install flathub com.ktechpit.orion
 # carla audio host for windows vst plugins
 flatpak install flathub studio.kx.carla
 
+# DAW
+flatpak install flathub com.bitwig.BitwigStudio
+
 # mic effects
 flatpak install flathub com.github.wwmm.easyeffects
 
