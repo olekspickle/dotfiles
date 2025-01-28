@@ -56,7 +56,8 @@ flatpak install flathub com.ktechpit.orion
 
 # carla audio host for windows vst plugins
 flatpak install flathub studio.kx.carla
-
+# recording
+flatpak install flathub org.audacityteam.Audacity
 # DAW
 flatpak install flathub com.bitwig.BitwigStudio
 
