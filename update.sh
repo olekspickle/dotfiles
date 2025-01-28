@@ -8,4 +8,4 @@ sudo apt update
 sudo apt upgrade
 
 # update nvim packages with lazy
-nvim --headless "+Lazy! sync" +qa
+nvim +"lua require('lazy').sync()" --headless +qa
