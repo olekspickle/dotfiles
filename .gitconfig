@@ -10,6 +10,7 @@
 	repo = /home/pickle/Documents/rust/bevy_3pv_shooter
 	repo = /home/pickle/Documents/rust/axum-template
 	repo = /home/pickle/Documents/rust/actix-template
+	repo = /home/pickle/Games/sword_for_hire
 [alias]
 	bb = !/home/pickle/Documents/dotfiles/scripts/git-better-branch.sh
 [rerere]
@@ -20,3 +21,5 @@
 	sort = -committerdate
 [gpg]
 	format = ssh
+[credential]
+	helper = store
