@@ -326,6 +326,9 @@ function strip-logs() {
     cat $1 | sed -e 's,[\x00-\x08\x0E-\x1F]\|\x1B\(\[[0-?]*[ -/]*[@-~]\),,g' > $2
 }
 
+# global stuff
+alias restart-pipewire='systemctl --user restart pipewire.socket pipewire-pulse.socket wireplumber.service'
+alias update-all='sh ~/Documents/dotfiles/update.sh'
 # Clean log from colors
 alias cleanup="sed 's/\x1b\[[0-9;]*m//g'"
 # sudo not knowing aliases workaround
