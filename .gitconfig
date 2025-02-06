@@ -11,6 +11,8 @@
 	repo = /home/pickle/Documents/rust/axum-template
 	repo = /home/pickle/Documents/rust/actix-template
 	repo = /home/pickle/Games/sword_for_hire
+	repo = /home/pickle/Games/dirty-art-gambling
+	repo = /home/pickle/Games/eat-o-perish
 [alias]
 	bb = !/home/pickle/Documents/dotfiles/scripts/git-better-branch.sh
 [rerere]
