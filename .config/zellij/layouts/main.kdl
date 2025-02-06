@@ -7,21 +7,21 @@ layout {
     }
     // ☍ ♅ ♆ ꐠꆛ
 
-    tab name="♅ work" cwd="~/Documents" {
+    tab name="♅ main" cwd="~/" {
         pane
     }
 
-    tab name="♆ current" {
+    tab name="♆ rusting" cwd="~/Documents/rust/bevy_3pv_shooter"  {
         pane
     }
 
-    tab name="☍ dev" cwd="~/Documents/rust" {
+    tab name="☍ dev" cwd="~/Games/sword_for_hire/" focus=true {
         pane
     }
 
     tab name="♬ " split_direction="vertical" {
         pane cwd="~/Downloads"
-        pane cwd="~/lmms/projects"
+        pane cwd="~/Sound/lmms/projects"
         floating_panes {
             pane cwd="~/Music" {
                 x 0
@@ -38,7 +38,7 @@ layout {
         }
     }
 
-    tab name="ꆛconfig" cwd="~/Documents/my-vimrc" {
+    tab name="ꆛconfig" cwd="~/Documents/dotfiles" {
         pane
     }
 }
