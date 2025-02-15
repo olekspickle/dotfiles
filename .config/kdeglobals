@@ -137,11 +137,11 @@ ForegroundVisited=155,89,182
 
 [DirSelect Dialog]
 DirSelectDialog Size=1126,749
-History Items[$e]=file:$HOME/Games/steam,file:$HOME/Games,file:$HOME/Videos/steam,file:$HOME/Videos/obs
+History Items[$e]=file:///var/backups/Videos,file:///var/backups/Sound,file:///var/backups/Pictures,file:///var/backups/Games,file:///var/backups/Downloads,file:///var/backups/Documents,file:$HOME/Games/steam,file:$HOME/Games,file:$HOME/Videos/steam,file:$HOME/Videos/obs
 
 [General]
 BrowserApplication=org.mozilla.firefox.desktop
-ColorSchemeHash=01662607e36cd33eacc7d7d7189f69c26b9a2cc8
+ColorSchemeHash=f048f05c52a43569ba37092018fd22dc32092e83
 TerminalApplication=alacritty
 TerminalService=Alacritty.desktop
 XftAntialias=true

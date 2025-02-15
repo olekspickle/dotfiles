@@ -15,7 +15,7 @@ layout {
         pane
     }
 
-    tab name="☍ dev" cwd="~/Games/sword_for_hire/" focus=true {
+    tab name="☍ dev" cwd="~/Games" focus=true {
         pane
     }
 
