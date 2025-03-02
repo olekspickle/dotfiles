@@ -1,11 +1,11 @@
 #!/bin/bash
 
+# update system packages
+sudo apt update
+sudo apt upgrade -y
+
 # update flatpak packages
 flatpak update -y
 
-# update system packages
-sudo apt update
-sudo apt upgrade
-
 # update nvim packages with lazy
-nvim +"lua require('lazy').sync()" --headless +qa
+nvim --headless +"lua require('lazy').sync()" +qa
