@@ -45,8 +45,12 @@ function mp4-to-mp3(){
     ffmpeg -i $1 -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 $2
 }
 
-function wav-to-ogg(){
-    find . -name "*.wav" -exec sh -c 'ffmpeg -i "$0" -acodec libvorbis "${0%.wav}.ogg"' {} \;
+# for quality control -aq flag can be added
+# 1(quality) > 4(default > 9(compressed)
+# to-ogg mp4
+function to-ogg(){
+    ext=${1:-"wav"}
+    find . -name "*.$ext" -exec sh -c 'filename=${0%.*}; ffmpeg -i "$0" -acodec libvorbis "$filename.ogg"' {} \;
 }
 
 function to-slack-gif() {
@@ -69,17 +73,6 @@ function import() {
     set -a
     source $1
     set +a
-}
-
-function to-ogg-all () {
-    path=${1:-"."}
-    ext=${1:-"mp4"}
-    for file in "${path}/*.${ext}"; do
-        if [[ -f "$file" ]]; then
-            filename="${file%.*}"
-            ffmpeg -i "$file" -vn -acodec libvorbis -aq 5 "${filename}.ogg"
-        fi
-    done
 }
 
 function docker-clean-all () {
