@@ -25,13 +25,15 @@ esac
 # purge snap package
 snap disable firefox
 sudo snap remove --purge firefox
-flatpak install -y flathub org.mozilla.firefox
+
+# librewolf
+flatpak install -y flathub io.gitlab.librewolf-community
 
 # libre office
 flatpak install -y flathub org.libreoffice.LibreOffice
 
 # screenshots
-flatpak install flathub org.flameshot.Flameshot
+flatpak install -y flathub org.flameshot.Flameshot
 
 # airshipper
 flatpak install -y flathub net.veloren.airshipper
@@ -39,39 +41,40 @@ flatpak install -y flathub net.veloren.airshipper
 # OBS
 flatpak install -y flathub com.obsproject.Studio
 
+# telegram
+flatpak install flathub org.telegram.desktop
+
 # discord
 flatpak install -y flathub com.discordapp.Discord
 
 # steam
 flatpak install -y flathub com.valvesoftware.Steam
 
+# pixelart editor
+flatpak install -y flathub com.orama_interactive.Pixelorama
+
 # Godot engine
 flatpak install -y flathub org.godotengine.Godot
 
 # Blender
-flatpak install flathub org.blender.Blender
+flatpak install -y flathub org.blender.Blender
 
 # Orion torrent streamer
-flatpak install flathub com.ktechpit.orion
+flatpak install -y flathub com.ktechpit.orion
 
 # carla audio host for windows vst plugins
-flatpak install flathub studio.kx.carla
+flatpak install -y flathub studio.kx.carla
+
 # recording
-flatpak install flathub org.audacityteam.Audacity
+flatpak install -y flathub org.audacityteam.Audacity
 # DAW
-flatpak install flathub com.bitwig.BitwigStudio
+# flatpak install -y flathub com.bitwig.BitwigStudio
 
 # mic effects
-flatpak install flathub com.github.wwmm.easyeffects
+# flatpak install -y flathub com.github.wwmm.easyeffects
 
 # midid virtual hub
-flatpak install flathub xyz.safeworlds.midiconn
-
-# telegram
-flatpak install flathub org.telegram.desktop
-
-# pixelart editor
-flatpak install flathub com.orama_interactive.Pixelorama
+# flatpak install -y flathub xyz.safeworlds.midiconn
 
 # slack
 # flatpak install flathub com.slack.Slack
