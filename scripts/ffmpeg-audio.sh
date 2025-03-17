@@ -3,17 +3,25 @@
 # Audio utils
 
 # check meta info of an audio
-ffmpeg -i 30-minute.mp3
-ffprobe 30-minute.mp3
+ffmpeg -i in.mp3
+ffprobe in.mp3
 
 # convert mp3 to WAV
-ffmpeg -i 30-minute.mp3 -acodec pcm_u8 test.wav
+ffmpeg -i in.mp3 -acodec pcm_u8 out.wav
 
 # create spectrogram of a WAV
-sox test.wav -n spectrogram -Y 130 -c "Input file" -o test.png
+sox in.wav -n spectrogram -Y 130 -c "Input file" -o out.png
+
+# reverse audio
+ffmpeg -i in.ogg -af areverse out.ogg
+
+# change audio speed: slow down 2x
+ffmpeg -i in.ogg -af "atempo=0.5" out.ogg
+# video 2x speedup
+ffmpeg -i in.mkv -vf "setpts=0.5*PTS" out.mkv
 
 # cut audio
-ffmpeg -i stalkers3.mp3 -ss 00:40:01.250 -to 00:40:30.700 -c copy best/beat3.mp3
+ffmpeg -i in.mp3 -ss 00:40:01.250 -to 00:40:30.700 -c copy out.mp3
 
 # concatenate audio
 ffmpeg -i "concat:beat11.mp3|beat2.mp3|beat3.mp3" -acodec copy result2.mp3
