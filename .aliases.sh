@@ -427,8 +427,8 @@ done
 echo "done end"
 '
 
-
-function convert-audio() {
+# format-track -i in.wav -o my-track.mp3 -c my-cover.jpg
+function format-track() {
     while [[ $# -gt 0 ]]; do
         set -e
         key="$1"
@@ -501,22 +501,25 @@ function convert-audio() {
 
 # Default if not present
 if [ -z "$input" ]; then
-    echo "No input file"
-    exit 1
+    echo "specify input file"
+    return 0
+fi
+
+cmd=(ffmpeg -y -hide_banner -loglevel warning -i "$input")
+
+if [ -z "$title" ]; then
+    title="${input%.*}"
 fi
 
 if [ -z "$ext" ]; then
-    ext="${output##*.}"
-fi
-
-if [ -z "$title" ]; then
-    title="${output%.*}"
+    ext="mp3"
 fi
 
 if [ -z "$output" ]; then
     output="${title}.${ext}"
     echo "No output file name, using input title ${output}"
 fi
+
 
 if [ -z "$artist" ]; then
     artist="somnamboola"
@@ -526,26 +529,36 @@ if [ -z "$album" ]; then
     album="starter"
 fi
 
-if [ -z "$cover" ]; then
-    cover="cover.jpg"
+if [[ -f "$cover" ]]; then
+    default="cover.jpg"
+    if [[ -f "$default" ]]; then
+        cover="$default"
+    fi
 fi
+if [[ -n "$cover" && "$cover" != "0" ]]; then
+    echo "cover image: $cover"
+    cmd+=(-i "$cover" -map 1:v:0)
+else
+    echo "no cover image"
+fi
+
 
 if [ -z "$genre" ]; then
     genre="electronic"
 fi
 
 if [ -z "$style" ]; then
-    style="synth rhytmic"
+    style="synth,rhytmic"
 fi
 
 echo "Convert $input > $output"
-echo "Artist: $artist"
 echo "Title: $title"
+echo "Artist: $artist"
 echo "Album: $album, Genre: $genre, Style: $style"
 
-ffmpeg -hide_banner -loglevel warning \
-    -i ${input} -i $cover \
-    -map 0:a:0 -map 1:v:0 -c copy -id3v2_version 3 \
+cmd+=(
+    -map 0:a:0 -id3v2_version 3 \
+    -disposition:v:1 attached_pic \
     -codec:a libmp3lame -b:a 128k -vn -qscale:a 2  \
     -metadata:s:v title="${album} album cover" \
     -metadata:s:v comment="${album} cover (front)" \
@@ -555,5 +568,23 @@ ffmpeg -hide_banner -loglevel warning \
     -metadata genre="${genre}" \
     -metadata style="${style}" \
     "${output}"
+)
+
+echo "FFMPEG command: $cmd"
+
+"${cmd[@]}"
+# ffmpeg -y -hide_banner -loglevel warning \
+#     -i "$input" -i "$cover" \
+#     -map 0:a:0 -map 1:v:0 -id3v2_version 3 \
+#     -disposition:v:1 attached_pic \
+#     -codec:a libmp3lame -b:a 128k -vn -qscale:a 2  \
+#     -metadata:s:v title="${album} album cover" \
+#     -metadata:s:v comment="${album} cover (front)" \
+#     -metadata artist="${artist}" \
+#     -metadata title="${title}" \
+#     -metadata album="${album}" \
+#     -metadata genre="${genre}" \
+#     -metadata style="${style}" \
+#     "${output}"
 }
 
