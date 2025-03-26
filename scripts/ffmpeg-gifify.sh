@@ -1,8 +1,8 @@
 #!/bin/bash
 
 
- 
-#     This example will 
+
+#     This example will
 # -ss 30            skip the first 30 seconds of the input
 # -t 3              create a 3 second output
 # fps=24            fps filter sets the frame rate
@@ -21,7 +21,7 @@
 out=${2:-"output.gif"}
 
 # simple
-ffmpeg -i "$1" -filter_complex "fps=24" -loop 0 "$out"
+ffmpeg -hide_banner -i "$1" -filter_complex "fps=24" -loop 0 "$out"
 
 # resize
-# ffmpeg -i "$1" -filter_complex "fps=24,scale=640:-1:flags=lanczos" -loop 0 "$out"
+# ffmpeg -hide_banner -i "$1" -filter_complex "fps=24,scale=640:-1:flags=lanczos" -loop 0 "$out"
