@@ -387,7 +387,7 @@ alias xev-pretty="xev | grep -A2 --line-buffered '^KeyRelease' | sed -n '/keycod
 
 
 
-# dumb screen tracker exploit
+# dumb screen tracker exploit for soulless corporate jobs
 alias explore='
 rnds=${1:-100};
 echo "rnds" $rnds
@@ -425,9 +425,9 @@ do
     echo "done $c"
 done
 echo "done end"
-'
 
-# format-track -i in.wav -o my-track.mp3 -c my-cover.jpg
+'
+# format-track -i in.wav -c my-cover.jpg
 function format-track() {
     while [[ $# -gt 0 ]]; do
         set -e
@@ -440,43 +440,47 @@ function format-track() {
                 ;;
             --output | -o)
                 output="$2"
-                shift # past argument
-                shift # past value
+                shift
+                shift
                 ;;
             --title | -t)
                 title="$2"
-                shift # past argument
-                shift # past value
+                shift
+                shift
                 ;;
             --artist)
                 artist="$2"
-                shift # past argument
-                shift # past value
+                shift
+                shift
                 ;;
             --album | -a)
                 album="$2"
-                shift # past argument
-                shift # past value
+                shift
+                shift
                 ;;
             --ext | -e)
                 ext="$2"
-                shift # past argument
-                shift # past value
+                shift
+                shift
                 ;;
             --cover | -c)
                 cover="$2"
-                shift # past argument
-                shift # past value
+                shift
+                shift
                 ;;
             --genre | -g)
                 genre="$2"
-                shift # past argument
-                shift # past value
+                shift
+                shift
                 ;;
             --style | -s)
                 style="$2"
+                shift
+                shift
+                ;;
+            --video | -v)
+                video=true
                 shift # past argument
-                shift # past value
                 ;;
             --help | -h)
                 echo "File IO:"
@@ -489,6 +493,7 @@ function format-track() {
                 echo "-g,--genre    music genre: 'synthwave'"
                 echo "-c,--cover    composition cover: 'cover.jpg'"
                 echo "-a,--album    album name"
+                echo "-v,--video    bool,format output as video"
                 echo "--artist      artist name"
                 exit 0
                 ;;
@@ -520,23 +525,29 @@ if [ -z "$output" ]; then
     echo "No output file name, using input title ${output}"
 fi
 
-
 if [ -z "$artist" ]; then
-    artist="somnamboola"
+    artist="smnbl"
 fi
 
 if [ -z "$album" ]; then
     album="starter"
 fi
 
-if [[ -f "$cover" ]]; then
+if [[ ! -f "$cover" ]]; then
     default="cover.jpg"
     if [[ -f "$default" ]]; then
         cover="$default"
+    else
+        if [[ "$video" == "true" ]];then
+            echo "video output selected but no video input provided"
+        fi
     fi
 fi
 if [[ -n "$cover" && "$cover" != "0" ]]; then
     echo "cover image: $cover"
+    if [[ "$video" ]]; then
+        cmd+=(-loop 1 -r 1)
+    fi
     cmd+=(-i "$cover" -map 1:v:0)
 else
     echo "no cover image"
@@ -567,7 +578,7 @@ cmd+=(
     -metadata album="${album}" \
     -metadata genre="${genre}" \
     -metadata style="${style}" \
-    "${output}"
+    "$artist-${output}"
 )
 
 echo "FFMPEG command: $cmd"
@@ -588,3 +599,8 @@ echo "FFMPEG command: $cmd"
 #     "${output}"
 }
 
+# to-yt track.mp3 cover.jpg
+function to-yt() {
+    out="${1%.*}"
+    ffmpeg -y -loop 1 -r 1 -i $2 -i $1 -c:a copy -shortest -c:v libx264 "$out.mp4"
+}
