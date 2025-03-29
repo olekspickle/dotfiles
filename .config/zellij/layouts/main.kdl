@@ -11,7 +11,7 @@ layout {
         pane
     }
 
-    tab name="♆ rusting" cwd="~/Documents/rust/bevy_3pv_shooter"  {
+    tab name="♆ rusting" cwd="~/Games/bevy_new_3d"  {
         pane
     }
 
