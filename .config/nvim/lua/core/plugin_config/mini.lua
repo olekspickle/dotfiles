@@ -10,6 +10,33 @@ require("mini.comment").setup {
 }
 require("mini.bracketed").setup {}
 require("mini.pairs").setup {}
+require("mini.snippets").setup {
+-- No need to copy this inside `setup()`. Will be used automatically.
+  -- Array of snippets and loaders (see |MiniSnippets.config| for details).
+  -- Nothing is defined by default. Add manually to have snippets to match.
+  snippets = {
+    derive =    { prefix = 'der', body = '#[derive(Debug, Clone, Default)]', desc = 'Derive common traits' },
+    serialize = { prefix = 'ser', body = '#[derive(Debug, Clone, Default, Serialize, Deserialize)]', desc = 'Derive common & serde traits' },
+    test_mod =  {
+                prefix = 'test',
+                body = '#[cfg(test)]\nmod tests{\n\tuse super::*;\n\n\t#[test]\n\tfn $0(){\n}\n}',
+                desc = 'Create boilerplate test mod'
+            },
+  },
+
+  -- Module mappings. Use `''` (empty string) to disable one.
+  mappings = {
+    -- Expand snippet at cursor position. Created globally in Insert mode.
+    expand = '<leader>j',
+
+    -- Interact with default `expand.insert` session.
+    -- Created for the duration of active session(s)
+    jump_next = 'l',
+    jump_prev = 'h',
+    stop = '<C-c>',
+  },
+}
+
 require("mini.icons").setup()
 MiniIcons.mock_nvim_web_devicons()
 -- require("mini.completion").setup {}

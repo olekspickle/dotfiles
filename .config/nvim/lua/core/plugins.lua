@@ -39,10 +39,10 @@ return require('lazy').setup({
         },
         -- Debugging
         -- Fully fledged debugger inside nvim
-        'mfussenegger/nvim-dap',
-        "rcarriga/nvim-dap-ui",
-        'theHamsta/nvim-dap-virtual-text',
-        'nvim-telescope/telescope-dap.nvim',
+        -- 'mfussenegger/nvim-dap',
+        -- "rcarriga/nvim-dap-ui",
+        -- 'theHamsta/nvim-dap-virtual-text',
+        -- 'nvim-telescope/telescope-dap.nvim',
 
         -- Find and replace with rg
         'MagicDuck/grug-far.nvim',
@@ -58,7 +58,7 @@ return require('lazy').setup({
             keys = {
                 {
                     mode = { 'v', 'n' },
-                    '<leader>m',
+                    '<leader>t',
                     '<cmd>MCstart<cr>',
                     desc = 'Create a selection for selected text or word under the cursor',
                 },
@@ -67,18 +67,16 @@ return require('lazy').setup({
 
         -- Collection of common configurations for the Nvim LSP client
         {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
-        'saadparwaiz1/cmp_luasnip',
-        'L3MON4D3/LuaSnip',
         'neovim/nvim-lspconfig',
-        'hrsh7th/nvim-cmp',
-        'hrsh7th/cmp-path',     -- get completions based on path
-        'hrsh7th/cmp-buffer',   -- get completiong based on buffer (works without LSP)
-        'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/cmp-nvim-lua',
-        'onsails/lspkind.nvim',
-        -- 'hrsh7th/cmp-nvim-lsp-signature-help',
-        -- 'hrsh7th/cmp-vsnip',
-        -- 'hrsh7th/vim-vsnip',
+        'onsails/lspkind.nvim', -- built in lsp pictograms
+        -- Completion
+        -- 'hrsh7th/nvim-cmp',
+        -- 'hrsh7th/cmp-path',     -- get completions based on path
+        -- 'hrsh7th/cmp-buffer',   -- get completiong based on buffer (works without LSP)
+        -- 'hrsh7th/cmp-nvim-lsp',
+        -- 'hrsh7th/cmp-nvim-lua',
+        -- 'saadparwaiz1/cmp_luasnip',
+        -- 'L3MON4D3/LuaSnip',
 
         -- Ollama with zephyr setup
         "David-Kunz/gen.nvim",
