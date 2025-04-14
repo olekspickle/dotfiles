@@ -19,7 +19,8 @@ sudo rsync -avzh "$HOME"/Documents /var/backups \
     --exclude "*/node_modules/*" \
     --max-size=5M
 
-sudo rsync -avzh "$HOME"/Downloads /var/backups --exclude "*elegram*" --exclude "*gdc*" --max-size=5M
+sudo rsync -avzh "$HOME"/Downloads /var/backups \
+    --exclude "*Orion*" --exclude "*elegram*" --exclude "*gdc*" --max-size=5M
 sudo rsync -avzh "$HOME"/Videos/obs /var/backups/Videos --max-size=5M
 sudo rsync -avzh "$HOME"/Pictures /var/backups --max-size=10M --exclude "*Camera*"
 sudo rsync -avzh "$HOME"/Sound /var/backups --max-size=5M --exclude "*samples*"
