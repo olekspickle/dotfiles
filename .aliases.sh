@@ -50,7 +50,7 @@ function mp4-to-mp3(){
 # to-ogg mp4
 function to-ogg(){
     ext=${1:-"wav"}
-    find . -name "*.$ext" -exec sh -c 'filename=${0%.*}; ffmpeg -i "$0" -acodec libvorbis "$filename.ogg"' {} \;
+    find . -name "*.$ext" -print0 -exec sh -c 'filename=${0%.*}; ffmpeg -i "$0" -acodec libvorbis "$filename.ogg"' {} \;
 }
 
 function to-slack-gif() {
@@ -196,73 +196,22 @@ function gifify() {
 #
 # ```
 function normalize() {
-    normalize_name="$1"
-    prefix=${2:-""}
+    local normalize_name="$1"
+    local prefix=${2:-""}
 
-    temp="$prefix$(echo "$normalize_name" | tr '[:upper:]' '[:lower:]' | \
+    local temp="$prefix$(echo "$normalize_name" | tr '[:upper:]' '[:lower:]' | \
         sed 's/ \[[^]]*\]//g' | \
         sed 's/[＂"]\|[＂"]//g' | \
         sed 's/\.-\| \./-/g' | \
         sed 's/\\//g' | \
         sed 's/ /-/g' | \
-        sed 's/---/-/g; s/--/-/g' | \
+        sed 's/,/-/g' | \
         sed 's/-–-/-/g' | \
         sed 's/--/-/g' | \
         sed 's/&/and/g' | \
         sed 's/,-/-/g')"
 
     echo "$temp"
-}
-
-# rename all files in directory
-function rename-all() {
-    old=${1:-""}
-    replace=${2:-""}
-    patt=${3:-"*"}
-
-    # first normalize all directories, without it the files inside aren't affected
-    find . -name "$patt" -type d -exec bash -c `
-    # normalize() {
-    #     normalize_name="$1"
-    #     temp="$(echo "$normalize_name" | tr "[:upper:]" "[:lower:]" | \
-    #         sed 's/ \[[^]]*\]//g' | \
-    #         sed 's/[＂\"]\|[＂\"]//g' | \
-    #         sed 's/\.-\| \./-/g' | \
-    #         sed 's/\\//g' | \
-    #         sed 's/ /-/g' | \
-    #         sed 's/---/-/g; s/--/-/g' | \
-    #         sed 's/-–-/-/g' | \
-    #         sed 's/--/-/g' | \
-    #         sed 's/_/-/g' | \
-    #         sed 's/&/and/g' | \
-    #         sed 's/,-/-/g')"
-    #
-    #     echo "$temp"
-    # }
-
-    new=$(normalize "$0")
-    mv -v "$0" "${new/$1/$2}" ` {} "$old" "$replace" \;
-
-    # then move all files
-    find . -name "$patt" -type f -exec bash -c '
-    normalize() {
-        normalize_name="$1"
-        temp="$(echo "$normalize_name" | tr "[:upper:]" "[:lower:]" | \
-            sed "s/ \[[^]]*\]//g" | \
-            sed "s/[＂\"]\|[＂\"]//g" | \
-            sed "s/\.-\| \./-/g" | \
-            sed "s/ /-/g" | \
-            sed "s/---/-/g; s/--/-/g" | \
-            sed "s/-–-/-/g" | \
-            sed "s/--/-/g" | \
-            sed "s/_/-/g" | \
-            sed "s/,-/-/g")"
-
-        echo "$temp"
-    }
-
-    new=$(normalize "$0")
-    mv -v "$0" "${new/$1/$2}" ' {} "$old" "$replace" \;
 }
 
 # prefix all, lowercase and remove anything that matches " \[[*]]*\]"
@@ -274,7 +223,7 @@ function prefix-all(){
     patt=${2:-"*"}
     echo "prefix $prefix"
 
-    find . -name "$patt" -type f -exec bash -c '
+    find . -name "$patt" -type f -print0 -exec bash -c '
     normalize() {
         prefix=${2:-""}
         normalize_name=$(basename "$1")
@@ -297,7 +246,7 @@ function prefix-all(){
     mv -v "$0" "$new"' {} "$prefix" \;
 
     # will create a lot of empty directories
-    find . -type d -empty -delete
+    find . -type d -print0 -empty -delete
 }
 
 #git-rename
