@@ -13,7 +13,8 @@ if [ -d "/squashfs-root" ]; then
 fi
 
 if [ ! -f "nvim.appimage" ]; then
-    curl -sLO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+    echo "Downloading nvim.appimage..."
+    curl -sL -o nvim.appimage https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
     chmod u+x nvim.appimage
 fi
 
@@ -25,5 +26,5 @@ sudo mv squashfs-root /
 sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
 
 # clean up
-rm ./nvim.appimage
+rm -f ./nvim.appimage
 
