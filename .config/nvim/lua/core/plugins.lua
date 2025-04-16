@@ -4,8 +4,8 @@ return require('lazy').setup({
         -- Awesome lightweight overall life improvement collection of plugins
         { 'echasnovski/mini.nvim', version = false },
         -- [[ Theme ]]
-        'nvim-lualine/lualine.nvim',            -- statusline
-        -- colorizer
+        'nvim-lualine/lualine.nvim',            -- statusline. TODO: configure mini.statusline
+        -- colorizer #000000
         'norcalli/nvim-colorizer.lua',
         -- actual themes
         { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
@@ -33,8 +33,9 @@ return require('lazy').setup({
         -- cool screenshot maker
         {'mistricky/codesnap.nvim', build = 'make'},
 
-        -- Rust support
-        { 'mrcjkb/rustaceanvim', version = '^4',
+        -- Rust LSP
+        { 'mrcjkb/rustaceanvim',
+            version = '^6',
             lazy = false, -- This plugin is already lazy
         },
         -- Debugging
@@ -66,13 +67,13 @@ return require('lazy').setup({
         },
 
         -- Collection of common configurations for the Nvim LSP client
-        {'VonHeikemen/lsp-zero.nvim', branch = 'v3.x'},
-        'neovim/nvim-lspconfig',
-        'onsails/lspkind.nvim', -- built in lsp pictograms
-        -- Completion
+        'neovim/nvim-lspconfig',    -- popular LSP configs
+        'onsails/lspkind.nvim',     -- pictograms for completion
+
+        -- Backup for snippets and completion in case mini.completions\snippets break
         -- 'hrsh7th/nvim-cmp',
-        -- 'hrsh7th/cmp-path',     -- get completions based on path
-        -- 'hrsh7th/cmp-buffer',   -- get completiong based on buffer (works without LSP)
+        -- 'hrsh7th/cmp-path',      -- get completions based on path
+        -- 'hrsh7th/cmp-buffer',    -- get completiong based on buffer (works without LSP)
         -- 'hrsh7th/cmp-nvim-lsp',
         -- 'hrsh7th/cmp-nvim-lua',
         -- 'saadparwaiz1/cmp_luasnip',

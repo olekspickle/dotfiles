@@ -10,36 +10,7 @@ require("mini.comment").setup {
 }
 require("mini.bracketed").setup {}
 require("mini.pairs").setup {}
-require("mini.snippets").setup {
--- No need to copy this inside `setup()`. Will be used automatically.
-  -- Array of snippets and loaders (see |MiniSnippets.config| for details).
-  -- Nothing is defined by default. Add manually to have snippets to match.
-  snippets = {
-    derive =    { prefix = 'der', body = '#[derive(Debug, Clone, Default)]', desc = 'Derive common traits' },
-    serialize = { prefix = 'ser', body = '#[derive(Debug, Clone, Default, Serialize, Deserialize)]', desc = 'Derive common & serde traits' },
-    test_mod =  {
-                prefix = 'test',
-                body = '#[cfg(test)]\nmod tests{\n\tuse super::*;\n\n\t#[test]\n\tfn $0(){\n}\n}',
-                desc = 'Create boilerplate test mod'
-            },
-  },
-
-  -- Module mappings. Use `''` (empty string) to disable one.
-  mappings = {
-    -- Expand snippet at cursor position. Created globally in Insert mode.
-    expand = '<leader>j',
-
-    -- Interact with default `expand.insert` session.
-    -- Created for the duration of active session(s)
-    jump_next = 'l',
-    jump_prev = 'h',
-    stop = '<C-c>',
-  },
-}
-
 require("mini.icons").setup()
-MiniIcons.mock_nvim_web_devicons()
--- require("mini.completion").setup {}
 -- require("mini.statusline").setup {}
 require("mini.files").setup {
     options = {
@@ -49,6 +20,32 @@ require("mini.files").setup {
 require("mini.sessions").setup {
     directory = vim.fn.stdpath "config" .. "/sessions",
 }
+require("mini.completion").setup {
+    delay = { completion = 50, info = 50, signature = 20 },
+}
+require("mini.snippets").setup {
+  snippets = {
+    { prefix = '#der', body = '#[derive(Debug, Clone, Default)]', desc = 'Derive common traits' },
+    { prefix = '#ser', body = '#[derive(Debug, Clone, Default, Serialize, Deserialize)]', desc = 'Derive common & serde traits' },
+    {
+        prefix = '#test',
+        body = '#[cfg(test)]\nmod tests{\n\tuse super::*;\n\n\t#[test]\n\tfn $0(){\n\t}\n}',
+        desc = 'Create boilerplate test mod'
+    },
+  },
+
+  mappings = {
+    -- Expand snippet at cursor position. Created globally in Insert mode.
+    expand = '<C-i>',
+
+    -- Interact with default `expand.insert` session.
+    -- Created for the duration of active session(s)
+    jump_next = 'l',
+    jump_prev = 'h',
+    stop = '<C-c>',
+  },
+}
+
 local minimap = require("mini.map")
 minimap.setup {
     symbols = {
@@ -141,12 +138,9 @@ miniclue.setup({
 
 -- Mini plugins key mappings
 -- mini.map
-vim.keymap.set('n', '<Leader>mc', minimap.close, {desc = "map close"})
-vim.keymap.set('n', '<Leader>mo', minimap.open, {desc = "map close"})
-vim.keymap.set('n', '<Leader>ms', minimap.toggle_side, {desc = "map toggle side"})
-vim.keymap.set('n', '<Leader>mt', minimap.toggle, {desc = "map toggle"})
+vim.keymap.set('n', '<Leader>m', minimap.toggle, {desc = "map toggle"})
 -- mini.files
 vim.keymap.set('n', '<leader>b', MiniFiles.open, {desc = "open file tree"})
 -- mini.cpmpletion
--- vim.keymap.set('i', '<Tab>',   [[pumvisible() ? "\<C-n>" : "\<Tab>"]],   { noremap = true, expr = true })
--- vim.keymap.set('i', '<S-Tab>', [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { noremap = true, expr = true })
+vim.keymap.set('i', '<Tab>',   [[pumvisible() ? "\<C-n>" : "\<Tab>"]],   { noremap = true, expr = true })
+vim.keymap.set('i', '<S-Tab>', [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { noremap = true, expr = true })
