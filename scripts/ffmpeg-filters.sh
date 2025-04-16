@@ -54,5 +54,8 @@ ffmpeg -hide_banner -i in.mp4 -vcodec libx265 -crf 28 out.mp4
 # Cropping a video file in ffmpeg: number of pixels to offset from sides
 ffmpeg -hide_banner -i in.avi -croptop 88 -cropbottom 88 -cropleft 360 -cropright 360 out.avi
 
+# Cutting video with re-encode to have keyframes in sync(incredibly slow for big videos due to re-encode)
+ffmpeg -ss 00:00:05 -i in.mp4 -t 00:00:18 -avoid_negative_ts make_zero -c:v libx264 -c:a aac out.mp4
+
 # Convert mkv to SVCD/DivX
 ffmpeg -hide_banner -i in.mkv -target vcd out.avi

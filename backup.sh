@@ -20,7 +20,7 @@ sudo rsync -avzh "$HOME"/Documents /var/backups \
     --max-size=5M
 
 sudo rsync -avzh "$HOME"/Downloads /var/backups \
-    --exclude "*Orion*" --exclude "*elegram*" --exclude "*gdc*" --max-size=5M
+    --exclude "*Orion*" --exclude "*elegram*" --max-size=5M
 sudo rsync -avzh "$HOME"/Videos/obs /var/backups/Videos --max-size=5M
 sudo rsync -avzh "$HOME"/Pictures /var/backups --max-size=10M --exclude "*Camera*"
 sudo rsync -avzh "$HOME"/Sound /var/backups --max-size=5M --exclude "*samples*"
@@ -33,7 +33,7 @@ rsync -avzh "$HOME"/.gitconfig "$HOME"/Documents/dotfiles
 ./$HOME/Documents/dotfiles/setup/nvim.sh --sync
 rsync -avzh "$HOME"/.config/alacritty "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/starship.toml "$HOME"/Documents/dotfiles/.config
-rsync -avzh "$HOME"/.config/zellij "$HOME"/Documents/dotfiles/.config --exclude "beasts*" --exclude "*plugins*"
+rsync -avzh "$HOME"/.config/zellij "$HOME"/Documents/dotfiles/.config --exclude "*plugins*"
 rsync -avzh "$HOME"/.config/atuin "$HOME"/Documents/dotfiles/.config --exclude ".*"
 
 # KDE
