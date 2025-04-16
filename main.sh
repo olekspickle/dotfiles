@@ -10,7 +10,7 @@ echo "Installing basic tools..."
 sudo apt install pkg-config build-essential curl llvm cmake lld coreutils xclip \
     libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev \
     libpcap-dev libasound2-dev libgtk-3-dev \
-    fonts-firacode fonts-powerline nmap\
+    fonts-firacode fonts-powerline nmap yamllint\
     -y
 
 # utils for setup

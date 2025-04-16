@@ -50,7 +50,7 @@ function mp4-to-mp3(){
 # to-ogg mp4
 function to-ogg(){
     ext=${1:-"wav"}
-    find . -name "*.$ext" -print0 -exec sh -c 'filename=${0%.*}; ffmpeg -i "$0" -acodec libvorbis "$filename.ogg"' {} \;
+    find . -name "*.$ext" -print0 -exec sh -c 'filename=${0%.*}; ffmpeg -y -i "$0" -ac 2 -acodec libvorbis "$filename.ogg"' {} \;
 }
 
 function to-slack-gif() {
@@ -164,7 +164,8 @@ function gifify() {
     fi
 
     # create directory with png frames with random 4 alphanumeric char suffix
-    tmpd="gifski-in-$(tr -dc 'a-zA-Z0-9' </dev/urandom | head -c 4)"
+    current=$(pwd)
+    tmpd=$(mktemp -d)
     mkdir -p "$tmpd" && cd $_
 
     echo "saving png frames with base: $base"
@@ -176,9 +177,9 @@ function gifify() {
         -loop "$loop" "${base}-frame%04d.png"
 
     echo "saving final $output and cleaning up"
-    gifski -o "../$output" $base-frame*png
+    gifski -o "../$output" "$base-frame*png"
 
-    cd .. && rm -rf $tmpdir
+    cd "$current"
     set +e
 }
 
