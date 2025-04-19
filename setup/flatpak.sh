@@ -29,11 +29,14 @@ sudo snap remove --purge firefox
 # librewolf
 flatpak install -y flathub io.gitlab.librewolf-community
 
+# vpn
+flatpak install -y flathub com.surfshark.Surfshark
+
 # libre office
 flatpak install -y flathub org.libreoffice.LibreOffice
 
 # screenshots
-flatpak install -y flathub org.flameshot.Flameshot
+#flatpak install -y flathub org.flameshot.Flameshot
 
 # airshipper
 flatpak install -y flathub net.veloren.airshipper
