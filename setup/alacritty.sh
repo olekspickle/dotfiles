@@ -1,9 +1,10 @@
 #!/bin/bash
 
-#set -e
+set -e
 
-git clone https://github.com/alacritty/alacritty
-
+if [[ ! -d "alacritty" ]]; then
+    git clone https://github.com/alacritty/alacritty
+fi
 cd alacritty
 
 sudo apt install cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3 -y
@@ -36,11 +37,6 @@ cp extra/completions/_alacritty ${ZDOTDIR:-~}/.zsh_functions/_alacritty
 
 cd ..
 
-mkdir ~/.config/alacritty
-
-# copy config file
-cp alacritty.yml ~/.config/alacritty/alacritty.yml
-
 rm -rf alacritty
 
-echo "Done! Alacritty is your terminal emulator now. It's good to have you back! A."
+echo "Done! Alacritty is your terminal emulator now. It's good to have you back! O."

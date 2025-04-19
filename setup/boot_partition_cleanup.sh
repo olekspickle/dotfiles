@@ -19,6 +19,7 @@ i="linux-headers-virtual|linux-image-virtual|linux-headers-generic-hwe-|linux-im
 echo "$i"
 
 echo "To be deleted:"
-dpkg --list | egrep -i 'linux-image|linux-headers' | awk '/ii/{ print $2}' | egrep -v "$i"
+list=$(dpkg --list | egrep -i 'linux-image|linux-headers' | awk '/ii/{ print $2}' | egrep -v "$i")
+echo "$list"
 
-apt --purge remove $(dpkg --list | egrep -i 'linux-image|linux-headers' | awk '/ii/{ print $2}' | egrep -v "$i")
+apt --purge remove "$list"
