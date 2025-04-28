@@ -136,22 +136,21 @@ ForegroundPositive=39,174,96
 ForegroundVisited=155,89,182
 
 [DirSelect Dialog]
-DirSelectDialog Size=1126,749
-History Items[$e]=file:///var/backups/Videos,file:///var/backups/Sound,file:///var/backups/Pictures,file:///var/backups/Games,file:///var/backups/Downloads,file:///var/backups/Documents,file:$HOME/Games/steam,file:$HOME/Games,file:$HOME/Videos/steam,file:$HOME/Videos/obs
+DirSelectDialog Size=917,610
+History Items[$e]=file:$HOME/Games,file:$HOME/Games,file:///var/backups/Videos,file:///var/backups/Sound,file:///var/backups/Pictures,file:///var/backups/Games,file:///var/backups/Downloads,file:///var/backups/Documents,file:$HOME/Games/steam,file:$HOME/Games,file:$HOME/Videos/steam,file:$HOME/Videos/obs
 
 [General]
 BrowserApplication=org.mozilla.firefox.desktop
 ColorSchemeHash=f048f05c52a43569ba37092018fd22dc32092e83
 TerminalApplication=alacritty
 TerminalService=Alacritty.desktop
-XftAntialias=true
-XftHintStyle=hintfull
+XftHintStyle=hintslight
 XftSubPixel=rgb
-fixed=JetBrains Mono,12,-1,5,50,0,0,0,0,0
-font=Noto Sans,12,-1,5,50,0,0,0,0,0
-menuFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0
-smallestReadableFont=JetBrains Mono,10,-1,5,50,0,0,0,0,0
-toolBarFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0
+fixed=JetBrains Mono,16,-1,5,50,0,0,0,0,0
+font=Noto Sans,16,-1,5,50,0,0,0,0,0
+menuFont=JetBrains Mono,16,-1,5,50,0,0,0,0,0
+smallestReadableFont=JetBrains Mono,14,-1,5,50,0,0,0,0,0
+toolBarFont=JetBrains Mono,16,-1,5,50,0,0,0,0,0
 
 [Icons]
 Theme=breeze-dark
@@ -184,10 +183,13 @@ View Style=Simple
 [KShortcutsDialog Settings]
 Dialog Size=600,480
 
+[SmallIcons]
+Size=22
+
 [WM]
 activeBackground=49,54,59
 activeBlend=252,252,252
-activeFont=JetBrains Mono Medium,12,-1,5,57,0,0,0,0,0,Regular
+activeFont=JetBrains Mono Medium,16,-1,5,57,0,0,0,0,0,Regular
 activeForeground=252,252,252
 inactiveBackground=42,46,50
 inactiveBlend=161,169,177

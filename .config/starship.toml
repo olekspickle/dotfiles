@@ -7,9 +7,9 @@
 # [└─>](bold green) """
 
 [character]
-# Replace the ❯ symbol in the prompt with ➜ in success and ✖ in error
+# Replace the ❯ symbol in the prompt with ➜ in success and x in error
 success_symbol = "[➜](bold green)"
-error_symbol = "[✖](bold red)"
+error_symbol = "[X](bold red)"
 
 # Disable the package module, hiding it from the prompt completely
 [package]
