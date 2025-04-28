@@ -45,6 +45,7 @@ require("mini.snippets").setup {
     stop = '<C-c>',
   },
 }
+MiniSnippets.start_lsp_server()
 
 local minimap = require("mini.map")
 minimap.setup {

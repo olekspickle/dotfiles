@@ -43,7 +43,7 @@ foreground = "0xeeeeee"
 
 [font]
 # wayland
-size = 17.2
+size = 20
 # X11
 #size = 11.5
 
