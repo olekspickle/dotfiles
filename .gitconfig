@@ -7,13 +7,10 @@
 [core]
 	editor = nvim
 [maintenance]
-	repo = /home/pickle/Documents/rust/bevy_3pv_shooter
-	repo = /home/pickle/Documents/rust/axum-template
+    repo = /home/pickle/Documents/rust/generative-sketches
 	repo = /home/pickle/Documents/rust/actix-template
+    repo = /home/pickle/Documents/rust/axum-template
 	repo = /home/pickle/Games/sword_for_hire
-	repo = /home/pickle/Games/dirty-art-gambling
-	repo = /home/pickle/Games/eat-o-perish
-	repo = /home/pickle/Documents/rust/generative-sketches
 	repo = /home/pickle/Games/bevy_new_3d
 [alias]
 	bb = !/home/pickle/Documents/dotfiles/scripts/git-better-branch.sh
@@ -27,3 +24,5 @@
 	format = ssh
 [credential]
 	helper = store
+[pull]
+    rebase = true

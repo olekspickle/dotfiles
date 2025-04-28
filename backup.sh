@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# HOME=${HOME:-/home/pickle}
+
 # clear previous buckups
 sudo rm -rf /var/backups/Documents
 sudo rm -rf /var/backups/Downloads
@@ -36,7 +38,6 @@ rsync -avzh "$HOME"/.ssh/config "$HOME"/Documents/dotfiles/.ssh
 rsync -avzh "$HOME"/.config/alacritty "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/starship.toml "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/zellij "$HOME"/Documents/dotfiles/.config
->>>>>>> 278f21b (add clipboard for wayland installation; cleanup redundant stuff; migrate alacritty)
 rsync -avzh "$HOME"/.config/atuin "$HOME"/Documents/dotfiles/.config --exclude ".*"
 
 # KDE
