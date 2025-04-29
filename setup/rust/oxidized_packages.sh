@@ -15,7 +15,6 @@ cargo binstall -y ripgrep flamegraph zellij \
 # enable perf to be used by unprivileged for flamegraph
 # echo -1 | sudo tee /proc/sys/kernel/perf_event_paranoid
 
-rustup toolchain install nightly --component miri
 
 # shell history with sqlite
 bash <(curl https://raw.githubusercontent.com/atuinsh/atuin/main/install.sh)
