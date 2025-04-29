@@ -270,6 +270,7 @@ function strip-logs() {
 }
 
 # global stuff
+alias firefox="flatpak run --branch=stable --arch=x86_64 --command=firefox --file-forwarding org.mozilla.firefox"
 alias restart-pipewire='systemctl --user restart pipewire.socket pipewire-pulse.socket wireplumber.service'
 alias update-all='sh ~/Documents/dotfiles/update.sh'
 # Clean log from colors
@@ -301,6 +302,7 @@ alias python='python3'
 # cp-remote root@192.168.0.1 ~/remote/path local/path
 alias cp-remote="rsync -avzh --progress -e 'ssh -i ~/.ssh/id_ed25519'  $1 $2"
 
+alias gbb="git bb"
 alias gb="git branch"
 alias gc="git checkout"
 alias ga="git add"
