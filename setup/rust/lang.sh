@@ -12,7 +12,14 @@ source "/home/pickle/Documents/dotfiles/setup/rust/ld.mold.sh"
 # wasm-pack for WebAssembly compilation
 curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh -s -- -y
 
-# rust analyzer
-rustup component add rust-analyzer
-# install wasm target
+# stable
+rustup component add miri rust-analyzer
 rustup target add wasm32-unknown-unknown
+
+# nightly + cranelift
+rustup toolchain install nightly --component miri
+rustup default nightly
+rustup target add wasm32-unknown-unknown
+rustup component add miri rust-analyzer rustc-codegen-cranelift-preview --toolchain nightly
+
+rsync -avzh "$HOME/Documents/dotfiles/.cargo" "$HOME"
