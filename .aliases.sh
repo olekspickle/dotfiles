@@ -50,7 +50,7 @@ function mp4-to-mp3(){
 # to-ogg mp4
 function to-ogg(){
     ext=${1:-"wav"}
-    find . -name "*.$ext" -print0 -exec sh -c 'filename=${0%.*}; ffmpeg -y -i "$0" -ac 2 -acodec libvorbis "$filename.ogg"' {} \;
+    find . -name "*.$ext" -print0 -exec sh -c 'filename=${0%.*}; ffmpeg -y -i "$0" -vn -ac 2 -c:a libvorbis "$filename.ogg"' {} \;
 }
 
 function to-slack-gif() {
