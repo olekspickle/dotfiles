@@ -1,5 +1,6 @@
 [ActivityManager]
 _k_friendly_name=Activity Manager
+switch-to-activity-18f4fa55-dcdb-4252-bdcd-edde60dd653f=none,none,Switch to activity "Default"
 switch-to-activity-5b22e04d-203d-4c5c-b8e1-07f8bf9d757c=none,none,Switch to activity "Default"
 
 [Alacritty.desktop]
@@ -212,11 +213,11 @@ view_zoom_out=Meta+-,Meta+-,Zoom Out
 
 [mediacontrol]
 _k_friendly_name=Media Controller
-mediavolumedown=none,none,Media volume down
-mediavolumeup=none,none,Media volume up
+mediavolumedown=none,,Media volume down
+mediavolumeup=none,,Media volume up
 nextmedia=Media Next,Media Next,Media playback next
 pausemedia=Media Pause,Media Pause,Pause media playback
-playmedia=none,none,Play media playback
+playmedia=none,,Play media playback
 playpausemedia=Media Play,Media Play,Play/Pause media playback
 previousmedia=Media Previous,Media Previous,Media playback previous
 stopmedia=Media Stop,Media Stop,Stop media playback
@@ -245,14 +246,14 @@ _k_friendly_name=Emoji Selector
 _launch=Meta+.,Meta+.,Emoji Selector
 
 [org.kde.spectacle.desktop]
-ActiveWindowScreenShot=Meta+Print,Meta+Print,Capture Active Window
+ActiveWindowScreenShot=,Meta+Print,Capture Active Window
 CurrentMonitorScreenShot=none,none,Capture Current Monitor
-FullScreenScreenShot=Shift+Print,Shift+Print,Capture Entire Desktop
+FullScreenScreenShot=,Shift+Print,Capture Entire Desktop
 OpenWithoutScreenshot=none,none,Launch Spectacle without capturing
-RectangularRegionScreenShot=Meta+Shift+Print,Meta+Shift+Print,Capture Rectangular Region
+RectangularRegionScreenShot=Meta+Print,Meta+Shift+Print,Capture Rectangular Region
 WindowUnderCursorScreenShot=Meta+Ctrl+Print,Meta+Ctrl+Print,Capture Window Under Cursor
 _k_friendly_name=Spectacle
-_launch=Print,Print,Launch Spectacle
+_launch=none,Print,Launch Spectacle
 
 [org_kde_powerdevil]
 Decrease Keyboard Brightness=Keyboard Brightness Down,Keyboard Brightness Down,Decrease Keyboard Brightness
@@ -279,7 +280,6 @@ activate task manager entry 6=Meta+6,Meta+6,Activate Task Manager Entry 6
 activate task manager entry 7=Meta+7,Meta+7,Activate Task Manager Entry 7
 activate task manager entry 8=Meta+8,Meta+8,Activate Task Manager Entry 8
 activate task manager entry 9=Meta+9,Meta+9,Activate Task Manager Entry 9
-activate widget 3=Alt+F1,none,Activate Application Launcher Widget
 clear-history=none,,Clear Clipboard History
 clipboard_action=Meta+Ctrl+X,Meta+Ctrl+X,Automatic Action Popup Menu
 cycle-panels=Meta+Alt+P,Meta+Alt+P,Move keyboard focus between panels
@@ -297,6 +297,10 @@ stop current activity=Meta+S,Meta+S,Stop Current Activity
 switch to next activity=none,,Switch to Next Activity
 switch to previous activity=none,,Switch to Previous Activity
 toggle do not disturb=none,,Toggle do not disturb
+
+[rofi.desktop]
+_k_friendly_name=Rofi
+_launch=Meta+R,none,Rofi
 
 [systemsettings.desktop]
 _k_friendly_name=System Settings

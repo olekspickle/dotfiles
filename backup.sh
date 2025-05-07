@@ -35,6 +35,7 @@ rsync -avzh "$HOME"/.aws "$HOME"/Documents/dotfiles
 rsync -avzh "$HOME"/.aliases.sh "$HOME"/Documents/dotfiles
 rsync -avzh "$HOME"/.gitconfig "$HOME"/Documents/dotfiles
 rsync -avzh "$HOME"/.ssh/config "$HOME"/Documents/dotfiles/.ssh
+rsync -avzh "$HOME"/.config/htop "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/alacritty "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/starship.toml "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/zellij "$HOME"/Documents/dotfiles/.config
@@ -45,7 +46,11 @@ rsync -avzh "$HOME"/.config/kdeglobals "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/plasmarc "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/plasma-workspace/env "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/kwinrc "$HOME"/Documents/dotfiles/.config
+rsync -avzh "$HOME"/.config/kwinrulesrc "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/krunnerrc "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/kscreenlockerrc "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/khotkeysrc "$HOME"/Documents/dotfiles/.config
+rsync -avzh "$HOME"/.config/kglobalshortcutsrc "$HOME"/Documents/dotfiles/.config
+rsync -avzh "$HOME"/.config/ksplashrc "$HOME"/Documents/dotfiles/.config
+rsync -avzh "$HOME"/.config/dolphinrc "$HOME"/Documents/dotfiles/.config
 

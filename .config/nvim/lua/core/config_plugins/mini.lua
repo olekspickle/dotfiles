@@ -17,9 +17,9 @@ require("mini.files").setup {
         use_as_default_explorer = false,
     },
 }
-require("mini.sessions").setup {
-    directory = vim.fn.stdpath "config" .. "/sessions",
-}
+-- require("mini.sessions").setup {
+--     directory = vim.fn.stdpath "config" .. "/sessions",
+-- }
 require("mini.completion").setup {
     delay = { completion = 50, info = 50, signature = 20 },
 }
