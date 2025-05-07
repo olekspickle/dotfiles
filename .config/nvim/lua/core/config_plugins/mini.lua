@@ -40,8 +40,8 @@ require("mini.snippets").setup {
 
     -- Interact with default `expand.insert` session.
     -- Created for the duration of active session(s)
-    jump_next = 'l',
-    jump_prev = 'h',
+    jump_next = 'L',
+    jump_prev = 'H',
     stop = '<C-c>',
   },
 }
