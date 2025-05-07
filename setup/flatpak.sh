@@ -26,17 +26,14 @@ esac
 snap disable firefox
 sudo snap remove --purge firefox
 
-# librewolf
-flatpak install -y flathub io.gitlab.librewolf-community
+# browser
+flatpak install -y flathub org.mozilla.firefox
 
 # vpn
 flatpak install -y flathub com.surfshark.Surfshark
 
 # libre office
 flatpak install -y flathub org.libreoffice.LibreOffice
-
-# screenshots
-#flatpak install -y flathub org.flameshot.Flameshot
 
 # airshipper
 flatpak install -y flathub net.veloren.airshipper
@@ -56,9 +53,6 @@ flatpak install -y flathub com.valvesoftware.Steam
 # pixelart editor
 flatpak install -y flathub com.orama_interactive.Pixelorama
 
-# Godot engine
-flatpak install -y flathub org.godotengine.Godot
-
 # Blender
 flatpak install -y flathub org.blender.Blender
 
@@ -70,6 +64,16 @@ flatpak install -y flathub studio.kx.carla
 
 # recording
 flatpak install -y flathub org.audacityteam.Audacity
+
+# KDE photodshop
+flatpak install flathub org.kde.krita
+
+# screenshots if spectacle not available
+#flatpak install -y flathub org.flameshot.Flameshot
+
+# Godot engine
+# flatpak install -y flathub org.godotengine.Godot
+
 # DAW
 # flatpak install -y flathub com.bitwig.BitwigStudio
 
