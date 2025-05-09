@@ -38,7 +38,8 @@ layout {
         }
     }
 
-    tab name="ꆛconfig" cwd="~/Documents/dotfiles" {
-        pane
+    tab name="ꆛconfig"  split_direction="vertical" {
+        pane cwd="~/Documents/dotfiles"
+        pane cwd="~/.config/nvim"
     }
 }

@@ -53,4 +53,5 @@ rsync -avzh "$HOME"/.config/khotkeysrc "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/kglobalshortcutsrc "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/ksplashrc "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/dolphinrc "$HOME"/Documents/dotfiles/.config
+rsync -avzh "$HOME"/.config/powermanagementprofilesrc "$HOME"/Documents/dotfiles/.config
 

@@ -59,6 +59,7 @@ vim.diagnostic.config({
     }
 })
 vim.lsp.enable({'rust-analyzer'})
+-- vim.lsp.enable({'rust-analyzer', 'yaml', 'lua'})
 
 -- neat icons on LSP completion
 local lspkind = require('lspkind')
@@ -95,56 +96,3 @@ lspkind.init({
         TypeParameter = "",
     },
 })
-
--- local cmp = require('cmp')
--- local cmp_action = zero.cmp_action()
--- local cmp_format = zero.cmp_format()
--- local select_opts = {behavior = cmp.SelectBehavior.Select}
--- cmp.setup({
---     window = {
---         completion = cmp.config.window.bordered(),
---         documentation = cmp.config.window.bordered(),
---     },
---     preselect = 'none',
---     completion = {
---         completeopt = 'menu,menuone,noinsert'
---     },
---     sources = {
---         { name = 'nvim_lsp' },
---         { name = 'nvim_lua' },
---         { name = 'buffer' },
---         { name = 'path' },
---     },
---     mapping = {
---         ['<Tab>'] = cmp_action.luasnip_supertab(),
---         ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
---         ['<CR>'] = cmp.mapping.confirm({select = true}),
---     },
---     formatting = cmp_format,
---     snippet = {
---         expand =  function(args)
---             require('luasnip').lsp_expand(args.body)
---         end
---     }
--- })
---
--- local ls = require('luasnip')
--- require("luasnip.loaders.from_vscode").lazy_load()
--- ls.config.set_config({
---     history = true,
---     updateevents = "TextChanged,TextChangedI",
--- })
---
--- -- load all snippet files
--- for _,ft_path in ipairs(vim.api.nvim_get_runtime_file("lua/core/snippets/*.lua", true)) do
---     loadfile(ft_path)()
--- end
---
--- -- hik Ctrl+k to jump around snippet nodes
--- vim.keymap.set({"i", "s"}, "<c-k>", function()
---     if ls.expand_or_jumpable() then
---         ls.expand_or_jump()
---     end
--- end,
---     {silent = true})
---

@@ -246,9 +246,9 @@ _k_friendly_name=Emoji Selector
 _launch=Meta+.,Meta+.,Emoji Selector
 
 [org.kde.spectacle.desktop]
-ActiveWindowScreenShot=,Meta+Print,Capture Active Window
+ActiveWindowScreenShot=none,Meta+Print,Capture Active Window
 CurrentMonitorScreenShot=none,none,Capture Current Monitor
-FullScreenScreenShot=,Shift+Print,Capture Entire Desktop
+FullScreenScreenShot=none,Shift+Print,Capture Entire Desktop
 OpenWithoutScreenshot=none,none,Launch Spectacle without capturing
 RectangularRegionScreenShot=Meta+Print,Meta+Shift+Print,Capture Rectangular Region
 WindowUnderCursorScreenShot=Meta+Ctrl+Print,Meta+Ctrl+Print,Capture Window Under Cursor
@@ -300,7 +300,7 @@ toggle do not disturb=none,,Toggle do not disturb
 
 [rofi.desktop]
 _k_friendly_name=Rofi
-_launch=Meta+R,none,Rofi
+_launch=none,none,Rofi
 
 [systemsettings.desktop]
 _k_friendly_name=System Settings
