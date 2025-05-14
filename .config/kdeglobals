@@ -135,6 +135,9 @@ ForegroundNormal=252,252,252
 ForegroundPositive=39,174,96
 ForegroundVisited=155,89,182
 
+[DialogIcons]
+Size=22
+
 [DirSelect Dialog]
 DirSelectDialog Size=1462,966
 History Items[$e]=file:$HOME/Videos/obs,file:$HOME/Games,file:$HOME/Games,file:///var/backups/Videos,file:///var/backups/Sound,file:///var/backups/Pictures,file:///var/backups/Games,file:///var/backups/Downloads,file:///var/backups/Documents,file:$HOME/Games/steam,file:$HOME/Games,file:$HOME/Videos/steam,file:$HOME/Videos/obs
@@ -146,11 +149,11 @@ TerminalApplication=alacritty
 TerminalService=Alacritty.desktop
 XftHintStyle=hintslight
 XftSubPixel=rgb
-fixed=JetBrains Mono,16,-1,5,50,0,0,0,0,0
-font=Noto Sans,16,-1,5,50,0,0,0,0,0
-menuFont=JetBrains Mono,16,-1,5,50,0,0,0,0,0
-smallestReadableFont=JetBrains Mono,14,-1,5,50,0,0,0,0,0
-toolBarFont=JetBrains Mono,16,-1,5,50,0,0,0,0,0
+fixed=JetBrains Mono,13,-1,5,50,0,0,0,0,0
+font=Noto Sans,13,-1,5,50,0,0,0,0,0
+menuFont=JetBrains Mono,12,-1,5,50,0,0,0,0,0
+smallestReadableFont=JetBrains Mono,11,-1,5,50,0,0,0,0,0
+toolBarFont=JetBrains Mono,13,-1,5,50,0,0,0,0,0
 
 [Icons]
 Theme=breeze-dark
@@ -180,16 +183,16 @@ Sort reversed=false
 Speedbar Width=150
 View Style=Simple
 
+[KScreen]
+ScreenScaleFactors=eDP-2=1;
+
 [KShortcutsDialog Settings]
 Dialog Size=600,480
-
-[SmallIcons]
-Size=22
 
 [WM]
 activeBackground=49,54,59
 activeBlend=252,252,252
-activeFont=JetBrains Mono Medium,16,-1,5,57,0,0,0,0,0,Regular
+activeFont=JetBrains Mono Medium,14,-1,5,57,0,0,0,0,0,Regular
 activeForeground=252,252,252
 inactiveBackground=42,46,50
 inactiveBlend=161,169,177

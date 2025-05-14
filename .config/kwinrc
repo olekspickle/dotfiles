@@ -29,7 +29,7 @@ LayoutMode=1
 Active=true
 LatitudeAuto=52.5284
 LongitudeAuto=13.4742
-NightTemperature=4300
+NightTemperature=5000
 
 [Plugins]
 diminactiveEnabled=true
