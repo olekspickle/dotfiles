@@ -280,6 +280,7 @@ alias sudo='sudo '
 # oxidize
 alias cat='bat'
 alias fd='fdfind'
+alias "carg orun"='cargo run'
 
 alias adbsync='~/.venv/bin/adbsync'
 alias yt='yt-dlp -x --audio-format mp3'

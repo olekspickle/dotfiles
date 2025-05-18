@@ -1,6 +1,6 @@
 local config = require('nvim-treesitter.configs')
 config.setup({
-    ensure_installed = { "rust", "ron", "toml", "dockerfile", "lua", "bash", "javascript", "python", "go", "c", "vim", "vimdoc" },
+    ensure_installed = { "rust", "ron", "toml", "dockerfile", "lua", "bash", "javascript", "python", "go", "c", "vim", "vimdoc", "regex" },
     -- Automatically install missing parsers when entering buffer
     sync_install = false,
     auto_install = true,

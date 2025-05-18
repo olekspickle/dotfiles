@@ -1,10 +1,28 @@
 -- [[ lazy.lua ]]
 return require('lazy').setup({
     {
+        -- brutal vim motions enforcer
+        {
+            "m4xshen/hardtime.nvim",
+            lazy = false,
+            dependencies = { "MunifTanjim/nui.nvim" },
+            opts = {},
+        },
+        {
+            "folke/noice.nvim",
+            event = "VeryLazy",
+            opts = {
+                -- add any options here
+            },
+            dependencies = {
+                "MunifTanjim/nui.nvim",
+            }
+        },
         -- Awesome lightweight overall life improvement collection of plugins
         { 'echasnovski/mini.nvim', version = false },
         -- [[ Theme ]]
-        'nvim-lualine/lualine.nvim',            -- statusline. TODO: configure mini.statusline
+        -- statusline. TODO: configure mini.statusline
+        'nvim-lualine/lualine.nvim',
         -- colorizer #000000
         'norcalli/nvim-colorizer.lua',
         -- actual themes
@@ -81,6 +99,13 @@ return require('lazy').setup({
 
         -- Ollama with zephyr setup
         "David-Kunz/gen.nvim",
+
+
+        -- uncomment reload and run :Bloat. It will produce file in /home/$USER that you can upload to https://esbuild.github.io/analyze/
+        -- {
+        --     "dundalek/bloat.nvim",
+        --     cmd = "Bloat",
+        -- },
     }
 })
 

@@ -11,11 +11,11 @@ layout {
         pane
     }
 
-    tab name="♆ rusting" cwd="~/Games/bevy_new_3d"  {
+    tab name="♆ rusting" cwd="~/Documents/rust"  {
         pane
     }
 
-    tab name="☍ dev" cwd="~/Games" focus=true {
+    tab name="☍ dev" cwd="~/Games/bevy-third-person" focus=true {
         pane
     }
 
