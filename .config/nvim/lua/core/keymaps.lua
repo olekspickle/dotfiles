@@ -122,6 +122,9 @@ map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
 map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
 map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
+
+-- clear all notify windows on Esc
+map('',  '<Esc>', "<ESC>:noh<CR>", {silent = true})
 --  Mode letters:
 --    n: normal only
 --    v: visual and select

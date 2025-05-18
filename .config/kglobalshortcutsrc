@@ -246,7 +246,7 @@ _k_friendly_name=Emoji Selector
 _launch=Meta+.,Meta+.,Emoji Selector
 
 [org.kde.spectacle.desktop]
-ActiveWindowScreenShot=none,Meta+Print,Capture Active Window
+ActiveWindowScreenShot=Ctrl+Shift+Print,Meta+Print,Capture Active Window
 CurrentMonitorScreenShot=none,none,Capture Current Monitor
 FullScreenScreenShot=none,Shift+Print,Capture Entire Desktop
 OpenWithoutScreenshot=none,none,Launch Spectacle without capturing

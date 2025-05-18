@@ -2,7 +2,17 @@ require("mini.starter").setup {}
 require("mini.tabline").setup {}
 require("mini.indentscope").setup {}
 require("mini.trailspace").setup {}
-require("mini.notify").setup {}
+require("mini.notify").setup {
+  -- Notifications about LSP progress
+  lsp_progress = {
+    enable = false,
+    duration_last = 500,
+  },
+  window = {
+    max_width_share = 0.4,
+    -- winblend = 25,
+  },
+}
 require("mini.comment").setup {
   mappings = {
         comment_line = '<C-_>',
