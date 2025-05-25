@@ -46,6 +46,7 @@ rsync -avzh "$HOME"/.config/kdeglobals "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/plasmarc "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/plasma-workspace/env "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/kwinrc "$HOME"/Documents/dotfiles/.config
+rsync -avzh "$HOME"/.config/kxkbrc "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/kwinrulesrc "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/krunnerrc "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/kscreenlockerrc "$HOME"/Documents/dotfiles/.config
