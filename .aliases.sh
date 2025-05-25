@@ -282,6 +282,7 @@ alias cat='bat'
 alias fd='fdfind'
 alias "carg orun"='cargo run'
 
+alias virtualenv="uv venv"
 alias adbsync='~/.venv/bin/adbsync'
 alias yt='yt-dlp -x --audio-format mp3'
 alias rabbit-inspect='rabbitmqctl list_queues | grep -v -e "0"'

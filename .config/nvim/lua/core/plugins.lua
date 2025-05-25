@@ -6,7 +6,13 @@ return require('lazy').setup({
             "m4xshen/hardtime.nvim",
             lazy = false,
             dependencies = { "MunifTanjim/nui.nvim" },
-            opts = {},
+            opts = {
+                disabled_keys = {
+                    -- disable up/down for touchpad scrolling
+                    ["<Up>"] = false,
+                    ["<Down>"] = false,
+                },
+            },
         },
         {
             "folke/noice.nvim",

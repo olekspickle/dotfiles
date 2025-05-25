@@ -87,6 +87,7 @@ Bottom=ActivityManager
 
 [Wayland]
 InputMethod[$e]=/usr/share/applications/fcitx5-wayland-launcher.desktop
+VirtualKeyboardEnabled=true
 
 [Xwayland]
 Scale=1
