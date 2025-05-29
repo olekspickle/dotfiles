@@ -9,6 +9,7 @@ _k_friendly_name=Alacritty
 _launch=none,none,Alacritty
 
 [KDE Keyboard Layout Switcher]
+Switch keyboard layout to English (UK)=none,none,Switch keyboard layout to English (UK)
 Switch keyboard layout to English (US)=none,none,Switch keyboard layout to English (US)
 Switch keyboard layout to Ukrainian=none,none,Switch keyboard layout to Ukrainian
 Switch to Next Keyboard Layout=Meta+Space,Meta+Alt+K,Switch to Next Keyboard Layout

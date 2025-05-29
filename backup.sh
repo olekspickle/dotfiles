@@ -26,7 +26,7 @@ sudo rsync -avzh "$HOME"/Videos/obs /var/backups/Videos --max-size=5M
 sudo rsync -avzh "$HOME"/Pictures /var/backups --max-size=10M --exclude "*Camera*"
 sudo rsync -avzh "$HOME"/Sound /var/backups --max-size=5M --exclude "*samples*"
 sudo rsync -avzh "$HOME"/Games /var/backups --max-size=5M \
-    --exclude "*samples*" --exclude "*/target/*" --exclude "*.godot*"
+    --exclude "*samples*" --exclude "*/target/*" --exclude "*.godot*"  --exclude "*UE*"
 
 # dotfiles
 nvim_sync=("$HOME/Documents/dotfiles/setup/nvim.sh" "--sync")
@@ -44,6 +44,7 @@ rsync -avzh "$HOME"/.config/atuin "$HOME"/Documents/dotfiles/.config --exclude "
 # KDE
 rsync -avzh "$HOME"/.config/kdeglobals "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/plasmarc "$HOME"/Documents/dotfiles/.config
+rsync -avzh "$HOME"/.config/plasma-org.kde.plasma.desktop-appletsrc "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/plasma-workspace/env "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/kwinrc "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/kxkbrc "$HOME"/Documents/dotfiles/.config
