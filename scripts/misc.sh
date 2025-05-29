@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 
 # iterate through all subdirs and execute a command
 function execr(){
@@ -85,10 +85,13 @@ cat /dev/tty > FILE
 # most used unix commands
 cut -d\    -f 1 ~/.bash_history | sort | uniq -c | sort -rn | head -n 10 | sed 's/.*/    &/g'
 
-# Discspace utils 
+# Discspace utils
 # see your physical disks
 sudo lsblk --scsi
 
-# list all partitions and block devices including boot, swap, efi etc. 
+# list all partitions and block devices including boot, swap, efi etc.
 df -Th
+
+# disable backlight to preserve power as a cronjob
+*/10 * * * * echo "0" > /sys/class/backlight/intel_backlight/brightness
 

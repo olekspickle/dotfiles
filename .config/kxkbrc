@@ -3,7 +3,8 @@ update_info=kxkb.upd:remove-empty-lists,kxkb.upd:add-back-resetoptions,kxkb_vari
 
 [Layout]
 DisplayNames=,
-LayoutList=us,ua
+LayoutDefaultGlobal=1
+LayoutList=ua,us
 ResetOldOptions=true
 Use=true
 VariantList=,

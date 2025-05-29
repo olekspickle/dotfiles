@@ -8,7 +8,7 @@ ln -s $(which fdfind) ~/.local/bin/fd
 cargo install -q --locked bat
 
 cargo install -q cargo-binstall
-cargo binstall -y dysk ripgrep flamegraph zellij \
+cargo binstall -y dysk ripgrep flamegraph zellij felix \
     cargo-deny cargo-readme cargo-machete cargo-bloat cargo-tree \
     cargo-audit
 
