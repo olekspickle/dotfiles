@@ -42,7 +42,7 @@ flatpak install -y flathub net.veloren.airshipper
 flatpak install -y flathub com.obsproject.Studio
 
 # telegram
-flatpak install flathub org.telegram.desktop
+flatpak install -y flathub org.telegram.desktop
 
 # discord
 flatpak install -y flathub com.discordapp.Discord
@@ -65,8 +65,11 @@ flatpak install -y flathub studio.kx.carla
 # recording
 flatpak install -y flathub org.audacityteam.Audacity
 
+# Reaper
+flatpak install -y flathub fm.reaper.Reaper
+
 # KDE photodshop
-flatpak install flathub org.kde.krita
+flatpak install -y flathub org.kde.krita
 
 # screenshots if spectacle not available
 #flatpak install -y flathub org.flameshot.Flameshot
