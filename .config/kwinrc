@@ -32,6 +32,8 @@ LongitudeAuto=13.4742
 NightTemperature=5000
 
 [Plugins]
+blurEnabled=true
+contrastEnabled=true
 diminactiveEnabled=true
 kwin4_effect_fullscreenEnabled=false
 kwin4_effect_maximizeEnabled=false

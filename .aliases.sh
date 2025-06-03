@@ -133,6 +133,15 @@ function gifify() {
                 echo "Unknown option: $1" >&2
                 exit 0
                 ;;
+            *)  # positional input
+                if [ -z "$input" ]; then
+                    input="$1"
+                else
+                    echo "Unexpected positional argument: $1" >&2
+                    exit 1
+                fi
+                shift
+                ;;
         esac
     done
 
@@ -164,22 +173,24 @@ function gifify() {
     fi
 
     # create directory with png frames with random 4 alphanumeric char suffix
-    current=$(pwd)
-    tmpd=$(mktemp -d)
-    mkdir -p "$tmpd" && cd $_
+    # current=$(pwd)
+    # tmpd=$(mktemp -d)
+    # mkdir -p "$tmpd" && cd $_
 
     echo "saving png frames with base: $base"
     # palettegen    https://ffmpeg.org/ffmpeg-filters.html#palettegen
     # paletteuse    https://ffmpeg.org/ffmpeg-filters.html#paletteuse
     # split         https://ffmpeg.org/ffmpeg-filters.html#split_002c-asplit
-    ffmpeg -i "../$input" \
+    # ffmpeg -i "${current}/${input}" \
+    ffmpeg -i "${input}" \
         -vf "fps=$fps$crop,scale=$scale\:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" \
-        -loop "$loop" "${base}-frame%04d.png"
+        -loop "$loop" "${base}.gif"
+    # "${base}-frame%04d.png"
+    # echo "saving final $output and cleaning up"
+    # gifski -o "../$output" "$base-frame*png"
+    #
+    # cd "$current"
 
-    echo "saving final $output and cleaning up"
-    gifski -o "../$output" "$base-frame*png"
-
-    cd "$current"
     set +e
 }
 
@@ -243,11 +254,11 @@ function prefix-all(){
 
     }
 
-    new=$(normalize "$0" "$1")
-    mv -v "$0" "$new"' {} "$prefix" \;
+new=$(normalize "$0" "$1")
+mv -v "$0" "$new"' {} "$prefix" \;
 
-    # will create a lot of empty directories
-    find . -type d -print0 -empty -delete
+# will create a lot of empty directories
+find . -type d -print0 -empty -delete
 }
 
 #git-rename
@@ -458,100 +469,100 @@ function format-track() {
         esac
     done
 
-# Default if not present
-if [ -z "$input" ]; then
-    echo "specify input file"
-    return 0
-fi
+    # Default if not present
+    if [ -z "$input" ]; then
+        echo "specify input file"
+        return 0
+    fi
 
-cmd=(ffmpeg -y -hide_banner -loglevel warning -i "$input")
+    cmd=(ffmpeg -y -hide_banner -loglevel warning -i "$input")
 
-if [ -z "$title" ]; then
-    title="${input%.*}"
-fi
+    if [ -z "$title" ]; then
+        title="${input%.*}"
+    fi
 
-if [ -z "$ext" ]; then
-    ext="mp3"
-fi
+    if [ -z "$ext" ]; then
+        ext="mp3"
+    fi
 
-if [ -z "$output" ]; then
-    output="${title}.${ext}"
-    echo "No output file name, using input title ${output}"
-fi
+    if [ -z "$output" ]; then
+        output="${title}.${ext}"
+        echo "No output file name, using input title ${output}"
+    fi
 
-if [ -z "$artist" ]; then
-    artist="smnbl"
-fi
+    if [ -z "$artist" ]; then
+        artist="smnbl"
+    fi
 
-if [ -z "$album" ]; then
-    album="starter"
-fi
+    if [ -z "$album" ]; then
+        album="starter"
+    fi
 
-if [[ ! -f "$cover" ]]; then
-    default="cover.jpg"
-    if [[ -f "$default" ]]; then
-        cover="$default"
-    else
-        if [[ "$video" == "true" ]];then
-            echo "video output selected but no video input provided"
+    if [[ ! -f "$cover" ]]; then
+        default="cover.jpg"
+        if [[ -f "$default" ]]; then
+            cover="$default"
+        else
+            if [[ "$video" == "true" ]];then
+                echo "video output selected but no video input provided"
+            fi
         fi
     fi
-fi
-if [[ -n "$cover" && "$cover" != "0" ]]; then
-    echo "cover image: $cover"
-    if [[ "$video" ]]; then
-        cmd+=(-loop 1 -r 1)
+    if [[ -n "$cover" && "$cover" != "0" ]]; then
+        echo "cover image: $cover"
+        if [[ "$video" ]]; then
+            cmd+=(-loop 1 -r 1)
+        fi
+        cmd+=(-i "$cover" -map 1:v:0)
+    else
+        echo "no cover image"
     fi
-    cmd+=(-i "$cover" -map 1:v:0)
-else
-    echo "no cover image"
-fi
 
 
-if [ -z "$genre" ]; then
-    genre="electronic"
-fi
+    if [ -z "$genre" ]; then
+        genre="electronic"
+    fi
 
-if [ -z "$style" ]; then
-    style="synth,rhytmic"
-fi
+    if [ -z "$style" ]; then
+        style="synth,rhytmic"
+    fi
 
-echo "Convert $input > $output"
-echo "Title: $title"
-echo "Artist: $artist"
-echo "Album: $album, Genre: $genre, Style: $style"
+    echo "Convert $input > $output"
+    echo "Title: $title"
+    echo "Artist: $artist"
+    echo "Album: $album, Genre: $genre, Style: $style"
 
-cmd+=(
-    -map 0:a:0 -id3v2_version 3 \
-    -disposition:v:1 attached_pic \
-    -codec:a libmp3lame -b:a 128k -vn -qscale:a 2  \
-    -metadata:s:v title="${album} album cover" \
-    -metadata:s:v comment="${album} cover (front)" \
-    -metadata artist="${artist}" \
-    -metadata title="${title}" \
-    -metadata album="${album}" \
-    -metadata genre="${genre}" \
-    -metadata style="${style}" \
-    "$artist-${output}"
-)
+    cmd+=(
+        -map 0:a:0 -id3v2_version 3 \
+            -disposition:v:1 attached_pic \
+            -codec:a libmp3lame -b:a 128k -vn -qscale:a 2  \
+            -metadata:s:v title="${album} album cover" \
+            -metadata:s:v comment="${album} cover (front)" \
+            -metadata artist="${artist}" \
+            -metadata title="${title}" \
+            -metadata album="${album}" \
+            -metadata genre="${genre}" \
+            -metadata style="${style}" \
+            "$artist-${output}"
+        )
 
-echo "FFMPEG command: $cmd"
+        echo "FFMPEG command: $cmd"
 
-"${cmd[@]}"
-# ffmpeg -y -hide_banner -loglevel warning \
-#     -i "$input" -i "$cover" \
-#     -map 0:a:0 -map 1:v:0 -id3v2_version 3 \
-#     -disposition:v:1 attached_pic \
-#     -codec:a libmp3lame -b:a 128k -vn -qscale:a 2  \
-#     -metadata:s:v title="${album} album cover" \
-#     -metadata:s:v comment="${album} cover (front)" \
-#     -metadata artist="${artist}" \
-#     -metadata title="${title}" \
-#     -metadata album="${album}" \
-#     -metadata genre="${genre}" \
-#     -metadata style="${style}" \
-#     "${output}"
-}
+        "${cmd[@]}"
+        # ffmpeg -y -hide_banner -loglevel warning \
+        #     -i "$input" -i "$cover" \
+        #     -map 0:a:0 -map 1:v:0 -id3v2_version 3 \
+        #     -disposition:v:1 attached_pic \
+        #     -codec:a libmp3lame -b:a 128k -vn -qscale:a 2  \
+        #     -metadata:s:v title="${album} album cover" \
+        #     -metadata:s:v comment="${album} cover (front)" \
+        #     -metadata artist="${artist}" \
+        #     -metadata title="${title}" \
+        #     -metadata album="${album}" \
+        #     -metadata genre="${genre}" \
+        #     -metadata style="${style}" \
+        #     "${output}"
+    }
 
 # to-yt track.mp3 cover.jpg
 function to-yt() {

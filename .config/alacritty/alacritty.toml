@@ -96,7 +96,7 @@ decorations = "full"
 decorations_theme_variant = "None"
 dynamic_padding = true
 dynamic_title = true
-opacity = 0.75
+opacity = 0.55
 startup_mode = "Fullscreen"
 title = "pickleshit"
 
