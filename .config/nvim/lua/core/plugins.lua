@@ -1,19 +1,6 @@
 -- [[ lazy.lua ]]
 return require('lazy').setup({
     {
-        -- brutal vim motions enforcer
-        {
-            "m4xshen/hardtime.nvim",
-            lazy = false,
-            dependencies = { "MunifTanjim/nui.nvim" },
-            opts = {
-                disabled_keys = {
-                    -- disable up/down for touchpad scrolling
-                    ["<Up>"] = false,
-                    ["<Down>"] = false,
-                },
-            },
-        },
         {
             "folke/noice.nvim",
             event = "VeryLazy",
@@ -111,6 +98,21 @@ return require('lazy').setup({
         -- {
         --     "dundalek/bloat.nvim",
         --     cmd = "Bloat",
+        -- },
+
+        -- brutal vim motions enforcer
+        -- unfortunately brutally gucks up mouse selection
+        -- {
+        --     "m4xshen/hardtime.nvim",
+        --     lazy = false,
+        --     dependencies = { "MunifTanjim/nui.nvim" },
+        --     opts = {
+        --         disabled_keys = {
+        --             -- disable up/down for touchpad scrolling
+        --             ["<Up>"] = false,
+        --             ["<Down>"] = false,
+        --         },
+        --     },
         -- },
     }
 })

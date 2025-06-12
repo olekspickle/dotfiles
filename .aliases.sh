@@ -50,7 +50,7 @@ function mp4-to-mp3(){
 # to-ogg mp4
 function to-ogg(){
     ext=${1:-"wav"}
-    find . -name "*.$ext" -print0 -exec sh -c 'filename=${0%.*}; ffmpeg -y -i "$0" -vn -ac 2 -c:a libvorbis "$filename.ogg"' {} \;
+    find . -name "*.$ext" -print0 -exec sh -c 'filename=${0%.*}; ffmpeg -y -i "$0" -vn -ac 2 -c:a libvorbis -q:a 10 "$filename.ogg"' {} \;
 }
 
 function to-slack-gif() {
@@ -85,6 +85,9 @@ function docker-clean-all () {
 # gifify -i <video> [-o OUTPUT] [-c CROP] [-f FPS] [-s SCALE] [-l LOOP]
 function gifify() {
     set -ex
+
+    # Reset variables so that sequential runs with positional arg do not crash
+    input=""
 
     # unpack arguments
     while [[ $# -gt 0 ]]; do
@@ -284,6 +287,8 @@ function strip-logs() {
 alias firefox="flatpak run --branch=stable --arch=x86_64 --command=firefox --file-forwarding org.mozilla.firefox"
 alias restart-pipewire='systemctl --user restart pipewire.socket pipewire-pulse.socket wireplumber.service'
 alias update-all='sh ~/Documents/dotfiles/update.sh'
+alias ffmpeg='ffmpeg -hide_banner'
+alias ffprobe='ffprobe -hide_banner'
 # Clean log from colors
 alias cleanup="sed 's/\x1b\[[0-9;]*m//g'"
 # sudo not knowing aliases workaround
@@ -475,7 +480,7 @@ function format-track() {
         return 0
     fi
 
-    cmd=(ffmpeg -y -hide_banner -loglevel warning -i "$input")
+    cmd=(ffmpeg -y -loglevel warning -i "$input")
 
     if [ -z "$title" ]; then
         title="${input%.*}"
@@ -549,7 +554,7 @@ function format-track() {
         echo "FFMPEG command: $cmd"
 
         "${cmd[@]}"
-        # ffmpeg -y -hide_banner -loglevel warning \
+        # ffmpeg -y -loglevel warning \
         #     -i "$input" -i "$cover" \
         #     -map 0:a:0 -map 1:v:0 -id3v2_version 3 \
         #     -disposition:v:1 attached_pic \

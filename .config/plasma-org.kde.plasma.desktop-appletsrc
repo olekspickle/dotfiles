@@ -78,7 +78,7 @@ plugin=org.kde.plasma.systemmonitor.net
 
 [Containments][2][Applets][43][Configuration]
 CurrentPreset=org.kde.plasma.systemmonitor
-PreloadWeight=55
+PreloadWeight=60
 
 [Containments][2][Applets][43][Configuration][Appearance]
 chartFace=org.kde.ksysguard.linechart
@@ -153,7 +153,7 @@ DialogHeight=100
 DialogWidth=1920
 
 [Containments][2][General]
-AppletOrder=45;44;43;39;4;6;5;27;20;;28;7;21
+AppletOrder=45;44;43;39;4;6;5;27;20;28;7;21
 
 [Containments][29]
 ItemGeometries-1920x1200=
@@ -299,7 +299,7 @@ immutability=1
 plugin=org.kde.plasma.bluetooth
 
 [Containments][8][Applets][24][Configuration]
-PreloadWeight=20
+PreloadWeight=0
 
 [Containments][8][Applets][25]
 immutability=1

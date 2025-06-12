@@ -41,6 +41,9 @@ flatpak install -y flathub net.veloren.airshipper
 # OBS
 flatpak install -y flathub com.obsproject.Studio
 
+# peek gif recorder
+flatpak install -y flathub com.uploadedlobster.peek
+
 # telegram
 flatpak install -y flathub org.telegram.desktop
 

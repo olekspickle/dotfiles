@@ -3,6 +3,7 @@
 # update system packages
 sudo apt update
 sudo apt upgrade -y
+sudo apt autoremove -y
 
 # update flatpak packages
 flatpak update -y
