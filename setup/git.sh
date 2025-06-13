@@ -16,5 +16,5 @@ git config --global branch.sort -committerdate
 git config --global gpg.format ssh
 git config --global user.signingkey "$HOME"/.ssh/pickle_ed25519.pub
 git config --global commit.gpgsign true
-echo "Signing enabled, add public ssh key to ~/.config/git/allowed_signer"
+echo "Signing enabled, add public ssh key to ~/.config/git/allowed_signer in format: 'user@gmail.com ssh-ed25519 XhxqawXX...'"
 
