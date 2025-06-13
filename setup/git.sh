@@ -3,7 +3,7 @@
 # add git goodness
 
 # beautiful git branch table representation
-git config --global alias.bb !$HOME/Documents/dotfiles/scripts/git-better-branch.sh
+git config --global alias.bb !"$HOME"/Documents/dotfiles/scripts/git-better-branch.sh
 
 # record the resolution for easier rebases
 git config --global rerere.enabled true
@@ -14,5 +14,5 @@ git config --global branch.sort -committerdate
 
 # setup ssh signature for signed commits
 git config --global gpg.format ssh
-git config --global user.signingkey $HOME/.ssh/pickle_ed25519.pub
+git config --global user.signingkey "$HOME"/.ssh/pickle_ed25519.pub
 
