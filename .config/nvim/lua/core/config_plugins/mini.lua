@@ -3,18 +3,18 @@ require("mini.tabline").setup {}
 require("mini.indentscope").setup {}
 require("mini.trailspace").setup {}
 require("mini.notify").setup {
-  -- Notifications about LSP progress
-  lsp_progress = {
-    enable = false,
-    duration_last = 500,
-  },
-  window = {
-    max_width_share = 0.4,
-    -- winblend = 25,
-  },
+    -- Notifications about LSP progress
+    lsp_progress = {
+        enable = false,
+        duration_last = 500,
+    },
+    window = {
+        max_width_share = 0.4,
+        -- winblend = 25,
+    },
 }
 require("mini.comment").setup {
-  mappings = {
+    mappings = {
         comment_line = '<C-_>',
     }
 }
@@ -34,26 +34,31 @@ require("mini.completion").setup {
     delay = { completion = 50, info = 50, signature = 20 },
 }
 require("mini.snippets").setup {
-  snippets = {
-    { prefix = '#der', body = '#[derive(Debug, Clone, Default)]', desc = 'Derive common traits' },
-    { prefix = '#ser', body = '#[derive(Debug, Clone, Default, Serialize, Deserialize)]', desc = 'Derive common & serde traits' },
-    {
-        prefix = '#test',
-        body = '#[cfg(test)]\nmod tests{\n\tuse super::*;\n\n\t#[test]\n\tfn $0(){\n\t}\n}',
-        desc = 'Create boilerplate test mod'
+    snippets = {
+        { prefix = '#der', body = '#[derive(Debug, Clone, Default)]', desc = 'Derive common traits' },
+        { prefix = '#ser', body = '#[derive(Debug, Clone, Default, Serialize, Deserialize)]', desc = 'Derive common & serde traits' },
+        {
+            prefix = '#test',
+            body = '#[cfg(test)]\nmod tests{\n\tuse super::*;\n\n\t#[test]\n\tfn $0(){\n\t}\n}',
+            desc = 'Create boilerplate test mod'
+        },
+        {
+            prefix = '#deref',
+            body = 'impl Deref for $1 {\n\ttype Target = $0;\n\n\tfn deref(&self) -> &Self::Target{\n\n\t}\n}\nimpl DerefMut for $1 {\n\tfn deref_mut(&mut self) -> &mut Self::Target{\n\n\t}\n}',
+            desc = 'Deref and DerefMut impls'
+        },
+
     },
-  },
+    mappings = {
+        -- Expand snippet at cursor position. Created globally in Insert mode.
+        expand = '<C-i>',
 
-  mappings = {
-    -- Expand snippet at cursor position. Created globally in Insert mode.
-    expand = '<C-i>',
-
-    -- Interact with default `expand.insert` session.
-    -- Created for the duration of active session(s)
-    jump_next = 'L',
-    jump_prev = 'H',
-    stop = '<C-c>',
-  },
+        -- Interact with default `expand.insert` session.
+        -- Created for the duration of active session(s)
+        jump_next = 'L',
+        jump_prev = 'H',
+        stop = '<C-c>',
+    },
 }
 MiniSnippets.start_lsp_server()
 

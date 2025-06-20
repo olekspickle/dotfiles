@@ -1,13 +1,17 @@
 #!/bin/bash
 
 function rot13() {
-    cat | tr "$(echo -n {A..Z} {a..z} | tr -d ' ')" "$(echo -n {N..Z} {A..M} {n..z} {a..m} | tr -d ' ')"
+    cat -p | tr "$(echo -n {A..Z} {a..z} | tr -d ' ')" "$(echo -n {N..Z} {A..M} {n..z} {a..m} | tr -d ' ')"
 }
 
 function wargames() {
     ssh -o PubkeyAuthentication=no -o PreferredAuthentications=password  -p 2220 "$1"@bandit.labs.overthewire.org
 }
 
+function git-sign-all-commits() {
+    # to make it better - add key to an ssh-agent
+    git rebase --exec 'git commit --amend --no-edit -S' -i --root
+}
 function git-reset-author() {
     git rebase -r --root --exec 'git commit --amend --no-edit --reset-author'
 }
@@ -280,7 +284,7 @@ function logless(){
 
 function strip-logs() {
     # Strips all escape sequences and control codes from stdin.
-    cat $1 | sed -e 's,[\x00-\x08\x0E-\x1F]\|\x1B\(\[[0-?]*[ -/]*[@-~]\),,g' > $2
+    cat -p $1 | sed -e 's,[\x00-\x08\x0E-\x1F]\|\x1B\(\[[0-?]*[ -/]*[@-~]\),,g' > $2
 }
 
 # global stuff
@@ -304,7 +308,7 @@ alias yt='yt-dlp -x --audio-format mp3'
 alias rabbit-inspect='rabbitmqctl list_queues | grep -v -e "0"'
 alias docker-container-rm-all-force='docker ps -q | xargs -I {} docker rm -f {}'
 alias co-main='git checkout $(gh repo view --json defaultBranchRef --jq .defaultBranchRef.name)'
-alias speedtest='cat ~/Documents/py/speedtest.py | python -'
+alias speedtest='cat -p ~/Documents/py/speedtest.py | python -'
 alias carla='flatpak run studio.kx.carla'
 
 # zellij hotkeys
@@ -338,9 +342,6 @@ alias rust-musl-builder='docker run --rm -it -v "$(pwd)":/home/rust/src ekidd/ru
 
 # EC2 instance rsync
 # example: remote-copy some_dir remote_user@address.com
-
-# Connect my droplet
-alias botinok="ssh -i ~/.ssh/id_rsa root@167.172.97.246"
 alias remote-copy='rsync -avzh --progress -e "ssh -i ~/.ssh/pickle.pem" $1  $2:~/'
 
 # Alias for aws command that connects to localstack instead of real AWS server

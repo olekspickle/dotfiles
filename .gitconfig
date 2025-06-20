@@ -1,7 +1,11 @@
 [user]
 	name = olekspickle
 	email = 22867443+olekspickle@users.noreply.github.com
-	signingkey = /home/pickle/.ssh/pickle_ed25519.pub
+	signingkey = /home/pickle/.ssh/pickle.ed25519.pub
+[commit]
+	gpgsign = true
+[gpg "ssh"]
+	allowedSignersFile = /home/pickle/.config/git/allowed_signers
 [init]
 	defaultBranch = main
 [core]
