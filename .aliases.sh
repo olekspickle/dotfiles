@@ -88,7 +88,7 @@ function docker-clean-all () {
 # usage
 # gifify -i <video> [-o OUTPUT] [-c CROP] [-f FPS] [-s SCALE] [-l LOOP]
 function gifify() {
-    set -ex
+    set -e
 
     # Reset variables so that sequential runs with positional arg do not crash
     input=""
@@ -117,6 +117,11 @@ function gifify() {
                 shift # past argument
                 shift # past value
                 ;;
+            --dither | -d)
+                dither="$2"
+                shift # past argument
+                shift # past value
+                ;;
             --fps | -f)
                 fps="$2"
                 shift # past argument
@@ -128,13 +133,16 @@ function gifify() {
                 shift # past value
                 ;;
             --help | -h)
+                echo "gifify <video> [-o OUTPUT] [-c CROP] [-f FPS] [-s SCALE] [-l LOOP] [-d DITHER]\n"
                 echo "-i,--input    input path"
                 echo "-o,--output   output path"
+                echo "-d,--dither   dither palette use, default - bayer.[bayer, none]"
                 echo "-f,--fps      filter sets the frame rate"
                 echo "-s,--scale    scale filter will resize the output to 320 pixels wide and automatically determine the height while preserving the aspect ratio. The lanczos scaling algorithm is used in this example. example: 640:-1"
                 echo "-c,--crop     example: 'iw-100:ih' to crop 100px horizontally(50 from each side)"
                 echo "-l,--loop     Control looping with -loop output option but the values are confusing. A value of 0 is infinite looping, -1 is no looping, and 1 will loop once meaning it will play twice. So a value of 10 will cause the GIF to play 11 times"
-                exit 0
+                echo "\nA few ffmpeg related docs:\npalettegen    https://ffmpeg.org/ffmpeg-filters.html#palettegen\npaletteuse    https://ffmpeg.org/ffmpeg-filters.html#paletteuse\nsplit         https://ffmpeg.org/ffmpeg-filters.html#split_002c-asplit"
+                return 0
                 ;;
             -*) # unknown option
                 echo "Unknown option: $1" >&2
@@ -151,7 +159,6 @@ function gifify() {
                 ;;
         esac
     done
-
 
     if [ -z "$input" ]; then
         input="input.mp4"
@@ -171,6 +178,10 @@ function gifify() {
         scale="iw:ih"
     fi
 
+    if [ -z "$dither" ]; then
+        dither="bayer:bayer_scale=3"
+    fi
+
     if [ -z "$fps" ]; then
         fps="24"
     fi
@@ -179,24 +190,15 @@ function gifify() {
         loop="0"
     fi
 
-    # create directory with png frames with random 4 alphanumeric char suffix
-    # current=$(pwd)
-    # tmpd=$(mktemp -d)
-    # mkdir -p "$tmpd" && cd $_
 
-    echo "saving png frames with base: $base"
-    # palettegen    https://ffmpeg.org/ffmpeg-filters.html#palettegen
-    # paletteuse    https://ffmpeg.org/ffmpeg-filters.html#paletteuse
-    # split         https://ffmpeg.org/ffmpeg-filters.html#split_002c-asplit
-    # ffmpeg -i "${current}/${input}" \
-    ffmpeg -i "${input}" \
-        -vf "fps=$fps$crop,scale=$scale\:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" \
-        -loop "$loop" "${base}.gif"
-    # "${base}-frame%04d.png"
-    # echo "saving final $output and cleaning up"
-    # gifski -o "../$output" "$base-frame*png"
-    #
-    # cd "$current"
+    # generate palette from video
+    palette_file="palette.png"
+    ffmpeg -y -i ${input} -vf palettegen -update 1 -frames:v 1 "${palette_file}"
+    ffmpeg -y -i "${input}" -i "${palette_file}" \
+        -filter_complex "[0:v]fps=$fps$crop,scale=$scale\:flags=lanczos[p];[p][1:v]paletteuse=dither=$dither" \
+        -loop "$loop" "${output}"
+
+    rm "${palette_file}"
 
     set +e
 }

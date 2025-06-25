@@ -9,7 +9,6 @@ sudo rm -rf /var/backups/Videos
 sudo rm -rf /var/backups/Pictures
 sudo rm -rf /var/backups/Sound
 sudo rm -rf /var/backups/Games
-sudo rm -rf /var/backups/Music
 
 # backup most of the data
 sudo rsync -avzh "$HOME"/Documents /var/backups \
@@ -26,7 +25,7 @@ sudo rsync -avzh "$HOME"/Downloads /var/backups \
 sudo rsync -avzh "$HOME"/Videos/obs /var/backups/Videos --max-size=10M
 sudo rsync -avzh "$HOME"/Pictures /var/backups --max-size=10M --exclude "*Camera*"
 sudo rsync -avzh "$HOME"/Sound /var/backups --max-size=10M --exclude "*gdc*"
-sudo rsync -avzh "$HOME"/Music /var/backups
+sudo rsync -avzh -del "$HOME"/Music /var/backups
 sudo rsync -avzh "$HOME"/Games /var/backups --max-size=5M \
     --exclude "*samples*" --exclude "*/target/*" --exclude "*.godot*"  --exclude "*UE*"
 

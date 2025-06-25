@@ -145,6 +145,12 @@ keybinds {
         bind "x" { CloseFocus; SwitchToMode "Normal"; }
     }
     shared_except "locked" {
+        bind "Alt m" {
+            Run "zemon" {
+                floating true
+                close_on_exit true
+            };
+        }
         bind "Ctrl g" { SwitchToMode "Locked"; }
         // bind "Ctrl q" { Quit; }
         bind "Alt n" { NewPane; }
