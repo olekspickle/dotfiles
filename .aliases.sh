@@ -4,6 +4,27 @@ function rot13() {
     cat -p | tr "$(echo -n {A..Z} {a..z} | tr -d ' ')" "$(echo -n {N..Z} {A..M} {n..z} {a..m} | tr -d ' ')"
 }
 
+function sup() {
+    if [ -z "$1" ]; then
+        echo "Check the memory and CPU the process currently holds.\nUsage: sup <process_name>"
+        return 1
+    fi
+
+    pids=$(pgrep -f "$1" | paste -sd, -)
+
+    if [ -z "$pids" ]; then
+        echo "No matching processes found for '$1'"
+        return 1
+    fi
+
+    ps -p "$pids" -o pid=,rss=,pcpu= | awk '
+    {mem+=$2; cpu+=$3}
+END {
+    printf "Memory: %.2f MB\n", mem/1024
+    printf "CPU: %.2f%%\n", cpu
+}'
+}
+
 function wargames() {
     ssh -o PubkeyAuthentication=no -o PreferredAuthentications=password  -p 2220 "$1"@bandit.labs.overthewire.org
 }
@@ -28,10 +49,6 @@ function restart-plasma(){
     plasmashell &
 }
 
-function webm-all-to-mp3(){
-    find . -type f -iname "*.webm" -exec bash -c 'FILE="$1"; ffmpeg -i "${FILE}" -vn -ab 128k -ar 44100 -y "${FILE%.webm}.mp3";' _ '{}' \;
-}
-
 function media-merge(){
     # replace audio for a video with an offset
     video=$1
@@ -45,16 +62,39 @@ function media-merge(){
     ffmpeg -i "$video" -itsoffset "$offset" -i "$audio" -c:v copy -map 0:v:0 -map 1:a:0 merged.mp4
 }
 
-function mp4-to-mp3(){
-    ffmpeg -i $1 -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 $2
+function to-mp3(){
+    ext=${1:-"mp4"}
+
+    case "$ext" in
+        mp4)
+            echo "Converting all mp4 to mp3..."
+            find . -type f -name "*.$ext" -print0 -exec sh -c 'filename=${0%.*}; ffmpeg -y -i "$0" -vn -acodec libmp3lame -ac 2 -ab 160k -ar 48000 "$filename.mp3";' {} \;
+            ;;
+        webm|wma|ogg|mkv|avi|flv|mov|m4a|wav)
+            echo "Converting all $ext to mp3..."
+            find . -type f -name "*.$ext" -print0 -exec sh -c 'filename=${0%.*}; ffmpeg -y -i "$0" -vn -ab 128k -ar 44100 "$filename.mp3";' {} \;
+            ;;
+        *)
+            echo "Unsupported format: $ext"
+            return 2
+            ;;
+    esac
 }
 
-# for quality control -aq flag can be added
-# 1(quality) > 4(default > 9(compressed)
-# to-ogg mp4
 function to-ogg(){
     ext=${1:-"wav"}
-    find . -name "*.$ext" -print0 -exec sh -c 'filename=${0%.*}; ffmpeg -y -i "$0" -vn -ac 2 -c:a libvorbis -q:a 10 "$filename.ogg"' {} \;
+
+    case "$ext" in
+        mp4|webm|wma|mkv|avi|flv|mov|m4a|wav|mp3)
+            echo "Converting all $ext to ogg..."
+            ffmpeg -i "$input" -vn -acodec libvorbis -ac 2 -ab 192k -ar 44100 "$output"
+            find . -type f -name "*.$ext" -print0 -exec sh -c 'filename=${0%.*}; ffmpeg -y -i "$0" -vn -ac 2 -c:a libvorbis -q:a 10 -ar 44100 "$filename.ogg"' {} \;
+            ;;
+        *)
+            echo "Unsupported format: $ext"
+            return 2
+            ;;
+    esac
 }
 
 function to-slack-gif() {

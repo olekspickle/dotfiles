@@ -43,6 +43,11 @@ require("mini.snippets").setup {
             desc = 'Create boilerplate test mod'
         },
         {
+            prefix = '#rng',
+            body = 'let mut rng = thread_rng();',
+            desc = 'declare thread rng'
+        },
+        {
             prefix = '#deref',
             body = 'impl Deref for $1 {\n\ttype Target = $0;\n\n\tfn deref(&self) -> &Self::Target{\n\n\t}\n}\nimpl DerefMut for $1 {\n\tfn deref_mut(&mut self) -> &mut Self::Target{\n\n\t}\n}',
             desc = 'Deref and DerefMut impls'
