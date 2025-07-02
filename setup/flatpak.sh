@@ -84,7 +84,7 @@ flatpak install -y flathub org.kde.krita
 # flatpak install -y flathub com.bitwig.BitwigStudio
 
 # mic effects
-# flatpak install -y flathub com.github.wwmm.easyeffects
+flatpak install -y flathub com.github.wwmm.easyeffects
 
 # midid virtual hub
 # flatpak install -y flathub xyz.safeworlds.midiconn
