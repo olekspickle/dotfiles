@@ -2,6 +2,15 @@ require("mini.starter").setup {}
 require("mini.tabline").setup {}
 require("mini.indentscope").setup {}
 require("mini.trailspace").setup {}
+require("mini.bracketed").setup {}
+require("mini.pairs").setup {}
+require("mini.icons").setup()
+require('mini.jump').setup()
+require('mini.jump2d').setup()
+require("mini.comment").setup()
+require("mini.completion").setup {
+    delay = { completion = 50, info = 50, signature = 20 },
+}
 require("mini.notify").setup {
     -- Notifications about LSP progress
     lsp_progress = {
@@ -13,26 +22,30 @@ require("mini.notify").setup {
         -- winblend = 25,
     },
 }
-require("mini.comment").setup {
+require("mini.surround").setup {
+    -- Duration (in ms) of highlight when calling `MiniSurround.highlight()`
+    highlight_duration = 1000,
+    -- Module mappings. Use `''` (empty string) to disable one.
     mappings = {
-        comment_line = '<C-_>',
-    }
-}
-require("mini.bracketed").setup {}
-require("mini.pairs").setup {}
-require("mini.icons").setup()
--- require("mini.statusline").setup {}
-require("mini.files").setup {
-    options = {
-        use_as_default_explorer = false,
+        add = 'sa', -- Add surrounding in Normal and Visual modes
+        delete = 'sd', -- Delete surrounding
+        find = 'sf', -- Find surrounding (to the right)
+        find_left = 'sF', -- Find surrounding (to the left)
+        highlight = 'sh', -- Highlight surrounding
+        replace = 'sr', -- Replace surrounding
+        update_n_lines = 'sn', -- Update `n_lines`
+
+        suffix_last = 'l', -- Suffix to search with "prev" method
+        suffix_next = 'n', -- Suffix to search with "next" method
     },
+    -- silent = true,
 }
+-- require("mini.statusline").setup {}
+
+
 -- require("mini.sessions").setup {
 --     directory = vim.fn.stdpath "config" .. "/sessions",
 -- }
-require("mini.completion").setup {
-    delay = { completion = 50, info = 50, signature = 20 },
-}
 require("mini.snippets").setup {
     snippets = {
         { prefix = '#der', body = '#[derive(Debug, Clone, Default)]', desc = 'Derive common traits' },
@@ -81,24 +94,6 @@ minimap.setup {
         winblend = 25,
         zindex = 10,
     },
-}
-require("mini.surround").setup {
-    -- Duration (in ms) of highlight when calling `MiniSurround.highlight()`
-    highlight_duration = 1000,
-    -- Module mappings. Use `''` (empty string) to disable one.
-    mappings = {
-        add = 'sa', -- Add surrounding in Normal and Visual modes
-        delete = 'sd', -- Delete surrounding
-        find = 'sf', -- Find surrounding (to the right)
-        find_left = 'sF', -- Find surrounding (to the left)
-        highlight = 'sh', -- Highlight surrounding
-        replace = 'sr', -- Replace surrounding
-        update_n_lines = 'sn', -- Update `n_lines`
-
-        suffix_last = 'l', -- Suffix to search with "prev" method
-        suffix_next = 'n', -- Suffix to search with "next" method
-    },
-    -- silent = true,
 }
 
 -- Have some clue about what you are about to do. Awesome for learning nvim
@@ -157,6 +152,11 @@ miniclue.setup({
     },
 })
 
+require("mini.files").setup {
+    options = { use_as_default_explorer = false },
+}
+
+
 -- Mini plugins key mappings
 -- mini.map
 vim.keymap.set('n', '<Leader>m', minimap.toggle, {desc = "map toggle"})
@@ -165,3 +165,4 @@ vim.keymap.set('n', '<leader>b', MiniFiles.open, {desc = "open file tree"})
 -- mini.cpmpletion
 vim.keymap.set('i', '<Tab>',   [[pumvisible() ? "\<C-n>" : "\<Tab>"]],   { noremap = true, expr = true })
 vim.keymap.set('i', '<S-Tab>', [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { noremap = true, expr = true })
+

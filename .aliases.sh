@@ -333,6 +333,7 @@ function strip-logs() {
 alias firefox="flatpak run --branch=stable --arch=x86_64 --command=firefox --file-forwarding org.mozilla.firefox"
 alias restart-pipewire='systemctl --user restart pipewire.socket pipewire-pulse.socket wireplumber.service'
 alias update-all='sh ~/Documents/dotfiles/update.sh'
+alias dx-serve='BEVY_ASSET_ROOT=. dx serve --hot-patch'
 alias ffmpeg='ffmpeg -hide_banner'
 alias ffprobe='ffprobe -hide_banner'
 # Clean log from colors
@@ -340,7 +341,6 @@ alias cleanup="sed 's/\x1b\[[0-9;]*m//g'"
 # sudo not knowing aliases workaround
 alias sudo='sudo '
 # oxidize
-alias cat='bat'
 alias fd='fdfind'
 alias "carg orun"='cargo run'
 

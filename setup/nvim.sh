@@ -3,7 +3,7 @@
 # Check if the "--sync" flag is present
 # ./nvim --sync
 if [[ "$*" == *"--sync"* ]]; then
-    rsync -avzh ~/.config/nvim .config --exclude="*site" --exclude="*plugin" --exclude="*lazy*"
+    rsync -avzh --delete ~/.config/nvim .config --exclude="*site" --exclude="*plugin" --exclude="*lazy*"
     exit 0;
 fi
 

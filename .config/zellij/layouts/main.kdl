@@ -42,4 +42,9 @@ layout {
         pane cwd="~/Documents/dotfiles"
         pane cwd="~/.config/nvim"
     }
+
+    tab name="gpu"  split_direction="horizontal" {
+        pane command="radeontop -T"
+        pane command="radeontop -T 3"
+    }
 }
