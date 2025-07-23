@@ -87,7 +87,7 @@ function to-ogg(){
     case "$ext" in
         mp4|webm|wma|mkv|avi|flv|mov|m4a|wav|mp3)
             echo "Converting all $ext to ogg..."
-            ffmpeg -i "$input" -vn -acodec libvorbis -ac 2 -ab 192k -ar 44100 "$output"
+            # ffmpeg -i "$input" -vn -acodec libvorbis -ac 2 -ab 192k -ar 44100 "$output"
             find . -type f -name "*.$ext" -print0 -exec sh -c 'filename=${0%.*}; ffmpeg -y -i "$0" -vn -ac 2 -c:a libvorbis -q:a 10 -ar 44100 "$filename.ogg"' {} \;
             ;;
         *)
@@ -583,7 +583,7 @@ function format-track() {
     cmd+=(
         -map 0:a:0 -id3v2_version 3 \
             -disposition:v:1 attached_pic \
-            -codec:a libmp3lame -b:a 128k -vn -qscale:a 2  \
+            -codec:a libmp3lame -qscale:a 2  \
             -metadata:s:v title="${album} album cover" \
             -metadata:s:v comment="${album} cover (front)" \
             -metadata artist="${artist}" \

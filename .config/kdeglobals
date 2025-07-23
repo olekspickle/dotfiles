@@ -156,7 +156,7 @@ smallestReadableFont=JetBrains Mono,11,-1,5,50,0,0,0,0,0
 toolBarFont=JetBrains Mono,13,-1,5,50,0,0,0,0,0
 
 [Icons]
-Theme=Slot-Dark-Icons
+Theme=candy-icons
 
 [KDE]
 AnimationDurationFactor=0.125
