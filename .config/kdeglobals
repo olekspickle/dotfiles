@@ -159,7 +159,7 @@ toolBarFont=JetBrains Mono,13,-1,5,50,0,0,0,0,0
 Theme=candy-icons
 
 [KDE]
-AnimationDurationFactor=0.125
+AnimationDurationFactor=0.35355339059327373
 LookAndFeelPackage=org.kde.breezedark.desktop
 widgetStyle=Fusion
 

@@ -46,7 +46,8 @@ flatpak install -y flathub com.uploadedlobster.peek
 
 # telegram
 flatpak install -y flathub org.telegram.desktop
-
+# matrix client
+flatpak install flathub im.riot.Riot
 # discord
 flatpak install -y flathub com.discordapp.Discord
 
