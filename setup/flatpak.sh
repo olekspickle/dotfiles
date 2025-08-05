@@ -44,6 +44,11 @@ flatpak install -y flathub com.obsproject.Studio
 # peek gif recorder
 flatpak install -y flathub com.uploadedlobster.peek
 
+# power management
+sudo apt install tlp
+sudo systemctl enable tlp --now
+flatpak install flathub com.github.d4nj1.tlpui
+
 # telegram
 flatpak install -y flathub org.telegram.desktop
 # matrix client

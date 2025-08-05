@@ -129,6 +129,10 @@ function docker-clean-all () {
     docker volume prune -f
 }
 
+function clean-rust () {
+    find . -type d -name target -exec rm -rf {} + -o -type f -name Cargo.lock -exec rm -f {} +
+}
+
 # usage
 # gifify -i <video> [-o OUTPUT] [-c CROP] [-f FPS] [-s SCALE] [-l LOOP]
 function gifify() {
@@ -334,6 +338,7 @@ function strip-logs() {
 }
 
 # global stuff
+alias fix-amd-gpu="sudo cat /sys/kernel/debug/dri/1/amdgpu_gpu_recover"
 alias firefox="flatpak run --branch=stable --arch=x86_64 --command=firefox --file-forwarding org.mozilla.firefox"
 alias restart-pipewire='systemctl --user restart pipewire.socket pipewire-pulse.socket wireplumber.service'
 alias update-all='sh ~/Documents/dotfiles/update.sh'

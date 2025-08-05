@@ -54,7 +54,7 @@ lockBeforeTurnOff=0
 idleTime=60000
 
 [LowBattery][HandleButtonEvents]
-lidAction=8
+lidAction=1
 powerButtonAction=8
 powerDownAction=16
 triggerLidActionWhenExternalMonitorPresent=true
