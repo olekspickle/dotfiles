@@ -33,6 +33,10 @@ function git-sign-all-commits() {
     # to make it better - add key to an ssh-agent
     git rebase --exec 'git commit --amend --no-edit -S' -i --root
 }
+function git-sign-n() {
+    n=${1:-1}
+    git rebase --exec 'git commit --amend --no-edit -S' HEAD~$n
+}
 function git-reset-author() {
     git rebase -r --root --exec 'git commit --amend --no-edit --reset-author'
 }
