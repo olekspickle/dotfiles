@@ -8,7 +8,7 @@ local t = 'tokyonight-day'
 -- Theme color depends on time (e.g., 19 for 7 PM)
 local now = tonumber(os.date("%H"))
 local max = 16
-local min = 10
+local min = 8
 if now > max or now < min then
     t = "tokyonight-storm"
 end

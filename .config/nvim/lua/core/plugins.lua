@@ -1,6 +1,15 @@
 -- [[ lazy.lua ]]
+
+-- o.rocks.enabled = false
 return require('lazy').setup({
     {
+        {
+            "supermaven-inc/supermaven-nvim",
+            config = function()
+                require("supermaven-nvim").setup({})
+            end,
+        },
+        -- {"shortcuts/no-neck-pain.nvim", version = "*"},
         {
             "folke/noice.nvim",
             event = "VeryLazy",
@@ -82,7 +91,7 @@ return require('lazy').setup({
         'onsails/lspkind.nvim',     -- pictograms for completion
 
         -- Backup for snippets and completion in case mini.completions\snippets break
-        -- 'hrsh7th/nvim-cmp',
+        'hrsh7th/nvim-cmp',
         -- 'hrsh7th/cmp-path',      -- get completions based on path
         -- 'hrsh7th/cmp-buffer',    -- get completiong based on buffer (works without LSP)
         -- 'hrsh7th/cmp-nvim-lsp',
