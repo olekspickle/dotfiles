@@ -8,6 +8,9 @@ require("mini.icons").setup()
 require('mini.jump').setup()
 require('mini.jump2d').setup()
 require("mini.comment").setup()
+require("mini.files").setup {
+    -- options = { use_as_default_explorer = false },
+}
 require("mini.completion").setup {
     delay = { completion = 50, info = 50, signature = 20 },
 }
@@ -151,10 +154,6 @@ miniclue.setup({
         scroll_up = '<C-u>',
     },
 })
-
-require("mini.files").setup {
-    options = { use_as_default_explorer = false },
-}
 
 
 -- Mini plugins key mappings

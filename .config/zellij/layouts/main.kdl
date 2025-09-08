@@ -43,8 +43,14 @@ layout {
         pane cwd="~/.config/nvim"
     }
 
-    tab name="gpu"  split_direction="horizontal" {
-        pane command="radeontop -T"
-        pane command="radeontop -T 3"
-    }
+    // tab name="gpu"  split_direction="horizontal" {
+    //     pane {
+    //         command "radeontop"
+    //         args "-T" "-c"
+    //     }
+    //     pane {
+    //         command "radeontop"
+    //         args "-T" "3" "-c"
+    //     }
+    // }
 }

@@ -158,3 +158,6 @@ sudo fatlabel -L "MA DISK" /dev/sdX
 
 # rename an ext4 volume
 sudo e2label -L "MA DISK" /dev/sdX
+
+# change LUKS key
+sudo cryptsetup luksChangeKey /dev/sdX

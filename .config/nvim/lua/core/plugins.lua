@@ -45,7 +45,7 @@ return require('lazy').setup({
         -- Syntax AST highlighting
         {
             "nvim-treesitter/nvim-treesitter",
-            commit = "c91122d2012682301df68307cfc049a57c3fd286"
+            -- commit = "c91122d2012682301df68307cfc049a57c3fd286"
         },
         -- Log syntax highlighting
         'mtdl9/vim-log-highlighting',
