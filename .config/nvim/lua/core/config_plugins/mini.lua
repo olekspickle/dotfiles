@@ -161,7 +161,8 @@ miniclue.setup({
 vim.keymap.set('n', '<Leader>m', minimap.toggle, {desc = "map toggle"})
 -- mini.files
 vim.keymap.set('n', '<leader>b', MiniFiles.open, {desc = "open file tree"})
--- mini.cpmpletion
+-- mini.completion
 vim.keymap.set('i', '<Tab>',   [[pumvisible() ? "\<C-n>" : "\<Tab>"]],   { noremap = true, expr = true })
 vim.keymap.set('i', '<S-Tab>', [[pumvisible() ? "\<C-p>" : "\<S-Tab>"]], { noremap = true, expr = true })
+vim.keymap.set('i', '<CR>', [[pumvisible() ? "\<C-y>" : "\<CR>"]], { noremap = true, expr = true })
 

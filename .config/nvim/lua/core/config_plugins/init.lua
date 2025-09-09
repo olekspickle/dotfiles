@@ -1,4 +1,5 @@
 require("core.config_plugins.mini")
+require("core.config_plugins.supermaven")
 require("core.config_plugins.telescope")
 require("core.config_plugins.log-baleia")
 require("core.config_plugins.lsp")
