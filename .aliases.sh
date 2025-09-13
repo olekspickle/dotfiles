@@ -449,6 +449,8 @@ done
 echo "done end"
 
 '
+
+
 # format-track -i in.wav -c my-cover.jpg
 function format-track() {
     while [[ $# -gt 0 ]]; do
@@ -456,52 +458,52 @@ function format-track() {
         key="$1"
         case $key in
             --input | -i)
-                input="$2"
+                local input="$2"
                 shift # past argument
                 shift # past value
                 ;;
             --output | -o)
-                output="$2"
+                local output="$2"
                 shift
                 shift
                 ;;
             --title | -t)
-                title="$2"
+                local title="$2"
                 shift
                 shift
                 ;;
             --artist)
-                artist="$2"
+                local artist="$2"
                 shift
                 shift
                 ;;
             --album | -a)
-                album="$2"
+                local album="$2"
                 shift
                 shift
                 ;;
             --ext | -e)
-                ext="$2"
+                local ext="$2"
                 shift
                 shift
                 ;;
             --cover | -c)
-                cover="$2"
+                local cover="$2"
                 shift
                 shift
                 ;;
             --genre | -g)
-                genre="$2"
+                local genre="$2"
                 shift
                 shift
                 ;;
             --style | -s)
-                style="$2"
+                local style="$2"
                 shift
                 shift
                 ;;
             --video | -v)
-                video=true
+                local video=true
                 shift # past argument
                 ;;
             --help | -h)
@@ -532,44 +534,37 @@ function format-track() {
         return 0
     fi
 
-    cmd=(ffmpeg -y -loglevel warning -i "$input")
+    local cmd=(ffmpeg -y -loglevel warning -i "$input")
 
     if [ -z "$title" ]; then
-        title="${input%.*}"
+        local title="${input%.*}"
     fi
 
     if [ -z "$ext" ]; then
-        ext="mp3"
+        local ext="mp3"
     fi
 
     if [ -z "$output" ]; then
-        output="${title}.${ext}"
+        local output="${title}.${ext}"
         echo "No output file name, using input title ${output}"
     fi
 
     if [ -z "$artist" ]; then
-        artist="smnbl"
+        local artist="smnbl"
     fi
 
     if [ -z "$album" ]; then
-        album="starter"
+        local album="starter"
     fi
 
     if [[ ! -f "$cover" ]]; then
-        default="cover.jpg"
+        local default="cover.jpg"
         if [[ -f "$default" ]]; then
-            cover="$default"
-        else
-            if [[ "$video" == "true" ]];then
-                echo "video output selected but no video input provided"
-            fi
+            local cover="$default"
         fi
     fi
     if [[ -n "$cover" && "$cover" != "0" ]]; then
         echo "cover image: $cover"
-        if [[ "$video" ]]; then
-            cmd+=(-loop 1 -r 1)
-        fi
         cmd+=(-i "$cover" -map 1:v:0)
     else
         echo "no cover image"
@@ -577,11 +572,11 @@ function format-track() {
 
 
     if [ -z "$genre" ]; then
-        genre="electronic"
+        local genre="electronic"
     fi
 
     if [ -z "$style" ]; then
-        style="synth,rhytmic"
+        local style="synth,rhytmic"
     fi
 
     echo "Convert $input > $output"
@@ -592,7 +587,7 @@ function format-track() {
     cmd+=(
         -map 0:a:0 -id3v2_version 3 \
             -disposition:v:1 attached_pic \
-            -codec:a libmp3lame -qscale:a 2  \
+            -c:a libmp3lame -qscale:a 2 \
             -metadata:s:v title="${album} album cover" \
             -metadata:s:v comment="${album} cover (front)" \
             -metadata artist="${artist}" \
@@ -623,6 +618,12 @@ function format-track() {
 
 # to-yt track.mp3 cover.jpg
 function to-yt() {
-    out="${1%.*}"
-    ffmpeg -y -loop 1 -r 1 -i $2 -i $1 -c:a copy -shortest -c:v libx264 "$out.mp4"
+    local out="${1%.*}"
+    ffmpeg -y -i "$1" \
+        -map 0:a -map 0:v \
+        -c:a aac -b:a 192k \
+        -c:v libx264 -tune stillimage \
+        -vf "fps=2,scale=1280:-1:force_original_aspect_ratio=decrease" \
+        -shortest "$out.mp4"
+    # ffmpeg -y -i $1 -c:a copy -shortest -c:v libx264 "$out.mp4"
 }

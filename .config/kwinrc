@@ -87,6 +87,9 @@ tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"wi
 [Tiling][f51a5b60-c386-5b9a-ae7f-ddd2a3eace4b]
 tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
 
+[Tiling][fd7e38d9-2d73-5877-8d3e-c0587d5b19ca]
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
 [TouchEdges]
 Bottom=ActivityManager
 
