@@ -17,6 +17,7 @@
     repo = /home/pickle/Documents/rust/axum-template
 	repo = /home/pickle/Games/sword_for_hire
 	repo = /home/pickle/Games/bevy_new_3d
+	repo = /home/pickle/Games/bevy-new-3d-rpg
 [alias]
 	bb = !/home/pickle/Documents/dotfiles/scripts/git-better-branch.sh
 [rerere]

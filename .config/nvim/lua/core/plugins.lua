@@ -3,12 +3,7 @@
 -- o.rocks.enabled = false
 return require('lazy').setup({
     {
-        {
-            "supermaven-inc/supermaven-nvim",
-            config = function()
-                require("supermaven-nvim").setup({})
-            end,
-        },
+        "supermaven-inc/supermaven-nvim",
         -- {"shortcuts/no-neck-pain.nvim", version = "*"},
         {
             "folke/noice.nvim",

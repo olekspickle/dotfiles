@@ -6,8 +6,8 @@ Timeout=20
 
 [Greeter][Wallpaper][org.kde.image][General]
 FillMode=0
-Image=/home/pickle/Pictures/Wallpapers/astro-petirr-3.jpeg
-PreviewImage=/home/pickle/Pictures/Wallpapers/astro-petirr-3.jpeg
+Image=/home/pickle/Pictures/Wallpapers/astro-petitt-3.jpeg
+PreviewImage=/home/pickle/Pictures/Wallpapers/astro-petitt-3.jpeg
 SlidePaths=/usr/share/plasma/wallpapers,/usr/share/wallpapers
 
 [Greeter][Wallpaper][org.kde.potd][General]
