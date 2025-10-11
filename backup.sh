@@ -10,6 +10,7 @@ sudo rm -rf /var/backups/Pictures
 sudo rm -rf /var/backups/Sound
 sudo rm -rf /var/backups/Games
 
+sudo rsync -avzh --delete "$HOME"/.local/share/fonts "$HOME"/Documents
 # backup most of the data
 sudo rsync -avzh --delete "$HOME"/Documents /var/backups \
     --exclude "*/target/*" \

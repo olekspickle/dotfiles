@@ -139,8 +139,8 @@ ForegroundVisited=155,89,182
 Size=22
 
 [DirSelect Dialog]
-DirSelectDialog Size=883,598
-History Items[$e]=file:$HOME/Downloads/extracted/res,file:$HOME/Videos/obs,file:$HOME/Games,file:$HOME/Games,file:///var/backups/Videos,file:///var/backups/Sound,file:///var/backups/Pictures,file:///var/backups/Games,file:///var/backups/Downloads,file:///var/backups/Documents,file:$HOME/Games/steam,file:$HOME/Games,file:$HOME/Videos/steam,file:$HOME/Videos/obs
+DirSelectDialog Size=1243,724
+History Items[$e]=file:///var/backups/Games,file:///var/backups/Documents,file:$HOME/Downloads/extracted/res,file:$HOME/Videos/obs,file:$HOME/Games,file:$HOME/Games,file:///var/backups/Videos,file:///var/backups/Sound,file:///var/backups/Pictures,file:///var/backups/Downloads,file:$HOME/Games/steam,file:$HOME/Games,file:$HOME/Videos/steam,file:$HOME/Videos/obs
 
 [General]
 BrowserApplication=org.mozilla.firefox.desktop

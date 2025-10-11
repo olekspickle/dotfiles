@@ -78,7 +78,7 @@ plugin=org.kde.plasma.systemmonitor.net
 
 [Containments][2][Applets][43][Configuration]
 CurrentPreset=org.kde.plasma.systemmonitor
-PreloadWeight=75
+PreloadWeight=80
 
 [Containments][2][Applets][43][Configuration][Appearance]
 chartFace=org.kde.ksysguard.linechart
