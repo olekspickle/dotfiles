@@ -240,13 +240,12 @@ function gifify() {
 
 
     # generate palette from video
-    palette_file="palette.png"
-    ffmpeg -y -i ${input} -vf palettegen -update 1 -frames:v 1 "${palette_file}"
+    palette_file="/tmp/palette.png"
+    filters="fps=$fps$crop,scale=$scale\:flags=lanczos"
+    ffmpeg -y -i ${input} -vf "$filters,palettegen" -update 1 "${palette_file}"
     ffmpeg -y -i "${input}" -i "${palette_file}" \
-        -filter_complex "[0:v]fps=$fps$crop,scale=$scale\:flags=lanczos[p];[p][1:v]paletteuse=dither=$dither" \
+        -filter_complex "[0:v]$filters[p];[p][1:v]paletteuse=dither=$dither" \
         -loop "$loop" "${output}"
-
-    rm "${palette_file}"
 
     set +e
 }
