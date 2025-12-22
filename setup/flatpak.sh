@@ -80,6 +80,9 @@ flatpak install -y flathub fm.reaper.Reaper
 # KDE photodshop
 flatpak install -y flathub org.kde.krita
 
+# 3D slicer for printer
+flatpak install flathub com.ultimaker.cura
+
 # screenshots if spectacle not available
 #flatpak install -y flathub org.flameshot.Flameshot
 
