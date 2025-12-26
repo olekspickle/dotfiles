@@ -18,9 +18,12 @@ Recent URLs[$e]=file:$HOME/Games/models/
 iconViewIconSize=64
 
 [KPropertiesDialog]
-1920x1200 screen: Height=523
-1920x1200 screen: Width=565
+1920x1200 screen: Height=714
+1920x1200 screen: Width=576
 
 [MainWindow]
 MenuBar=Disabled
 ToolBarsMovable=Disabled
+
+[PreviewSettings]
+Plugins=appimagethumbnail,audiothumbnail,blenderthumbnail,comicbookthumbnail,cursorthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,directorythumbnail,fontthumbnail,imagethumbnail,jpegthumbnail,kraorathumbnail,windowsexethumbnail,windowsimagethumbnail,mobithumbnail,opendocumentthumbnail,gsthumbnail,rawthumbnail,svgthumbnail,ffmpegthumbs

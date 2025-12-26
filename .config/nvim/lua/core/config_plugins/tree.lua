@@ -1,16 +1,3 @@
-
-require("nvim-tree").setup({
-  sort = {
-    sorter = "case_sensitive",
-  },
-  view = {
-    width = 30,
-  },
-  renderer = {
-    group_empty = true,
-  },
-})
-
 -- Open for directories and change nvim's directory
 local function open_nvim_tree(data)
   -- buffer is a directory
@@ -31,5 +18,3 @@ end
 -- Open nvim-tree automatically when open vim on directory
 -- vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
 
--- Tree toggle
-vim.api.nvim_set_keymap('n', '<C-b>', [[:NvimTreeToggle<cr>]], {})

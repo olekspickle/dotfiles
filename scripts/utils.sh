@@ -154,10 +154,18 @@ df -Th
 bzcat steamdeck-repair-20250521.10-3.7.7.img.bz2 | sudo dd if=/dev/stdin of=/dev/sdX oflag=sync status=progress bs=128M
 
 # rename a FAT32 volume
-sudo fatlabel -L "MA DISK" /dev/sdX
+sudo fatlabel /dev/sdXX "MA DISK"
 
 # rename an ext4 volume
 sudo e2label -L "MA DISK" /dev/sdX
 
 # change LUKS key
 sudo cryptsetup luksChangeKey /dev/sdX
+
+# format USB stick to FAT32 volume
+# (Optional but recommended) Wipe old signatures. This prevents weird mount issues.
+sudo wipefs -a /dev/sdX
+sudo parted /dev/sdX --script mklabel msdos
+sudo parted /dev/sdX --script mkpart primary fat32 1MiB 100%
+sudo mkfs.vfat -F 32 -n MA-USB-STEEK /dev/sdb1
+
