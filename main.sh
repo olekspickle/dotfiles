@@ -10,8 +10,9 @@ set -e
 # make all .sh scripts executable
 find . -type f -name "*.sh" -exec chmod 744 {} \;
 
-echo "Installing basic tools..."
-sudo apt install wl-clipboard pkg-config build-essential curl llvm cmake lld coreutils xclip \
+echo "Installing basic tools for Wayland KDE..."
+sudo apt install wl-clipboard pkg-config build-essential curl llvm \
+    cmake lld coreutils colorized-logs \
     libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev libudev-dev \
     libpcap-dev libasound2-dev libgtk-3-dev \
     fonts-firacode fonts-powerline nmap yamllint\

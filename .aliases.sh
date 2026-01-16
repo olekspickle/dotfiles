@@ -1,5 +1,82 @@
 #!/bin/bash
 
+# global stuff
+alias fix-amd-gpu="sudo cat /sys/kernel/debug/dri/1/amdgpu_gpu_recover"
+alias firefox="flatpak run --branch=stable --arch=x86_64 --command=firefox --file-forwarding org.mozilla.firefox"
+alias restart-pipewire='systemctl --user restart pipewire.socket pipewire-pulse.socket wireplumber.service'
+alias update-all='sh ~/Documents/dotfiles/update.sh'
+alias dx-serve='BEVY_ASSET_ROOT=. dx serve --hot-patch'
+alias ffmpeg='ffmpeg -hide_banner'
+alias ffprobe='ffprobe -hide_banner'
+# Clean log from colors
+alias clean-logs="sed 's/\x1b\[[0-9;]*m//g'"
+# sudo not knowing aliases workaround
+alias sudo='sudo '
+# oxidize
+alias fd='fdfind'
+
+alias virtualenv="uv venv"
+alias adbsync='~/.venv/bin/adbsync'
+alias yt='yt-dlp -x --audio-format mp3'
+alias rabbit-inspect='rabbitmqctl list_queues | grep -v -e "0"'
+alias docker-container-rm-all-force='docker ps -q | xargs -I {} docker rm -f {}'
+alias co-main='git checkout $(gh repo view --json defaultBranchRef --jq .defaultBranchRef.name)'
+alias speedtest='cat -p ~/Documents/py/speedtest.py | python -'
+alias carla='flatpak run studio.kx.carla'
+
+# zellij hotkeys
+alias zj="zellij"
+alias zjm="zj -s main -n main || zj attach main"
+alias zjs="zj -s simple -n simple || zj attach simple"
+alias zjp="zj -s ollama -l pi || zj attach ollama"
+
+alias vim="nvim"
+alias vi="nvim"
+alias python='python3'
+
+alias gbb="git bb"
+alias gb="git branch"
+alias gc="git checkout"
+alias ga="git add"
+alias gd="git diff"
+alias gs="git status"
+alias tf="terraform"
+
+alias bored="nmap -Pn -sS -p 80 -iR 0 --open"
+alias battery="upower -i $(upower -e | grep 'BAT')"
+alias bombard="docker run -ti --rm alpine/bombardier -c 1000 -d 3600s -l $1"
+
+alias myip="curl http://ipecho.net/plain; echo"
+#musl
+alias rust-musl-builder='docker run --rm -it -v "$(pwd)":/home/rust/src ekidd/rust-musl-builder'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# pretty xev
+alias xev-pretty="xev | grep -A2 --line-buffered '^KeyRelease' | sed -n '/keycode /s/^.*keycode \([0-9]*\).* (.*, \(.*\)).*$/\1 \2/p'"
+
+# AWS
+# command that connects to localstack instead of real AWS server
+alias aws-local="aws --endpoint-url http://127.0.0.1:4566"
+
+# show logs without weird sequences
+# sudo apt install colorized-logs
+function logless(){
+    ansi2txt < $1 | less
+}
+
+function strip-logs() {
+    local in out
+    in=${1:-"input.log"}
+    out=${2:-"output.log"}
+
+    # Strips all escape sequences and control codes from stdin.
+    cat -p "$in" | sed -e 's,[\x00-\x08\x0E-\x1F]\|\x1B\(\[[0-?]*[ -/]*[@-~]\),,g' > "$out"
+}
+
+
 function rot13() {
     cat -p | tr "$(echo -n {A..Z} {a..z} | tr -d ' ')" "$(echo -n {N..Z} {A..M} {n..z} {a..m} | tr -d ' ')"
 }
@@ -25,6 +102,7 @@ END {
 }'
 }
 
+# wargames <user>
 function wargames() {
     ssh -o PubkeyAuthentication=no -o PreferredAuthentications=password  -p 2220 "$1"@bandit.labs.overthewire.org
 }
@@ -34,12 +112,22 @@ function git-sign-all-commits() {
     git rebase --exec 'git commit --amend --no-edit -S' -i --root
 }
 function git-sign-n() {
+    local n
+
     n=${1:-1}
-    git rebase --exec 'git commit --amend --no-edit -S' HEAD~$n
+    git rebase --exec 'git commit --amend --no-edit -S' HEAD~"$n"
 }
 function git-reset-author() {
     git rebase -r --root --exec 'git commit --amend --no-edit --reset-author'
 }
+function git-rename() {
+    OLD=${1:- };
+    NEW=${2:- };
+    echo old: $OLD new: $NEW;
+
+    git ls-files -z | xargs -0 sed -i -e 's/$OLD/$NEW/g'
+}
+
 
 function zj-reset() {
     mv ~/.cache/zellij/permissions.kdl .
@@ -53,11 +141,16 @@ function restart-plasma(){
     plasmashell &
 }
 
+# insert audio with 500ms delay
+# media-merge video.mp4 audio.mp4 00:00:00.500
 function media-merge(){
+    local video audio offset
+
     # replace audio for a video with an offset
     video=$1
     audio=$2
     offset=${3:-"00:00:00.000"}
+
     # set offset for any of the inputs + or - sets it ahead or behind
     # -itsoffset <+-00:00:00.000> -i <Input>
     # map first(0) stream video to first(0) out, and second(1) audio stream to first(0)
@@ -86,6 +179,8 @@ function to-mp3(){
 }
 
 function to-ogg(){
+    local ext
+
     ext=${1:-"wav"}
 
     case "$ext" in
@@ -101,12 +196,38 @@ function to-ogg(){
     esac
 }
 
+# to-slack-gif input.mp4 <output.gif>
 function to-slack-gif() {
+    local input out base scale fps
+
+    input=${1:-"input.mp4"}
+    if [ ! -f "$input" ]; then
+        echo "No such file: $input"
+    fi
+
+    base="${input%.*}"
+    out=${2:-"$base.gif"}
+    scale=${3:-"128:-1"}
+    fps=${4:-"10"}
+
     # for gif it's mostly fps
-    ffmpeg -i $1 -vf "fps=10,scale=128:128:flags=lanczos" -c:v gif -b:v 256k $2
-}
+    ffmpeg -i "$input" \
+        -vf "fps=${fps},scale=${scale}:flags=lanczos" \
+        -c:v gif -b:v 64k \
+        "$out"
+    }
 
 function resize-to-slack() {
+    local input out base
+
+    input=${1:-"input.mp4"}
+    if [ ! -f "$input" ]; then
+        echo "No such file: $input"
+    fi
+
+    base="${input%.*}"
+    out="$base.gif"
+
     # -c:v libx264: This option sets the efficient video codec to H.264
     # -crf 28: The Constant Rate Factor (CRF) determines the video quality
     # A lower value results in higher quality but larger file size. moderate - 28
@@ -114,12 +235,13 @@ function resize-to-slack() {
     # The "slow" preset provides better compression efficiency, but it's slower.
     # If you want faster encoding, you can choose a different preset like "medium" or "fast".
     # -c:a aac -b:a 128k: These options specify the audio codec as AAC and set the audio bitrate to 128kbps.
-    ffmpeg -i $1 -vf "scale=128:128" -c:v libx264 -crf 28 -preset slow -c:a aac -b:a 128k $2
+    ffmpeg -i "$in" -vf "scale=128:128" -c:v libx264 -crf 28 -preset slow -c:a aac -b:a 128k "$out"
 }
 
+# import .env
 function import() {
     set -a
-    source $1
+    source "$1"
     set +a
 }
 
@@ -139,7 +261,7 @@ function gifify() {
     set -e
 
     # Reset variables so that sequential runs with positional arg do not crash
-    input=""
+    local input output crop scale dither fps loop base filters palette_file
 
     # unpack arguments
     while [[ $# -gt 0 ]]; do
@@ -244,7 +366,7 @@ function gifify() {
     filters="fps=$fps$crop,scale=$scale\:flags=lanczos"
     ffmpeg -y -i ${input} -vf "$filters,palettegen" -update 1 "${palette_file}"
     ffmpeg -y -i "${input}" -i "${palette_file}" \
-        -filter_complex "[0:v]$filters[p];[p][1:v]paletteuse=dither=$dither" \
+        -filter_complex "[0:v]${filters}[p];[p][1:v]paletteuse=dither=$dither" \
         -loop "$loop" "${output}"
 
     set +e
@@ -264,10 +386,10 @@ function gifify() {
 #
 # ```
 function normalize() {
-    local normalize_name="$1"
-    local prefix=${2:-""}
-
-    local temp="$prefix$(echo "$normalize_name" | tr '[:upper:]' '[:lower:]' | \
+    local normalize_name prefix temp
+    normalize_name="$1"
+    prefix=${2:-""}
+    temp="$prefix$(echo "$normalize_name" | tr '[:upper:]' '[:lower:]' | \
         sed 's/ \[[^]]*\]//g' | \
         sed 's/[＂"]\|[＂"]//g' | \
         sed 's/\.-\| \./-/g' | \
@@ -287,12 +409,16 @@ function normalize() {
 # usage:
 # prefix-all <the-group> [PATTERN]
 function prefix-all(){
+    local prefix patt new
+
     prefix=${1:-""}
     patt=${2:-"*"}
     echo "prefix $prefix"
 
     find . -name "$patt" -type f -print0 -exec bash -c '
     normalize() {
+        local normalize_name prefix temp
+
         prefix=${2:-""}
         normalize_name=$(basename "$1")
         temp="$prefix$(echo "$normalize_name" | tr "[:upper:]" "[:lower:]" | \
@@ -317,193 +443,63 @@ mv -v "$0" "$new"' {} "$prefix" \;
 find . -type d -print0 -empty -delete
 }
 
-#git-rename
-function git-rename() {
-    OLD=${1:- };
-    NEW=${2:- };
-    echo old: $OLD new: $NEW;
-    git ls-files -z | xargs -0 sed -i -e 's/$OLD/$NEW/g'
-}
-
-# show logs without weird sequences
-# sudo apt install colorized-logs
-function logless(){
-    ansi2txt < $1 | less
-}
-
-function strip-logs() {
-    # Strips all escape sequences and control codes from stdin.
-    cat -p $1 | sed -e 's,[\x00-\x08\x0E-\x1F]\|\x1B\(\[[0-?]*[ -/]*[@-~]\),,g' > $2
-}
-
-# global stuff
-alias fix-amd-gpu="sudo cat /sys/kernel/debug/dri/1/amdgpu_gpu_recover"
-alias firefox="flatpak run --branch=stable --arch=x86_64 --command=firefox --file-forwarding org.mozilla.firefox"
-alias restart-pipewire='systemctl --user restart pipewire.socket pipewire-pulse.socket wireplumber.service'
-alias update-all='sh ~/Documents/dotfiles/update.sh'
-alias dx-serve='BEVY_ASSET_ROOT=. dx serve --hot-patch'
-alias ffmpeg='ffmpeg -hide_banner'
-alias ffprobe='ffprobe -hide_banner'
-# Clean log from colors
-alias cleanup="sed 's/\x1b\[[0-9;]*m//g'"
-# sudo not knowing aliases workaround
-alias sudo='sudo '
-# oxidize
-alias fd='fdfind'
-alias "carg orun"='cargo run'
-
-alias virtualenv="uv venv"
-alias adbsync='~/.venv/bin/adbsync'
-alias yt='yt-dlp -x --audio-format mp3'
-alias rabbit-inspect='rabbitmqctl list_queues | grep -v -e "0"'
-alias docker-container-rm-all-force='docker ps -q | xargs -I {} docker rm -f {}'
-alias co-main='git checkout $(gh repo view --json defaultBranchRef --jq .defaultBranchRef.name)'
-alias speedtest='cat -p ~/Documents/py/speedtest.py | python -'
-alias carla='flatpak run studio.kx.carla'
-
-# zellij hotkeys
-alias zj="zellij"
-alias zjp="zj -s ollama -l pi || zj attach ollama"
-alias zjm="zj -s main -n main || zj attach main"
-alias zjs="zj -s simple -n simple || zj attach simple"
-
-alias vim="nvim"
-alias vi="nvim"
-alias python='python3'
-
-# cp-remote root@192.168.0.1 ~/remote/path local/path
-alias cp-remote="rsync -avzh --progress -e 'ssh -i ~/.ssh/id_ed25519'  $1 $2"
-
-alias gbb="git bb"
-alias gb="git branch"
-alias gc="git checkout"
-alias ga="git add"
-alias gd="git diff"
-alias gs="git status"
-alias tf="terraform"
-
-alias bored="nmap -Pn -sS -p 80 -iR 0 --open"
-alias battery="upower -i `upower -e | grep 'BAT'`"
-alias bombard="docker run -ti --rm alpine/bombardier -c 1000 -d 3600s -l $1"
-
-alias myip="curl http://ipecho.net/plain; echo"
-#musl
-alias rust-musl-builder='docker run --rm -it -v "$(pwd)":/home/rust/src ekidd/rust-musl-builder'
-
-# EC2 instance rsync
-# example: remote-copy some_dir remote_user@address.com
-alias remote-copy='rsync -avzh --progress -e "ssh -i ~/.ssh/pickle.pem" $1  $2:~/'
-
-# Alias for aws command that connects to localstack instead of real AWS server
-alias aws-local="aws --endpoint-url http://127.0.0.1:4566"
-
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-
-# pretty xev
-alias xev-pretty="xev | grep -A2 --line-buffered '^KeyRelease' | sed -n '/keycode /s/^.*keycode \([0-9]*\).* (.*, \(.*\)).*$/\1 \2/p'"
-
-
-
-# dumb screen tracker exploit for soulless corporate jobs
-alias explore='
-rnds=${1:-100};
-echo "rnds" $rnds
-for ((c=1; c<=$rnds; c++ ));
-do
-    sleep 5;
-    WIDS=`xdotool search --onlyvisible "gnome-terminal"`;
-    xdotool search "Mozilla" windowactivate --sync;
-    sleep 540;
-    xdotool search "Visual Studio Code" windowactivate --sync;
-    for id in $WIDS;
-    do
-        sleep 540;
-        xdotool windowactivate $id;
-    done;
-    echo "done $c"
-done
-echo "done end"
-'
-alias work_test='
-rnds=${1:-3};
-echo "rnds" $rnds
-for ((c=1; c<=$rnds; c++ ));
-do
-    sleep 5;
-    WIDS=`xdotool search --onlyvisible "gnome-terminal"`;
-    xdotool search "Mozilla" windowactivate --sync;
-    sleep 1;
-    xdotool search "Visual Studio Code" windowactivate --sync;
-    for id in $WIDS;
-    do
-        sleep 1;
-        xdotool windowactivate $id;
-    done;
-    echo "done $c"
-done
-echo "done end"
-
-'
-
-
 # format-track -i in.wav -c my-cover.jpg
 function format-track() {
+    local input output title artist album ext cover genre style video key cmd default
+
     while [[ $# -gt 0 ]]; do
         set -e
         key="$1"
         case $key in
             --input | -i)
-                local input="$2"
+                input="$2"
                 shift # past argument
                 shift # past value
                 ;;
             --output | -o)
-                local output="$2"
+                output="$2"
                 shift
                 shift
                 ;;
             --title | -t)
-                local title="$2"
+                title="$2"
                 shift
                 shift
                 ;;
             --artist)
-                local artist="$2"
+                artist="$2"
                 shift
                 shift
                 ;;
             --album | -a)
-                local album="$2"
+                album="$2"
                 shift
                 shift
                 ;;
             --ext | -e)
-                local ext="$2"
+                ext="$2"
                 shift
                 shift
                 ;;
             --cover | -c)
-                local cover="$2"
+                cover="$2"
                 shift
                 shift
                 ;;
             --genre | -g)
-                local genre="$2"
+                genre="$2"
                 shift
                 shift
                 ;;
             --style | -s)
-                local style="$2"
+                style="$2"
                 shift
                 shift
                 ;;
             --video | -v)
-                local video=true
-                shift # past argument
+                video=true
+                shift
+                shift
                 ;;
             --help | -h)
                 echo "File IO:"
@@ -533,33 +529,33 @@ function format-track() {
         return 0
     fi
 
-    local cmd=(ffmpeg -y -loglevel warning -i "$input")
+    cmd=(ffmpeg -y -loglevel warning -i "$input")
 
     if [ -z "$title" ]; then
-        local title="${input%.*}"
+        title="${input%.*}"
     fi
 
     if [ -z "$ext" ]; then
-        local ext="mp3"
+        ext="mp3"
     fi
 
     if [ -z "$output" ]; then
-        local output="${title}.${ext}"
+        output="${title}.${ext}"
         echo "No output file name, using input title ${output}"
     fi
 
     if [ -z "$artist" ]; then
-        local artist="smnbl"
+        artist="smnbl"
     fi
 
     if [ -z "$album" ]; then
-        local album="starter"
+        album="starter"
     fi
 
     if [[ ! -f "$cover" ]]; then
-        local default="cover.jpg"
+        default="cover.jpg"
         if [[ -f "$default" ]]; then
-            local cover="$default"
+            cover="$default"
         fi
     fi
     if [[ -n "$cover" && "$cover" != "0" ]]; then
@@ -571,11 +567,11 @@ function format-track() {
 
 
     if [ -z "$genre" ]; then
-        local genre="electronic"
+        genre="electronic"
     fi
 
     if [ -z "$style" ]; then
-        local style="synth,rhytmic"
+        style="synth,rhytmic"
     fi
 
     echo "Convert $input > $output"
@@ -617,8 +613,11 @@ function format-track() {
 
 # to-yt track.mp3 cover.jpg
 function to-yt() {
-    local out="${1%.*}"
-    ffmpeg -y -i "$1" \
+    local out in
+    in=${1:-"input.mp3"}
+    out="${1%.*}"
+
+    ffmpeg -y -i "$in" \
         -map 0:a -map 0:v \
         -c:a aac -b:a 192k \
         -c:v libx264 -tune stillimage \
@@ -626,3 +625,47 @@ function to-yt() {
         -shortest "$out.mp4"
     # ffmpeg -y -i $1 -c:a copy -shortest -c:v libx264 "$out.mp4"
 }
+
+# dumb screen tracker exploit for soulless corporate jobs I used to use as as a junior
+function explore() {
+    local rnds c WIDS id
+    rnds=${1:-100}
+    echo "rnds $rnds"
+
+    for ((c=1; c<=rnds; c++)); do
+        sleep 5
+        WIDS=$(xdotool search --onlyvisible "gnome-terminal")
+        xdotool search "Mozilla" windowactivate --sync
+        sleep 540
+        xdotool search "Visual Studio Code" windowactivate --sync
+
+        for id in $WIDS; do
+            sleep 540
+            xdotool windowactivate "$id"
+        done
+        echo "done $c"
+    done
+    echo "done end"
+}
+
+function work_test() {
+    local rnds c WIDS id
+    rnds=${1:-3}
+    echo "rnds $rnds"
+
+    for ((c=1; c<=rnds; c++)); do
+        sleep 5
+        WIDS=$(xdotool search --onlyvisible "gnome-terminal")
+        xdotool search "Mozilla" windowactivate --sync
+        sleep 1
+        xdotool search "Visual Studio Code" windowactivate --sync
+
+        for id in $WIDS; do
+            sleep 1
+            xdotool windowactivate "$id"
+        done
+        echo "done $c"
+    done
+    echo "done end"
+}
+

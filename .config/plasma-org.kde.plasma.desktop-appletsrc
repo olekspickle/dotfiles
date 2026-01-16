@@ -24,7 +24,7 @@ plugin=org.kde.plasma.digitalclock
 [Containments][2][Applets][20][Configuration]
 PreloadWeight=100
 popupHeight=600
-popupWidth=528
+popupWidth=455
 
 [Containments][2][Applets][20][Configuration][Appearance]
 autoFontAndSize=false
@@ -289,7 +289,7 @@ immutability=1
 plugin=org.kde.plasma.networkmanagement
 
 [Containments][8][Applets][23][Configuration]
-PreloadWeight=100
+PreloadWeight=92
 
 [Containments][8][Applets][24]
 immutability=1
