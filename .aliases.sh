@@ -6,6 +6,8 @@ alias firefox="flatpak run --branch=stable --arch=x86_64 --command=firefox --fil
 alias restart-pipewire='systemctl --user restart pipewire.socket pipewire-pulse.socket wireplumber.service'
 alias update-all='sh ~/Documents/dotfiles/update.sh'
 alias dx-serve='BEVY_ASSET_ROOT=. dx serve --hot-patch'
+
+# ffmpeg
 alias ffmpeg='ffmpeg -hide_banner'
 alias ffprobe='ffprobe -hide_banner'
 # Clean log from colors
@@ -34,6 +36,7 @@ alias vim="nvim"
 alias vi="nvim"
 alias python='python3'
 
+
 alias gbb="git bb"
 alias gb="git branch"
 alias gc="git checkout"
@@ -42,7 +45,7 @@ alias gd="git diff"
 alias gs="git status"
 alias tf="terraform"
 
-alias bored="nmap -Pn -sS -p 80 -iR 0 --open"
+# alias bored="nmap -Pn -sS -p 80 -iR 0 --open"
 alias battery="upower -i $(upower -e | grep 'BAT')"
 alias bombard="docker run -ti --rm alpine/bombardier -c 1000 -d 3600s -l $1"
 
@@ -60,6 +63,24 @@ alias xev-pretty="xev | grep -A2 --line-buffered '^KeyRelease' | sed -n '/keycod
 # AWS
 # command that connects to localstack instead of real AWS server
 alias aws-local="aws --endpoint-url http://127.0.0.1:4566"
+
+# create install USB from ISO
+# burn-usb-iso /dev/sdb /path/to/my.iso
+function burn-usb-iso() {
+    set +x
+
+    local iso
+    disk=$1
+    iso=$2
+
+    sudo dd if="$iso" of="$disk" bs=8M
+    set -x
+}
+
+function biggest-dirs(){
+    local path_to_check=${1:-"."}
+    sudo du -h --max-depth=5 "$path_to_check" 2>/dev/null | sort -hr | head -n 20
+}
 
 # show logs without weird sequences
 # sudo apt install colorized-logs
@@ -669,3 +690,5 @@ function work_test() {
     echo "done end"
 }
 
+export OLLAMA_CONTEXT_LENGTH=64000
+export SYSTEMD_EDITOR=nvim

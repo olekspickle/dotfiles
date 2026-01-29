@@ -46,6 +46,9 @@ flatpak install -y flathub org.telegram.desktop
 # steam
 flatpak install -y flathub com.valvesoftware.Steam
 
+# itch app
+flatpak install flathub io.itch.itch
+
 # airshipper
 flatpak install -y flathub net.veloren.airshipper
 

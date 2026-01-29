@@ -1,45 +1,36 @@
 #!/bin/bash
 
-# HOME=${HOME:-/home/pickle}
-
-# clear previous buckups
-sudo rm -rf /var/backups/Documents
-sudo rm -rf /var/backups/Downloads
-sudo rm -rf /var/backups/Videos
-sudo rm -rf /var/backups/Pictures
-sudo rm -rf /var/backups/Sound
-sudo rm -rf /var/backups/Games
+HOME=${HOME:-/home/pickle}
+BACKUP_DIR="/var/backups"
 
 sudo rsync -avzh --delete "$HOME"/.local/share/fonts "$HOME"/Documents
 # backup most of the data
-sudo rsync -avzh --delete "$HOME"/Documents /var/backups \
+sudo rsync -avzh --delete "$HOME/Documents/" "$BACKUP_DIR/Documents/" \
     --exclude "*/target/*" \
-    --exclude "*/Fyrox/*" \
     --exclude "*/logs/*" \
     --exclude "*.venv*" \
     --exclude "*.mypy_cache*" \
-    --exclude "*/node_modules/*" \
-    --max-size=5M
-
-sudo rsync -avzh --delete "$HOME"/Downloads /var/backups \
-    --exclude "*Orion*" --exclude "*elegram*" --max-size=5M
-sudo rsync -avzh --delete "$HOME"/Videos/obs /var/backups/Videos --max-size=10M
-sudo rsync -avzh --delete "$HOME"/Pictures /var/backups --max-size=10M --exclude "*Camera*"
-sudo rsync -avzh --delete "$HOME"/Sound /var/backups --max-size=10M --exclude "*gdc*"
-sudo rsync -avzh --delete "$HOME"/Music /var/backups
-sudo rsync -avzh --delete "$HOME"/Games /var/backups --max-size=5M \
-    --exclude "*samples*" --exclude "*/target/*" --exclude "*.godot*"  --exclude "*UE*"
+    --exclude "*/node_modules/*"
+sudo rsync -avzh --delete "$HOME/Downloads/" "$BACKUP_DIR/Downloads/" \
+    --exclude "*Orion*" --exclude "*elegram*" --max-size=1G
+sudo rsync -avzh --delete "$HOME/Videos/" "$BACKUP_DIR/Videos/" --exclude "*Camera*"
+sudo rsync -avzh --delete "$HOME/Pictures/" "$BACKUP_DIR/Pictures/"
+sudo rsync -avzh --delete "$HOME/Sound/" "$BACKUP_DIR/Sound/"  --exclude "*gdc*"
+sudo rsync -avzh --delete "$HOME/Music/" "$BACKUP_DIR/Music/" --max-size=300M
+sudo rsync -avzh --delete "$HOME/Games/" "$BACKUP_DIR/Games/" \
+    --exclude "*/target/*" --exclude "*.godot*"  --exclude "*UE*"
 
 # dotfiles
 nvim_sync=("$HOME/Documents/dotfiles/setup/nvim.sh" "--sync")
 "${nvim_sync[@]}"
+
 rsync -avzh "$HOME"/.aws "$HOME"/Documents/dotfiles
 rsync -avzh "$HOME"/.aliases.sh "$HOME"/Documents/dotfiles
 rsync -avzh "$HOME"/.gitconfig "$HOME"/Documents/dotfiles
 rsync -avzh "$HOME"/.ssh/config "$HOME"/Documents/dotfiles/.ssh
 rsync -avzh "$HOME"/.config/htop "$HOME"/Documents/dotfiles/.config
-rsync -avzh "$HOME"/.config/alacritty "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/starship.toml "$HOME"/Documents/dotfiles/.config
+rsync -avzh --delete "$HOME"/.config/alacritty "$HOME"/Documents/dotfiles/.config
 rsync -avzh --delete "$HOME"/.config/zellij "$HOME"/Documents/dotfiles/.config
 rsync -avzh --delete "$HOME"/.config/atuin "$HOME"/Documents/dotfiles/.config --exclude ".*"
 

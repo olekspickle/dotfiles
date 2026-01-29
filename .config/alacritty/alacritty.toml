@@ -74,15 +74,14 @@ y = 0
 action = "ToggleFullscreen"
 key = "F11"
 
-[[keyboard.bindings]]
-chars = "\u001B[105;5u"
-key = "I"
-mods = "Control"
-
-[[keyboard.bindings]]
-chars = "\u001B[73;5u"
-key = "I"
-mods = "Control|Shift"
+# [[keyboard.bindings]]
+# chars = "\u001B[105;5u"
+# key = "I"
+# mods = "Control"
+# [[keyboard.bindings]]
+# chars = "\u001B[73;5u"
+# key = "I"
+# mods = "Control|Shift"
 
 [scrolling]
 history = 10000
@@ -118,10 +117,6 @@ hyperlinks = true
 post_processing = true
 regex = "(ipfs:|ipns:|magnet:|mailto:|gemini:|gopher:|https:|http:|news:|file:|git:|ssh:|ftp:)[^\u0000-\u001F\u007F-<>\"\\s{-}\\^⟨⟩`]+"
 
-[hints.enabled.binding]
-key = "U"
-mods = "Control|Shift"
-
 [hints.enabled.mouse]
 enabled = true
 mods = "None"
@@ -142,3 +137,12 @@ live_config_reload = true
 # [shell]
 # program = "/bin/bash"
 # args = ["-l", "-c", "zellij"]
+
+# [hints.enabled.binding]
+# key = "U"
+# mods = "Control|Shift"
+
+# [[keyboard.bindings]]
+# key = "Return"
+# mods = "Shift"
+# chars = "\x1b\r"
