@@ -169,3 +169,11 @@ sudo parted /dev/sdX --script mklabel msdos
 sudo parted /dev/sdX --script mkpart primary fat32 1MiB 100%
 sudo mkfs.vfat -F 32 -n MA-USB-STEEK /dev/sdb1
 
+# format USB windows compatible
+umount /dev/sdX
+sudo fdisk /dev/sdX
+# Create a new (dos) partition table: press o and enter.
+# Create a new partition: press n, enter and accept default options.
+# Change the partition type to HPFS/NTFS/exFAT: press t, enter, 7, enter.
+sudo mkfs.exfat -n "my label" /dev/sdX1
+

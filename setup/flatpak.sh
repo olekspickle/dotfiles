@@ -61,6 +61,9 @@ flatpak install -y flathub org.audacityteam.Audacity
 # carla audio host for windows vst plugins
 flatpak install -y flathub studio.kx.carla
 
+# DAW
+flatpak install flathub org.ardour.Ardour
+
 # mic effects
 flatpak install -y flathub com.github.wwmm.easyeffects
 

@@ -13,3 +13,5 @@ rustup update
 
 # update nvim packages with lazy
 nvim --headless +"lua require('lazy').sync()" +qa
+
+fwupdmgr get-updates && fwupdmgr update
