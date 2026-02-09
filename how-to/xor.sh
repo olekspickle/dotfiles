@@ -2,35 +2,35 @@
 
 function ascii2dec
 {
-  RES=""
-  for i in `echo $1 | sed "s/./& /g"`
-  do 
-    RES="$RES `printf \"%d\" \"'$i\"`"
-  done 
-  echo $RES
+    RES=""
+    for i in `echo $1 | sed "s/./& /g"`
+    do
+        RES="$RES `printf \"%d\" \"'$i\"`"
+    done
+    echo $RES
 }
 
 function dec2ascii
 {
-  RES=""
-  for i in $*
-  do 
-    RES="$RES`printf \\\\$(printf '%03o' $i)`"
-  done 
-  echo $RES
+    RES=""
+    for i in $*
+    do
+        RES="$RES`printf \\\\$(printf '%03o' $i)`"
+    done 
+    echo $RES
 }
 
 function xor
 {
-  KEY=$1
-  shift
-  RES=""
-  for i in $*
-  do
-    RES="$RES $(($i ^$KEY))"
-  done
+    KEY=$1
+    shift
+    RES=""
+    for i in $*
+    do
+        RES="$RES $(($i ^$KEY))"
+    done
 
-  echo $RES
+    echo $RES
 }
 
 

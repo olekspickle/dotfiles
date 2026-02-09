@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 
 # Instant mirror from your laptop + webcam (fullscreen+grab)
 mplayer -fs -vf screenshot,mirror tv://

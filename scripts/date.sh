@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 date2stamp () {
-    date --utc --date "$1" +%s 
+    date --utc --date "$1" +%s
 }
 
 stamp2date (){
@@ -9,6 +9,8 @@ stamp2date (){
 }
 
 dateDiff (){
+    local sec dte1 dte2 diffSec abs
+
     case $1 in
         -s)   sec=1;      shift;;
         -m)   sec=60;     shift;;
@@ -21,6 +23,4 @@ dateDiff (){
     if ((diffSec < 0)); then abs=-1; else abs=1; fi
     echo $((diffSec/sec*abs))
 }
-
-
 

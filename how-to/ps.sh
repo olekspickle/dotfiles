@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 
 # Top ten (or whatever) memory utilizing processes (with children aggregate) - Can be done without the multi-dimensional array
 ps axo rss,comm,pid | awk '{ proc_list[$2] += $1; } END { for (proc in proc_list) { printf("%d\t%s\n", proc_list[proc],proc); }}' | sort -n | tail -n 10

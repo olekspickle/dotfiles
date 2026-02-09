@@ -10,7 +10,7 @@ docker system df -v
 docker images --format "{{.Size}}" | awk '{s+=$1/1024} END {print "Total size: " s " Gb"}'
 
 # To analyze the differences between two Docker images using a Bash one-liner,
-# utilize the docker history command and compare the image layers. 
+# utilize the docker history command and compare the image layers.
 docker history --no-trunc <IMAGE_ID> | awk '{print $1}' | tail -n +2 | xargs -I {} sh -c "echo {}; docker inspect --format='{{range .RootFS.Layers}}{{println .}}{{end}}' {}" | sort | uniq -c
 
 # execute stuff for all running containers

