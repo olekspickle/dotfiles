@@ -47,5 +47,6 @@ echo "Installing media related tools..."
 rsync -avzh .config ~/
 rsync -avzh .aws ~/
 rsync -avzh .ssh ~/
-cp .aliases.sh ~/.aliases.sh
+
+echo "source ~/Documents/dotfiles/.aliases.sh" >> ~/.zshrc
 

@@ -6,25 +6,8 @@
 [[ -n "${__MY_FUNCS_LOADED:-}" ]] && return
 __MY_FUNCS_LOADED=1
 
-to-pdf() {
-    local in
-    in=$1
-    libreoffice --headless --convert-to pdf $in
-}
 
-# convert all files in directory in one pdf with pwd as name
-# imagemagick required
-# and this should be changed in /etc/ImageMagick-*/policy.xml
-# <policy domain="coder" rights="read | write" pattern="PDF" />
-# there was some vulnerability bug in Ghostscript
-# check the security advisory before usage
-# https://www.ghostscript.com
-to-pdf-all() {
-    local wd ext
-    wd=$(basename $(pwd))
-    ext=${2:-"jpg"}
-    convert -density 300 -depth 8 -quality 20 -compress jpeg *."$ext" $wd.pdf
-}
+
 
 
 # insrt/replace audio for a video with an offset
@@ -42,6 +25,27 @@ media-merge(){
     # -c:v copy copy video stream
     ffmpeg -i "$video" -itsoffset "$offset" -i "$audio" -c:v copy -map 0:v:0 -map 1:a:0 merged.mp4
 }
+
+to-pdf(){
+    local in
+    in=$1
+    libreoffice --headless --convert-to pdf $in
+}
+
+# convert all files in directory in one pdf with pwd as name
+# imagemagick required
+# and this should be changed in /etc/ImageMagick-*/policy.xml
+# <policy domain="coder" rights="read | write" pattern="PDF" />
+# there was some vulnerability bug in Ghostscript
+# check the security advisory before usage
+# https://www.ghostscript.com
+to-pdf-all(){
+    local wd ext
+    wd=$(basename $(pwd))
+    ext=${2:-"jpg"}
+    convert -density 300 -depth 8 -quality 20 -compress jpeg *."$ext" $wd.pdf
+}
+
 
 to-mp3(){
     local ext
@@ -100,7 +104,7 @@ to-slack-gif() {
         -vf "fps=${fps},scale=${scale}:flags=lanczos" \
         -c:v gif -b:v 64k \
         "$out"
-}
+    }
 
 to-slack-img() {
     local in out base
@@ -235,7 +239,7 @@ gifify() {
     ffmpeg -y -i "${input}" -i "${palette_file}" \
         -filter_complex "[0:v]${filters}[p];[p][1:v]paletteuse=dither=$dither" \
         -loop "$loop" "${output}"
-}
+    }
 
 # format-track -i in.wav -c my-cover.jpg
 format-track() {

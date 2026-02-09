@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source ./scripts/utils.sh
-source ./scripts/media.sh
+source ~/Documents/dotfiles/scripts/utils.sh
+source ~/Documents/dotfiles/scripts/media.sh
 
 # global stuff
 alias fix-amd-gpu="sudo cat /sys/kernel/debug/dri/1/amdgpu_gpu_recover"
