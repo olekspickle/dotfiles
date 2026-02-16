@@ -2,14 +2,6 @@
 # shellcheck shell=bash
 # sourced utility functions
 
-# guard against multiple sourcing
-[[ -n "${__MY_FUNCS_LOADED:-}" ]] && return
-__MY_FUNCS_LOADED=1
-
-
-
-
-
 # insrt/replace audio for a video with an offset
 # insert audio with 500ms delay: media-merge video.mp4 audio.mp4 00:00:00.500
 media-merge(){
@@ -132,7 +124,7 @@ to-slack-img() {
 # gifify -i <video> [-o OUTPUT] [-c CROP] [-f FPS] [-s SCALE] [-l LOOP]
 gifify() {
     # Reset variables so that sequential runs with positional arg do not crash
-    local input output crop scale dither fps loop base filters palette_file
+    local input output crop scale dither fps loop base filters palette_file palette max_colors
 
     # unpack arguments
     while [[ $# -gt 0 ]]; do
@@ -173,12 +165,19 @@ gifify() {
                 shift # past argument
                 shift # past value
                 ;;
+            --palette | -p)
+                max_colors="$2"
+                shift # past argument
+                shift # past value
+                ;;
             --help | -h)
                 echo "gifify <video> [-o OUTPUT] [-c CROP] [-f FPS] [-s SCALE] [-l LOOP] [-d DITHER]\n"
+                echo "Example:  gifify -i input.mp4 -f 12 -s '300:-1' -d bayer -p 256"
                 echo "-i,--input    input path"
                 echo "-o,--output   output path"
-                echo "-d,--dither   dither palette use, default - bayer.[bayer, none]"
+                echo "-d,--dither   dither palette use, default: bayer.\n[bayer, none]"
                 echo "-f,--fps      filter sets the frame rate"
+                echo "-p,--palette  max_colors for palette, default: 128\n[32,64,128,256]"
                 echo "-s,--scale    scale filter will resize the output to 320 pixels wide and automatically determine the height while preserving the aspect ratio. The lanczos scaling algorithm is used in this example. example: 640:-1"
                 echo "-c,--crop     example: 'iw-100:ih' to crop 100px horizontally(50 from each side)"
                 echo "-l,--loop     Control looping with -loop output option but the values are confusing. A value of 0 is infinite looping, -1 is no looping, and 1 will loop once meaning it will play twice. So a value of 10 will cause the GIF to play 11 times"
@@ -231,13 +230,18 @@ gifify() {
         loop="0"
     fi
 
+    if [ -z "$max_colors" ]; then
+        max_colors="128"
+    fi
+
 
     # generate palette from video
     palette_file="/tmp/palette.png"
     filters="fps=$fps$crop,scale=$scale\:flags=lanczos"
-    ffmpeg -y -i "${input}" -vf "$filters,palettegen" -update 1 "${palette_file}"
+    palette="$filters,palettegen=max_colors=$max_colors"
+    ffmpeg -y -i "${input}" -vf "$palette" -update 1 "${palette_file}"
     ffmpeg -y -i "${input}" -i "${palette_file}" \
-        -filter_complex "[0:v]${filters}[p];[p][1:v]paletteuse=dither=$dither" \
+        -filter_complex "[0:v]${filters}[p];[p][1:v]paletteuse=dither=$dither:diff_mode=rectangle" \
         -loop "$loop" "${output}"
     }
 
@@ -423,4 +427,3 @@ to-yt() {
     # ffmpeg -y -i $1 -c:a copy -shortest -c:v libx264 "$out.mp4"
 }
 
-return 0 2>/dev/null || true

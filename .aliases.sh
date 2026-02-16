@@ -33,8 +33,9 @@ alias ardour='~/Sound/ardour-build/gtk2_ardour/ardev'
 # zellij hotkeys
 alias zj="zellij"
 alias zjm="zj attach main || zj -s main -n main"
-alias zja="zj attach ardour || zj -s ardour -n ardour"
 alias zjs="zj attach simple || zj -s simple -n simple"
+alias zjl="zj attach lmms || zj -s lmms -n lmms"
+alias zja="zj attach ardour || zj -s ardour -n ardour"
 
 alias vim="nvim"
 alias vi="nvim"

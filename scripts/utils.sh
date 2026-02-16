@@ -2,10 +2,6 @@
 # shellcheck shell=bash
 # sourced utility functions
 
-# guard against multiple sourcing
-[[ -n "${__MY_FUNCS_LOADED:-}" ]] && return
-__MY_FUNCS_LOADED=1
-
 # import .env
 import() {
     set -a
@@ -362,4 +358,3 @@ utils-help() {
     declare -F | awk '{print $3}' | sort
 }
 
-return 0 2>/dev/null || true
