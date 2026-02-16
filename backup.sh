@@ -15,7 +15,8 @@ sudo rsync -avzh --delete "$HOME/Downloads/" "$BACKUP_DIR/Downloads/" \
     --exclude "*Orion*" --exclude "*elegram*" --max-size=1G
 sudo rsync -avzh --delete "$HOME/Videos/" "$BACKUP_DIR/Videos/" --exclude "*Camera*"
 sudo rsync -avzh --delete "$HOME/Pictures/" "$BACKUP_DIR/Pictures/"
-sudo rsync -avzh --delete "$HOME/Sound/" "$BACKUP_DIR/Sound/"  --exclude "*gdc*"
+sudo rsync -avzh --delete "$HOME/Sound/" "$BACKUP_DIR/Sound/"  \
+    --exclude "*gdc*"  --exclude "*ardour-build*"
 sudo rsync -avzh --delete "$HOME/Music/" "$BACKUP_DIR/Music/" --max-size=300M
 sudo rsync -avzh --delete "$HOME/Games/" "$BACKUP_DIR/Games/" \
     --exclude "*/target/*" --exclude "*.godot*"  --exclude "*UE*"
@@ -29,6 +30,7 @@ rsync -avzh "$HOME"/.aliases.sh "$HOME"/Documents/dotfiles
 rsync -avzh "$HOME"/.gitconfig "$HOME"/Documents/dotfiles
 rsync -avzh "$HOME"/.ssh/config "$HOME"/Documents/dotfiles/.ssh
 rsync -avzh "$HOME"/.config/htop "$HOME"/Documents/dotfiles/.config
+rsync -avzh "$HOME"/.cargo/config.toml "$HOME"/Documents/dotfiles/.cargo/config.toml
 rsync -avzh "$HOME"/.config/starship.toml "$HOME"/Documents/dotfiles/.config
 rsync -avzh --delete "$HOME"/.config/alacritty "$HOME"/Documents/dotfiles/.config
 rsync -avzh --delete "$HOME"/.config/zellij "$HOME"/Documents/dotfiles/.config

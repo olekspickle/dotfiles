@@ -58,7 +58,7 @@ flatpak install -y flathub com.ktechpit.orion
 # recording
 flatpak install -y flathub org.audacityteam.Audacity
 
-# carla audio host for windows vst plugins
+# carla audio host
 flatpak install -y flathub studio.kx.carla
 
 # DAW
@@ -66,6 +66,9 @@ flatpak install flathub org.ardour.Ardour
 
 # mic effects
 flatpak install -y flathub com.github.wwmm.easyeffects
+
+# akai mini settings
+flatpak install flathub io.github.tsmetana.mpk3-settings
 
 # pixelart editor
 flatpak install -y flathub com.orama_interactive.Pixelorama

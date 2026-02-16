@@ -19,7 +19,9 @@ iconViewIconSize=64
 
 [KPropertiesDialog]
 1920x1200 screen: Height=714
-1920x1200 screen: Width=685
+1920x1200 screen: Width=576
+2560x1440 screen: Height=714
+2560x1440 screen: Width=685
 
 [MainWindow]
 MenuBar=Disabled

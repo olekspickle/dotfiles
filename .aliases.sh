@@ -28,13 +28,13 @@ alias docker-container-rm-all-force='docker ps -q | xargs -I {} docker rm -f {}'
 alias co-main='git checkout $(gh repo view --json defaultBranchRef --jq .defaultBranchRef.name)'
 alias speedtest='cat -p ~/Documents/py/speedtest.py | python -'
 alias carla='flatpak run studio.kx.carla'
-alias ardour='./Sound/ardour-build/gtk2_ardour/ardev'
+alias ardour='~/Sound/ardour-build/gtk2_ardour/ardev'
 
 # zellij hotkeys
 alias zj="zellij"
-alias zjm="zj -s main -n main || zj attach main"
-alias zjs="zj -s simple -n simple || zj attach simple"
-alias zjp="zj -s ollama -l pi || zj attach ollama"
+alias zjm="zj attach main || zj -s main -n main"
+alias zja="zj attach ardour || zj -s ardour -n ardour"
+alias zjs="zj attach simple || zj -s simple -n simple"
 
 alias vim="nvim"
 alias vi="nvim"

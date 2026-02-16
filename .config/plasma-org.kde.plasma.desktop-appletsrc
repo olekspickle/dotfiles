@@ -24,7 +24,7 @@ plugin=org.kde.plasma.digitalclock
 [Containments][2][Applets][20][Configuration]
 PreloadWeight=100
 popupHeight=600
-popupWidth=455
+popupWidth=528
 
 [Containments][2][Applets][20][Configuration][Appearance]
 autoFontAndSize=false
@@ -78,7 +78,7 @@ plugin=org.kde.plasma.systemmonitor.net
 
 [Containments][2][Applets][43][Configuration]
 CurrentPreset=org.kde.plasma.systemmonitor
-PreloadWeight=85
+PreloadWeight=90
 
 [Containments][2][Applets][43][Configuration][Appearance]
 chartFace=org.kde.ksysguard.linechart
@@ -154,6 +154,7 @@ AppletOrder=39;4;27;46;44;43;5;20;28;7;21
 
 [Containments][29]
 ItemGeometries-1920x1200=
+ItemGeometries-2560x1440=
 ItemGeometries-2560x1600=
 ItemGeometries-3840x2160=
 ItemGeometriesHorizontal=
@@ -289,7 +290,7 @@ immutability=1
 plugin=org.kde.plasma.networkmanagement
 
 [Containments][8][Applets][23][Configuration]
-PreloadWeight=92
+PreloadWeight=100
 
 [Containments][8][Applets][24]
 immutability=1
@@ -303,7 +304,7 @@ immutability=1
 plugin=org.kde.plasma.mediacontroller
 
 [Containments][8][Applets][25][Configuration]
-PreloadWeight=0
+PreloadWeight=2
 
 [Containments][8][Applets][25][Configuration][ConfigDialog]
 DialogHeight=690

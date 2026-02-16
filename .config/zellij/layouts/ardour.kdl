@@ -7,21 +7,15 @@ layout {
     }
     // ☍ ♅ ♆ ꐠꆛ
 
-    tab name="♅ main" cwd="~/" {
-        pane
-    }
-
-    tab name="♆ rusting" cwd="~/Documents/rust"  {
-        pane
-    }
-
-    tab name="☍ dev" cwd="~/Games/bevy-third-person" focus=true {
-        pane
+    tab name="♅ main" cwd="~/Sound"  {
+        pane {
+            command "ardour-build/gtk2_ardour/ardev"
+        }
     }
 
     tab name="♬ " split_direction="vertical" {
         pane cwd="~/Downloads"
-        pane cwd="~/Sound/lmms/projects"
+        pane cwd="~/Sound"
         floating_panes {
             pane cwd="~/Music" {
                 x 0
@@ -42,15 +36,4 @@ layout {
         pane cwd="~/Documents/dotfiles"
         pane cwd="~/.config/nvim"
     }
-
-    tab name="btop"  {
-            pane command="btop"
-    }
-
-    // tab name="gpu"  split_direction="horizontal" {
-    //     pane {
-    //         command "radeontop"
-    //         args "-T" "3" "-c"
-    //     }
-    // }
 }
