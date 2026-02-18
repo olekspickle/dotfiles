@@ -95,12 +95,12 @@ embedd-bd() {
 }
 
 biggest-dirs(){
-    local path th
-    path=${1:-"."}  # default current directory
+    local search_path th
+    search_path=${1:-$(pwd)}  # default current directory
     th=${2:-"500M"} # default 500M threshold
 
     echo "Analysing disk usage..."
-    sudo du -h --max-depth=5 "$path" --threshold="$th" 2>/dev/null | sort -hr | head -n 20
+    sudo du -h --max-depth=5 "$search_path" --threshold="$th" | sort -hr | head -n 20
 }
 
 # create install USB from ISO
@@ -185,9 +185,9 @@ git-rename() {
 }
 
 git-rm-files-from-history() {
-    local path="$1"
+    local git_path="$1"
 
-    if [[ -z "$path" ]]; then
+    if [[ -z "$git_path" ]]; then
         echo "You must specify a path to remove from git history."
         echo
         echo "Usage:"
@@ -209,9 +209,9 @@ git-rm-files-from-history() {
 
     case "$choice" in
         y|Y)
-            echo "Removing '$path' from git history..."
+            echo "Removing '$git_path' from git history..."
             git filter-branch --force \
-                --index-filter "git rm --cached --ignore-unmatch '$path'" \
+                --index-filter "git rm --cached --ignore-unmatch '$git_path'" \
                 --prune-empty \
                 --tag-name-filter cat \
                 -- --all
