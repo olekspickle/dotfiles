@@ -6,6 +6,8 @@ ln -s $(which fdfind) ~/.local/bin/fd
 
 # rust cat
 cargo install -q --locked bat
+# tldr tool
+cargo install tlrc --locked
 
 cargo install -q cargo-binstall
 cargo binstall -y dysk ripgrep flamegraph zellij felix \

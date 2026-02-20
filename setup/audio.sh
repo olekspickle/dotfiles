@@ -14,3 +14,5 @@ sudo apt install -y  qtbase5-private-dev \
     libqt5svg5-dev sudo apt install liblist-moreutils-perl \
     libxcb-util-dev libxcb-keysyms1-dev libxcb-icccm4-dev
 
+# Yoshimi specific
+sudo apt install -y libfltk1.3-dev libreadline-dev
