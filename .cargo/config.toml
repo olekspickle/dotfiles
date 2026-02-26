@@ -25,19 +25,20 @@ rustflags = [
     "-Clink-arg=-fuse-ld=mold",
     # Nightly
     "-Zshare-generics=y",
-    # https://blog.rust-lang.org/2023/11/09/parallel-rustc.html
     "-Zthreads=0",
 ]
 rustdocflags = [
     # Nightly
+    "-Clink-arg=-fuse-ld=mold",
     "-Zshare-generics=y",
     "-Zthreads=0",
-    "-Clink-arg=-fuse-ld=mold",
 ]
 
 # ^ Using a global target-dir is a great way to do caching
 # but breaks subsecond when used with mold!
 # Use `ln -s /home/your_name/.cargo/global_target target` instead
+# Warning: it will block the artifact lock,
+# so if you are used to compile multiple projects simultaniously, you may want to use a local target-dir
 [build]
 target-dir = "/home/pickle/.cargo/global-build-cache"
 

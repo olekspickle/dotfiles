@@ -1,0 +1,32 @@
+layout {
+    default_tab_template {
+        pane size=1 borderless=true {
+            plugin location="zjstatus"
+        }
+        children
+    }
+    // ☍ ♅ ♆ ꐠꆛ
+
+    tab name="☍" cwd="~/Sound" focus=true {
+        pane command="/usr/bin/lmms"
+    }
+
+    tab name="♬ " split_direction="vertical" {
+        pane cwd="~/Sound/lmms/output"
+        pane cwd="~/Sound/lmms/projects"
+        floating_panes {
+            pane cwd="~/Music" {
+                x 0
+                y "15%"
+                width "100%"
+                height "50%"
+            }
+            pane cwd="~/Music" {
+                x "50%"
+                y "40%"
+                width "50%"
+                height "50%"
+            }
+        }
+    }
+}

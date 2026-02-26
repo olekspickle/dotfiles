@@ -16,7 +16,9 @@ docker-clean-all () {
 }
 
 clean-rust () {
-    find . -type d -name target -exec rm -rf {} + -o -type f -name Cargo.lock -exec rm -f {} +
+    local time
+    time=${1:-"-mtime +7"} # default rm dirs older than week
+    find . -type d "$time" -name target -exec rm -rf {} + -o -type f -name Cargo.lock -exec rm -f {} +
 }
 
 # check LAN cable for all network interfaces
@@ -100,7 +102,7 @@ biggest-dirs(){
     th=${2:-"500M"} # default 500M threshold
 
     echo "Analysing disk usage..."
-    sudo du -h --max-depth=5 "$search_path" --threshold="$th" | sort -hr | head -n 20
+    du -h --max-depth=5 "$search_path" --threshold="$th" | sort -hr | head -n 20
 }
 
 # create install USB from ISO
