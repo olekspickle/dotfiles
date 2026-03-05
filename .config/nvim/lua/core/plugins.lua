@@ -9,6 +9,12 @@ return require('lazy').setup({
             event = "VeryLazy",
             dependencies = { "MunifTanjim/nui.nvim", "hrsh7th/nvim-cmp" }
         },
+        -- {
+        --     "aikhe/wrapped.nvim",
+        --     dependencies = { "nvzone/volt" },
+        --     cmd = { "WrappedNvim" },
+        --     opts = {},
+        -- },
         -- Awesome lightweight overall life improvement collection of plugins
         { 'echasnovski/mini.nvim', version = false },
         -- [[ Theme ]]

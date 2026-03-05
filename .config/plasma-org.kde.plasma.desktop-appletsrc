@@ -78,7 +78,7 @@ plugin=org.kde.plasma.systemmonitor.net
 
 [Containments][2][Applets][43][Configuration]
 CurrentPreset=org.kde.plasma.systemmonitor
-PreloadWeight=90
+PreloadWeight=100
 
 [Containments][2][Applets][43][Configuration][Appearance]
 chartFace=org.kde.ksysguard.linechart
@@ -283,7 +283,7 @@ immutability=1
 plugin=org.kde.plasma.battery
 
 [Containments][8][Applets][22][Configuration]
-PreloadWeight=100
+PreloadWeight=92
 
 [Containments][8][Applets][23]
 immutability=1

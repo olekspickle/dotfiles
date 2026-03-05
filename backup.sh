@@ -16,7 +16,7 @@ sudo rsync -avzh --delete "$HOME/Downloads/" "$BACKUP_DIR/Downloads/" \
 sudo rsync -avzh --delete "$HOME/Videos/" "$BACKUP_DIR/Videos/" --exclude "*Camera*"
 sudo rsync -avzh --delete "$HOME/Pictures/" "$BACKUP_DIR/Pictures/"
 sudo rsync -avzh --delete "$HOME/Sound/" "$BACKUP_DIR/Sound/"  \
-    --exclude "*gdc*"  --exclude "*ardour-build*"
+    --exclude "*-build*" --exclude "*gdc*"
 sudo rsync -avzh --delete "$HOME/Music/" "$BACKUP_DIR/Music/" --max-size=300M
 sudo rsync -avzh --delete "$HOME/Games/" "$BACKUP_DIR/Games/" \
     --exclude "*/target/*" --exclude "*.godot*"  --exclude "*UE*"

@@ -99,7 +99,7 @@ embedd-bd() {
 biggest-dirs(){
     local search_path th
     search_path=${1:-$(pwd)}  # default current directory
-    th=${2:-"500M"} # default 500M threshold
+    th=${2:-"100M"} # default 100M threshold
 
     echo "Analysing disk usage..."
     du -h --max-depth=5 "$search_path" --threshold="$th" | sort -hr | head -n 20

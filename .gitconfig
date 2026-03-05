@@ -20,6 +20,7 @@
 	repo = /home/pickle/Games/bevy-new-3d-rpg
 [alias]
 	bb = !/home/pickle/Documents/dotfiles/scripts/git-better-branch.sh
+	filter-repo = !/home/pickle/Documents/py/git-filter-repo
 [rerere]
 	enabled = true
 [column]

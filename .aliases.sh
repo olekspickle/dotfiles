@@ -10,6 +10,10 @@ alias restart-pipewire='systemctl --user restart pipewire.socket pipewire-pulse.
 alias update-all='sh ~/Documents/dotfiles/update.sh'
 alias dx-serve='BEVY_ASSET_ROOT=. dx serve --hot-patch'
 
+# network
+alias myip="curl http://ipecho.net/plain; echo"
+alias zerotier="sudo zerotier-cli"
+
 # ffmpeg
 alias ffmpeg='ffmpeg -hide_banner'
 alias ffprobe='ffprobe -hide_banner'
@@ -33,6 +37,7 @@ alias ardour='~/Sound/ardour-build/gtk2_ardour/ardev'
 # zellij hotkeys
 alias zj="zellij"
 alias zjm="zj attach main || zj -s main -n main"
+alias zjf="zj attach fort || zj -s fort -n fort"
 alias zjs="zj attach simple || zj -s simple -n simple"
 alias zjl="zj attach lmms || zj -s lmms -n lmms"
 alias zja="zj attach ardour || zj -s ardour -n ardour"
@@ -41,20 +46,18 @@ alias vim="nvim"
 alias vi="nvim"
 alias python='python3'
 
-
 alias gbb="git bb"
 alias gb="git branch"
 alias gc="git checkout"
 alias ga="git add"
 alias gd="git diff"
 alias gs="git status"
-alias tf="terraform"
+alias git-armageddon="git push --force --branches --prune"
 
 # alias bored="nmap -Pn -sS -p 80 -iR 0 --open"
 alias battery="upower -i $(upower -e | grep 'BAT')"
 alias bombard="docker run -ti --rm alpine/bombardier -c 1000 -d 3600s -l $1"
 
-alias myip="curl http://ipecho.net/plain; echo"
 #musl
 alias rust-musl-builder='docker run --rm -it -v "$(pwd)":/home/rust/src ekidd/rust-musl-builder'
 

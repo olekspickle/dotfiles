@@ -22,8 +22,8 @@ codegen-backend = "llvm"
 [target.x86_64-unknown-linux-gnu]
 linker = "clang"
 rustflags = [
-    "-Clink-arg=-fuse-ld=mold",
     # Nightly
+    "-Clink-arg=-fuse-ld=mold",
     "-Zshare-generics=y",
     "-Zthreads=0",
 ]
@@ -39,6 +39,7 @@ rustdocflags = [
 # Use `ln -s /home/your_name/.cargo/global_target target` instead
 # Warning: it will block the artifact lock,
 # so if you are used to compile multiple projects simultaniously, you may want to use a local target-dir
-[build]
-target-dir = "/home/pickle/.cargo/global-build-cache"
+# It also slows down linking, drastically increasing build times
+# [build]
+# target-dir = "/home/pickle/.cargo/global-build-cache"
 
