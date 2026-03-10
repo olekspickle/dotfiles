@@ -42,6 +42,7 @@ alias zjs="zj attach simple || zj -s simple -n simple"
 alias zjl="zj attach lmms || zj -s lmms -n lmms"
 alias zja="zj attach ardour || zj -s ardour -n ardour"
 
+alias agent="opencode"
 alias vim="nvim"
 alias vi="nvim"
 alias python='python3'

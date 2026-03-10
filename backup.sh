@@ -1,12 +1,15 @@
 #!/bin/bash
 
+set -e
+
 HOME=${HOME:-/home/pickle}
 BACKUP_DIR="/var/backups"
 
 sudo rsync -avzh --delete "$HOME"/.local/share/fonts "$HOME"/Documents
 # backup most of the data
 sudo rsync -avzh --delete "$HOME/Documents/" "$BACKUP_DIR/Documents/" \
-    --exclude "*/target/*" \
+    --exclude "*fort*" \
+    --exclude "*target*" \
     --exclude "*/logs/*" \
     --exclude "*.venv*" \
     --exclude "*.mypy_cache*" \
@@ -16,7 +19,7 @@ sudo rsync -avzh --delete "$HOME/Downloads/" "$BACKUP_DIR/Downloads/" \
 sudo rsync -avzh --delete "$HOME/Videos/" "$BACKUP_DIR/Videos/" --exclude "*Camera*"
 sudo rsync -avzh --delete "$HOME/Pictures/" "$BACKUP_DIR/Pictures/"
 sudo rsync -avzh --delete "$HOME/Sound/" "$BACKUP_DIR/Sound/"  \
-    --exclude "*-build*" --exclude "*gdc*"
+    --exclude "*/target/*" --exclude "*-build*" --exclude "*gdc*"
 sudo rsync -avzh --delete "$HOME/Music/" "$BACKUP_DIR/Music/" --max-size=300M
 sudo rsync -avzh --delete "$HOME/Games/" "$BACKUP_DIR/Games/" \
     --exclude "*/target/*" --exclude "*.godot*"  --exclude "*UE*"
@@ -36,6 +39,12 @@ rsync -avzh --delete "$HOME"/.config/alacritty "$HOME"/Documents/dotfiles/.confi
 rsync -avzh --delete "$HOME"/.config/zellij "$HOME"/Documents/dotfiles/.config
 rsync -avzh --delete "$HOME"/.config/atuin "$HOME"/Documents/dotfiles/.config --exclude ".*"
 
+# agent setup
+rsync -avzh "$HOME"/.cargo/opencode/opencode.json "$HOME"/Documents/dotfiles/.cargo/opencode/opencode.json
+rsync -avzh "$HOME"/.cargo/opencode/opencode.local.json "$HOME"/Documents/dotfiles/.cargo/opencode/opencode.local.json
+rsync -avzh "$HOME"/.cargo/opencode/AGENTS.md "$HOME"/Documents/dotfiles/.cargo/opencode/AGENTS.md
+rsync -avzh "$HOME"/.cargo/opencode/agents "$HOME"/Documents/dotfiles/.cargo/opencode
+
 # KDE
 rsync -avzh "$HOME"/.config/kdeglobals "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/plasmarc "$HOME"/Documents/dotfiles/.config
@@ -52,3 +61,5 @@ rsync -avzh "$HOME"/.config/ksplashrc "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/dolphinrc "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.config/powermanagementprofilesrc "$HOME"/Documents/dotfiles/.config
 
+
+set +e

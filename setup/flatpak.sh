@@ -26,6 +26,9 @@ snap disable firefox
 sudo snap remove --purge firefox
 flatpak install -y flathub org.mozilla.firefox
 
+# chromium
+flatpak install flathub io.github.ungoogled_software.ungoogled_chromium
+
 # vpn
 flatpak install -y flathub com.surfshark.Surfshark
 

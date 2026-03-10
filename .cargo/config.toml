@@ -5,41 +5,55 @@ git-fetch-with-cli = true   # use the `git` executable for git operations
 incremental = true
 
 # CRANELIFT speedup: https://bevy.org/learn/quick-start/getting-started/setup/#cranelift
-[unstable]
-codegen-backend = true
-[profile.dev]
-codegen-backend = "cranelift"
-# Consider compiling deps with llvm for runtime perf and working `#[should_panic]`
-# If you don't have any tests that `#[should_panic]`, comment this out for *massive* speedups
-# For me, it makes a 16 minute build take 6 minutes.
-[profile.dev.package."*"]
-codegen-backend = "llvm"
-[profile.release] # Disable cranelift for release profile
-codegen-backend = "llvm"
-[profile.web] # cranelift cannot build wasm32-unknown-unknown out of the box
-codegen-backend = "llvm"
+# [unstable]
+# codegen-backend = true
+# [profile.dev]
+# codegen-backend = "cranelift"
+# # Consider compiling deps with llvm for runtime perf and working `#[should_panic]`
+# # If you don't have any tests that `#[should_panic]`, comment this out for *massive* speedups
+# # For me, it makes a 16 minute build take 6 minutes.
+# [profile.dev.package."*"]
+# codegen-backend = "llvm"
+# [profile.release] # Disable cranelift for release profile
+# codegen-backend = "llvm"
+# [profile.web] # cranelift cannot build wasm32-unknown-unknown out of the box
+# codegen-backend = "llvm"
+#
+# [target.x86_64-unknown-linux-gnu]
+# linker = "clang"
+# rustflags = [
+#     # Nightly
+#     "-Clink-arg=-fuse-ld=mold",
+#     "-Zshare-generics=y",
+#     "-Zthreads=0",
+# ]
+# rustdocflags = [
+#     # Nightly
+#     "-Clink-arg=-fuse-ld=mold",
+#     "-Zshare-generics=y",
+#     "-Zthreads=0",
+# ]
 
-[target.x86_64-unknown-linux-gnu]
-linker = "clang"
-rustflags = [
-    # Nightly
-    "-Clink-arg=-fuse-ld=mold",
-    "-Zshare-generics=y",
-    "-Zthreads=0",
-]
-rustdocflags = [
-    # Nightly
-    "-Clink-arg=-fuse-ld=mold",
-    "-Zshare-generics=y",
-    "-Zthreads=0",
-]
+
+# audio workers on web flags
+# [target.wasm32-unknown-unknown]
+# rustflags = [
+#     "-Ctarget-feature=+atomics",
+#     "-Clink-arg=--shared-memory",
+#     "-Clink-arg=--max-memory=1073741824",
+#     "-Clink-arg=--import-memory",
+#     "-Clink-arg=--export=__wasm_init_tls",
+#     "-Clink-arg=--export=__tls_size",
+#     "-Clink-arg=--export=__tls_align",
+#     "-Clink-arg=--export=__tls_base",
+# ]
+
 
 # ^ Using a global target-dir is a great way to do caching
 # but breaks subsecond when used with mold!
 # Use `ln -s /home/your_name/.cargo/global_target target` instead
 # Warning: it will block the artifact lock,
 # so if you are used to compile multiple projects simultaniously, you may want to use a local target-dir
-# It also slows down linking, drastically increasing build times
 # [build]
 # target-dir = "/home/pickle/.cargo/global-build-cache"
 

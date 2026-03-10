@@ -11,11 +11,11 @@ layout {
         pane
     }
 
-    tab name="♆ rusting" cwd="~/Documents/sky"  {
+    tab name="♆ rusting" cwd="~/Documents/fort"  {
         pane
     }
 
-    tab name="☍ dev" cwd="~/Documents/sky" focus=true {
+    tab name="☍ dev" cwd="~/Documents/fort" focus=true {
         pane
     }
 
