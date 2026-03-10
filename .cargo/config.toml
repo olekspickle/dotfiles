@@ -5,34 +5,34 @@ git-fetch-with-cli = true   # use the `git` executable for git operations
 incremental = true
 
 # CRANELIFT speedup: https://bevy.org/learn/quick-start/getting-started/setup/#cranelift
-# [unstable]
-# codegen-backend = true
-# [profile.dev]
-# codegen-backend = "cranelift"
-# # Consider compiling deps with llvm for runtime perf and working `#[should_panic]`
-# # If you don't have any tests that `#[should_panic]`, comment this out for *massive* speedups
-# # For me, it makes a 16 minute build take 6 minutes.
-# [profile.dev.package."*"]
-# codegen-backend = "llvm"
-# [profile.release] # Disable cranelift for release profile
-# codegen-backend = "llvm"
-# [profile.web] # cranelift cannot build wasm32-unknown-unknown out of the box
-# codegen-backend = "llvm"
-#
-# [target.x86_64-unknown-linux-gnu]
-# linker = "clang"
-# rustflags = [
-#     # Nightly
-#     "-Clink-arg=-fuse-ld=mold",
-#     "-Zshare-generics=y",
-#     "-Zthreads=0",
-# ]
-# rustdocflags = [
-#     # Nightly
-#     "-Clink-arg=-fuse-ld=mold",
-#     "-Zshare-generics=y",
-#     "-Zthreads=0",
-# ]
+[unstable]
+codegen-backend = true
+[profile.dev]
+codegen-backend = "cranelift"
+# Consider compiling deps with llvm for runtime perf and working `#[should_panic]`
+# If you don't have any tests that `#[should_panic]`, comment this out for *massive* speedups
+# For me, it makes a 16 minute build take 6 minutes.
+[profile.dev.package."*"]
+codegen-backend = "llvm"
+[profile.release] # Disable cranelift for release profile
+codegen-backend = "llvm"
+[profile.web] # cranelift cannot build wasm32-unknown-unknown out of the box
+codegen-backend = "llvm"
+
+[target.x86_64-unknown-linux-gnu]
+linker = "clang"
+rustflags = [
+    # Nightly
+    "-Clink-arg=-fuse-ld=mold",
+    "-Zshare-generics=y",
+    "-Zthreads=0",
+]
+rustdocflags = [
+    # Nightly
+    "-Clink-arg=-fuse-ld=mold",
+    "-Zshare-generics=y",
+    "-Zthreads=0",
+]
 
 
 # audio workers on web flags

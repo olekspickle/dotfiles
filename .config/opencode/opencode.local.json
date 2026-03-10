@@ -1,0 +1,61 @@
+{
+    "$schema": "https://opencode.ai/config.json",
+
+    "theme": "opencode",
+
+    "provider": {
+        "ollama": {
+            "name": "Local Ollama",
+            "npm": "@ai-sdk/openai-compatible",
+            "options": {
+                "baseURL": "http://127.0.0.1:11434/v1"
+            },
+            "models": {
+                "qwen2.5-coder": { "name": "qwen2.5-coder:7b" },
+                "qwen2.5-small": { "name": "qwen2.5-coder:3b" }
+            }
+        }
+    },
+
+    "model": "ollama/qwen2.5-coder",
+    "small_model": "ollama/qwen2.5-small",
+
+    "disabled_providers": [
+        "openai",
+        "anthropic",
+        "gemini"
+    ],
+
+    "tools": {
+        "bash": true,
+        "read": true,
+        "edit": true,
+        "write": true
+    },
+
+    "permission": {
+        "bash": {
+            "*": "ask",
+            "git status": "allow",
+            "git diff": "allow",
+            "ls": "allow",
+            "pwd": "allow",
+            "rm *": "deny",
+            "curl *": "deny",
+            "wget *": "deny"
+        },
+        "edit": "ask",
+        "write": "ask"
+    },
+
+    "compaction": {
+        "auto": true,
+        "prune": true,
+        "reserved": 8000
+    },
+
+    "tui": {
+        "scroll_speed": 3,
+        "diff_style": "auto"
+    }
+}

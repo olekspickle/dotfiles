@@ -29,10 +29,8 @@ nvim_sync=("$HOME/Documents/dotfiles/setup/nvim.sh" "--sync")
 "${nvim_sync[@]}"
 
 rsync -avzh "$HOME"/.aws "$HOME"/Documents/dotfiles
-rsync -avzh "$HOME"/.aliases.sh "$HOME"/Documents/dotfiles
 rsync -avzh "$HOME"/.gitconfig "$HOME"/Documents/dotfiles
 rsync -avzh "$HOME"/.ssh/config "$HOME"/Documents/dotfiles/.ssh
-rsync -avzh "$HOME"/.config/htop "$HOME"/Documents/dotfiles/.config
 rsync -avzh "$HOME"/.cargo/config.toml "$HOME"/Documents/dotfiles/.cargo/config.toml
 rsync -avzh "$HOME"/.config/starship.toml "$HOME"/Documents/dotfiles/.config
 rsync -avzh --delete "$HOME"/.config/alacritty "$HOME"/Documents/dotfiles/.config
@@ -40,10 +38,10 @@ rsync -avzh --delete "$HOME"/.config/zellij "$HOME"/Documents/dotfiles/.config
 rsync -avzh --delete "$HOME"/.config/atuin "$HOME"/Documents/dotfiles/.config --exclude ".*"
 
 # agent setup
-rsync -avzh "$HOME"/.cargo/opencode/opencode.json "$HOME"/Documents/dotfiles/.cargo/opencode/opencode.json
-rsync -avzh "$HOME"/.cargo/opencode/opencode.local.json "$HOME"/Documents/dotfiles/.cargo/opencode/opencode.local.json
-rsync -avzh "$HOME"/.cargo/opencode/AGENTS.md "$HOME"/Documents/dotfiles/.cargo/opencode/AGENTS.md
-rsync -avzh "$HOME"/.cargo/opencode/agents "$HOME"/Documents/dotfiles/.cargo/opencode
+rsync -avzh "$HOME"/.config/opencode/opencode.json "$HOME"/Documents/dotfiles/.config/opencode/opencode.json
+rsync -avzh "$HOME"/.config/opencode/opencode.local.json "$HOME"/Documents/dotfiles/.config/opencode/opencode.local.json
+rsync -avzh "$HOME"/.config/opencode/AGENTS.md "$HOME"/Documents/dotfiles/.config/opencode/AGENTS.md
+rsync -avzh "$HOME"/.config/opencode/agents "$HOME"/Documents/dotfiles/.config/opencode
 
 # KDE
 rsync -avzh "$HOME"/.config/kdeglobals "$HOME"/Documents/dotfiles/.config
