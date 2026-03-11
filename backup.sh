@@ -36,6 +36,7 @@ rsync -avzh "$HOME"/.config/starship.toml "$HOME"/Documents/dotfiles/.config
 rsync -avzh --delete "$HOME"/.config/alacritty "$HOME"/Documents/dotfiles/.config
 rsync -avzh --delete "$HOME"/.config/zellij "$HOME"/Documents/dotfiles/.config
 rsync -avzh --delete "$HOME"/.config/atuin "$HOME"/Documents/dotfiles/.config --exclude ".*"
+rsync -avzh --delete "$HOME"/.config/btop/btop.conf "$HOME"/Documents/dotfiles/.config/btop
 
 # agent setup
 rsync -avzh "$HOME"/.config/opencode/opencode.json "$HOME"/Documents/dotfiles/.config/opencode/opencode.json
