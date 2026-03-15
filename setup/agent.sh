@@ -6,3 +6,4 @@
 # curl -fsSL https://claude.ai/install.sh | bash
 # curl https://cursor.com/install -fsS | bash
 curl -fsSL https://opencode.ai/install | bash
+

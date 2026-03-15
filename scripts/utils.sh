@@ -16,9 +16,11 @@ docker-clean-all () {
 }
 
 clean-rust () {
-    local time
-    time=${1:-"-mtime +7"} # default rm dirs older than week
-    find . -type d "$time" -name target -exec rm -rf {} + -o -type f -name Cargo.lock -exec rm -f {} +
+    local days
+    days=${1:-7}
+
+    find . -type d -mtime +"$days" -name target -exec rm -rf {} + \
+        -o -type f -name Cargo.lock -exec rm -f {} +
 }
 
 # check LAN cable for all network interfaces

@@ -15,18 +15,13 @@ return require('lazy').setup({
         --     opts = {},
         -- },
         -- Awesome lightweight overall life improvement collection of plugins
+        -- setup is at core/config_plugins/mini.lua
         { 'echasnovski/mini.nvim', version = false },
+
         -- [[ Theme ]]
-        -- statusline. TODO: configure mini.statusline
         'nvim-lualine/lualine.nvim',
-
-        -- colorizer #000000
+        -- colorizer to see this #000000
         'norcalli/nvim-colorizer.lua',
-
-        -- actual themes
-        { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-        'Mofiqul/dracula.nvim',
-        'neanias/everforest-nvim',
         'folke/tokyonight.nvim',
 
         -- File Tree
@@ -45,7 +40,6 @@ return require('lazy').setup({
         -- fuzzy search
         {
             "nvim-telescope/telescope.nvim",
-            tag = "v0.2.0",
             dependencies = { "nvim-lua/plenary.nvim" }
         },
 
@@ -59,7 +53,8 @@ return require('lazy').setup({
         -- Syntax AST highlighting
         {
             "nvim-treesitter/nvim-treesitter",
-            -- commit = "c91122d2012682301df68307cfc049a57c3fd286"
+            event = { "BufReadPost", "BufNewFile" },
+            build = ":TSUpdate",
         },
 
         -- Log syntax highlighting

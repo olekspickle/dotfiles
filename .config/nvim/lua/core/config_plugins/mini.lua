@@ -43,7 +43,6 @@ require("mini.surround").setup {
     },
     -- silent = true,
 }
--- require("mini.statusline").setup {}
 
 
 -- require("mini.sessions").setup {
