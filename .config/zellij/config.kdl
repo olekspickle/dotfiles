@@ -208,6 +208,15 @@ plugins {
     }
     configuration location="zellij:configuration"
 
+    session-hook location="file:/home/pickle/.config/zellij/plugins/zj-session-hook.wasm" {
+
+        // "on_attach" "zerof-j"
+        // "on_detach" "zerof-l"
+        "on_attach" "echo 'attached!'"
+        "on_detach" "echo 'detached!'"
+        "session_pattern" "fort"
+    }
+
     // forgot location="file:/home/pickle/.config/zellij/plugins/zj_forgot.wasm" {
     //     "LOAD_ZELLIJ_BINDINGS"  "false"
     //     "lock"                  "ctrl + g"

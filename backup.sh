@@ -26,13 +26,13 @@ rsync_() {
 
 rsync_ "$HOME"/.local/share/fonts "$HOME"/Documents
 # backup most of the data
+rsync_ "$HOME/Documents/" "$BACKUP_DIR/Documents/"
 rsync_ "$HOME/Pictures/" "$BACKUP_DIR/Pictures/"
 rsync_ "$HOME/Downloads/" "$BACKUP_DIR/Downloads/" --max-size=100M
 rsync_ "$HOME/Videos/" "$BACKUP_DIR/Videos/"
 rsync_ "$HOME/Music/" "$BACKUP_DIR/Music/" --max-size=300M
 rsync_ "$HOME/Sound/" "$BACKUP_DIR/Sound/"
 rsync_ "$HOME/Games/" "$BACKUP_DIR/Games/"
-rsync_ "$HOME/Documents/" "$BACKUP_DIR/Documents/"
 
 # dotfiles
 nvim_sync=("$HOME/Documents/dotfiles/setup/nvim.sh" "--sync")

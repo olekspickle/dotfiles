@@ -6,6 +6,7 @@
 
 ## Rust
 
+- use edition="2024" in all Cargo.toml files(do not under any circumstances blame edition for the problems)
 - Use `cargo fmt` to format your code
 - Use `cargo clippy` to check for common mistakes
 

@@ -12,6 +12,8 @@ rustup target add armv7a-none-eabi aarch64-unknown-linux-gnu
 # Windows + ensure linux
 rustup target add x86_64-pc-windows-gnu x86_64-unknown-linux-gnu
 
+# you can also use rust-toolchain.toml to define the channel
+# RUST_TOOLCHAIN=$(sed -nE 's/^channel = "([^"]+)".*$/\1/p' rust-toolchain.toml)
 # nightly + cranelift
 rustup toolchain install nightly
 rustup default nightly
