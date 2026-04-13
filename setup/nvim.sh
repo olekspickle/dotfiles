@@ -8,8 +8,8 @@ if [[ "$*" == *"--sync"* ]]; then
 fi
 
 if [ -d "/squashfs-root" ]; then
-    rm -rf /squashfs-root
-    rm /usr/bin/nvim
+   rm -rf /squashfs-root
+   rm /usr/bin/nvim
 fi
 
 if [ ! -f "nvim.appimage" ]; then
@@ -24,6 +24,11 @@ fi
 # Optional: exposing nvim globally.
 sudo mv squashfs-root /
 sudo ln -s /squashfs-root/AppRun /usr/bin/nvim
+
+# Optional: add nvim to default editors if not present
+if ! sudo update-alternatives --list editor 2>/dev/null | rg -q nvim; then
+    sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 100
+fi
 
 # clean up
 rm -f ./nvim.appimage

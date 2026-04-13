@@ -4,7 +4,6 @@
 
     "disabled_providers": [
         "openai",
-        "anthropic",
         "gemini"
     ],
 

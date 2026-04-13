@@ -34,3 +34,8 @@ nmcli connection down my-hotspot
 # after this on linux you could experience some problems with network interface
 sudo service network-manager restart
 
+# hide docker network interface from KDE
+cat <<'EOF' >> /etc/NetworkManager/conf.d/hotspot.conf
+[keyfile]
+unmanaged-devices=interface-name:veth*
+EOF
