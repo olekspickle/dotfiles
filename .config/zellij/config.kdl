@@ -195,29 +195,26 @@ keybinds {
     }
 }
 plugins {
-    tab-bar location="zellij:tab-bar"
+    compact-bar location="zellij:compact-bar"
     status-bar location="zellij:status-bar"
     strider location="zellij:strider"
-    compact-bar location="zellij:compact-bar"
+    tab-bar location="zellij:tab-bar"
     session-manager location="zellij:session-manager"
+    configuration location="zellij:configuration"
     welcome-screen location="zellij:session-manager" {
         welcome_screen true
     }
     filepicker location="zellij:strider" {
         cwd "/"
     }
-    configuration location="zellij:configuration"
 
-    session-hook location="file:/home/pickle/.config/zellij/plugins/zj-session-hook.wasm" {
-
-        // "on_attach" "zerof-j"
-        // "on_detach" "zerof-l"
-        "on_attach" "echo 'attached!'"
-        "on_detach" "echo 'detached!'"
-        "session_pattern" "fort"
+    zj-hooker location="file:/home/pickle/.config/zellij/plugins/zj-hooker.wasm" {
+        on_attach "echo 'hello'"
+        // on_attach "file:/home/pickle/.zjoin.sh"
+        // on_detach "file:/home/pickle/.zleave.sh"
+        pattern "test"
     }
 
-    // forgot location="file:/home/pickle/.config/zellij/plugins/zj_forgot.wasm" {
     //     "LOAD_ZELLIJ_BINDINGS"  "false"
     //     "lock"                  "ctrl + g"
     //     "unlock"                "ctrl + g"
@@ -350,6 +347,7 @@ plugins {
         datetime_timezone "Europe/Berlin"
     }
 }
+
 
 // Choose the path to the default shell that zellij will use for opening new panes
 // Default: $SHELL
