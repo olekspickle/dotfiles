@@ -18,6 +18,17 @@ media-merge(){
     ffmpeg -i "$video" -itsoffset "$offset" -i "$audio" -c:v copy -map 0:v:0 -map 1:a:0 merged.mp4
 }
 
+video-merge(){
+    local ext
+    ext=${1:-"mp4"}
+    for f in *."$ext"; do
+        printf "file '%s'\n" "$f"
+    done > list.txt
+    ffmpeg -f concat -safe 0 -i list.txt -c:v libx264 -c:a aac output.mp4
+}
+
+
+
 to-pdf(){
     local in
     in=$1
