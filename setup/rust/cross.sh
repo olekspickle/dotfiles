@@ -11,7 +11,7 @@ sudo apt install -y \
     g++-aarch64-linux-gnu \
     libc6-dev-arm64-cross \
     binutils-aarch64-linux-gnu \
-    qemu-user
+    qemu-user quemu-user-static binfmt-support
 
 cargo install cross --locked
 

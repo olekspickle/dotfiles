@@ -2,7 +2,7 @@
 
 ## General guidelines
 
-1. Do not remove comments on editing files. If there is a comment it should stay there.
+1. Do not remove comments. If there is a comment it should stay there.
 
 ## Rust
 
@@ -13,6 +13,7 @@
 ### Dependencies
 
 - always use `cargo add` to add new crates to Cargo.toml instead of doing it manually
+- NEVER edit .lock files manually
 
 ### Imports
 
