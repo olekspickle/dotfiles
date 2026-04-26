@@ -28,6 +28,23 @@ video-merge(){
 }
 
 
+# download from google drive in scripts
+# when setting up the access to anyone with  the link, extract
+# the file id from the link: drive.google.com/file/d/<file_id>/...
+download-from-google(){
+    local FILE_ID,out
+    FILE_ID=$1
+    out=${2:-"google-download-output"}
+
+    # Step 1: get confirmation token
+    curl -c cookies.txt -s "https://drive.google.com/uc?export=download&id=$FILE_ID" \
+    | grep -o 'confirm=[^&]*' | sed 's/confirm=//' > token.txt
+    TOKEN=$(cat token.txt)
+
+    # Step 2: download with token
+    curl -Lb cookies.txt "https://drive.google.com/uc?export=download&confirm=$TOKEN&id=$FILE_ID" -o "$out"
+    rm cookies.txt token.txt
+}
 
 to-pdf(){
     local in

@@ -39,3 +39,4 @@ cat <<'EOF' >> /etc/NetworkManager/conf.d/hotspot.conf
 [keyfile]
 unmanaged-devices=interface-name:veth*
 EOF
+

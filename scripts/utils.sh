@@ -15,6 +15,10 @@ docker-clean-all () {
     docker volume prune -f
 }
 
+docker-in() {
+    docker exec -it "$1" /bin/bash
+}
+
 clean-rust () {
     local days
     days=${1:-7}
