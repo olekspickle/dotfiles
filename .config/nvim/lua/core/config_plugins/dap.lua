@@ -1,17 +1,52 @@
-require("dapui").setup()
+local dap = require('dap')
 
-local dap, dapui = require("dap"), require("dapui")
+dap.adapters.codelldb = {
+    type = 'executable',
+    command = 'codelldb',
+    args = { '--liblldb', '/home/pickle/.local/lldb/lib/liblldb.so' },
+}
 
-dap.listeners.after.event_initialized["dapui_config"] = function()
-  dapui.open()
-end
-dap.listeners.before.event_terminated["dapui_config"] = function()
-  dapui.close()
-end
-dap.listeners.before.event_exited["dapui_config"] = function()
-  dapui.close()
-end
+dap.adapters.lldb = {
+    type = 'executable',
+    command = 'lldb-dap',
+    args = {},
+}
 
-vim.keymap.set("n", "<Leader>dt", ':DapToggleBreakpoint<CR>')
-vim.keymap.set("n", "<Leader>dx", ':DapTerminate<CR>')
-vim.keymap.set("n", "<Leader>do", ':DapStepOver<CR>')
+dap.configurations.rust = {
+    {
+        name = 'Launch',
+        type = 'codelldb',
+        request = 'launch',
+        program = function()
+            local target = vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
+            return target
+        end,
+        args = {},
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+        sourceLanguages = { 'rust' },
+    },
+    {
+        name = 'Debug tests',
+        type = 'codelldb',
+        request = 'launch',
+        cargo = {
+            args = { 'test', '--no-run' },
+        },
+        args = {},
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+    },
+}
+
+vim.keymap.set('n', '<leader>pb', dap.toggle_breakpoint, { desc = 'Toggle breakpoint' })
+vim.keymap.set('n', '<leader>pc', dap.continue, { desc = 'Continue' })
+vim.keymap.set('n', '<leader>ps', dap.step_over, { desc = 'Step over' })
+vim.keymap.set('n', '<leader>pi', dap.step_into, { desc = 'Step into' })
+vim.keymap.set('n', '<leader>po', dap.step_out, { desc = 'Step out' })
+vim.keymap.set('n', '<leader>pr', dap.restart, { desc = 'Restart' })
+vim.keymap.set('n', '<leader>pt', dap.terminate, { desc = 'Terminate' })
+vim.keymap.set('n', '<leader>pv', function()
+    vim.opt.rtp:prepend(vim.fn.stdpath('data') .. '/site/pack/core/opt/nvim-dap-view')
+    vim.cmd('DapViewOpen')
+end, { desc = 'Open DapView' })

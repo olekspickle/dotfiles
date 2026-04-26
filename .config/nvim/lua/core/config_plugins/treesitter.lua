@@ -1,36 +1,56 @@
-local config = require('nvim-treesitter.configs')
-config.setup({
-    ensure_installed = { "rust", "ron", "toml", "dockerfile", "lua", "bash", "javascript", "python", "go", "c", "cpp", "vim", "vimdoc", "regex", "glsl", "wgsl" },
-    -- Automatically install missing parsers when entering buffer
-    sync_install = false,
-    auto_install = true,
-    highlight = { enable = true },
-    indent = { enable = true },
-    incremental_selection = {
-        enable = true,
-        keymaps = {
-            init_selection = "<c-space>",
-            node_incremental = "<c-space>",
-            -- scope_incremental = "<c-s>",
-            node_decremental = "<c-backspace>",
-        }
-    },
+-- Treesitter setup
+-- To install parsers manually: :TSInstall <language> (interactive)
+-- To reinstall all parsers: :TSUpdate
+-- For latest tree-sitter-cli: cargo install tree-sitter-cli
+vim.api.nvim_create_autocmd('FileType', {
+    callback = function()
+        pcall(vim.treesitter.start)
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end,
+})
 
-    -- Function for more flexibility, e.g. to disable slow treesitter highlight for large files
-    disable = function(lang, buf)
-        vim.notify(lang, vim.log.levels.INFO)
-        if lang == "rust" or lang == "c" then
-            return true
-        end
-        local max_filesize = 100 * 1024 -- 100 KB
-        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-        if ok and stats and stats.size > max_filesize then
-            return true
+vim.api.nvim_create_autocmd('PackChanged', {
+    callback = function(ev)
+        local name, kind = ev.data.spec.name, ev.data.kind
+        if name == 'nvim-treesitter' and kind == 'update' then
+            if not ev.data.active then vim.cmd.packadd('nvim-treesitter') end
+            vim.cmd('TSUpdate')
         end
     end,
 })
 
--- [[ Reset default indent line behavior ]]
+local parsers = { "rust", "ron", "toml", "dockerfile", "lua", "bash", "javascript", "python", "go", "c", "cpp", "vim", "vimdoc", "regex", "glsl", "wgsl" }
+
+local function ensure_installed()
+    local ok, ts = pcall(require, 'nvim-treesitter')
+    if not ok then return end
+
+    local installed = {}
+    local config = ts.configs or {}
+    if config.get_installed then
+        installed = config.get_installed() or {}
+    end
+
+    local to_install = {}
+    for _, parser in ipairs(parsers) do
+        local found = false
+        for _, inst in ipairs(installed) do
+            if inst == parser then
+                found = true
+                break
+            end
+        end
+        if not found then
+            table.insert(to_install, parser)
+        end
+    end
+
+    if #to_install > 0 then
+        ts.install(to_install)
+    end
+end
+
+ensure_installed()
+
 vim.g.indentLine_setColors = 0
 vim.g.indentLine_enabled = 0
-

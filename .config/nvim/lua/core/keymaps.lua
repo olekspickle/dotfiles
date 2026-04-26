@@ -51,8 +51,8 @@ map('n', '<Leader>cc', ':set cursorline!<cr>', { desc = "toggle hl current line"
 -- use U for redo :))
 map('n', 'U', '<C-r>', {})
 
--- lazy deps managing panel
-map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
+-- lazy deps managing panel (disabled - using vim.pack now)
+-- map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
 -- Resize window using <ctrl> arrow keys
 map("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
@@ -95,7 +95,7 @@ map("v", "<A-d>", "oYPgv<Esc>gv=gv", { desc = "Duplicate line(s)" })
 
 map('n', '<leader>h', ':lua vim.o.hlsearch = not vim.o.hlsearch<CR>', m(defaults, {desc = "toggle hlsearch"}))
 
--- quickfix nav (TODO: figure out later)
+-- quickfix nav (TODO: figure out later, clashes with move lines)
 -- vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
 -- vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 
@@ -125,6 +125,7 @@ map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
 -- clear all notify windows on Esc
 map('',  '<Esc>', "<ESC>:noh<CR>", {silent = true})
+
 --  Mode letters:
 --    n: normal only
 --    v: visual and select
