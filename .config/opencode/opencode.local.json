@@ -4,17 +4,18 @@
 
     "provider": {
         "llama.cpp": {
-            "name": "llama.cpp-server",
+            "name": "llama.cpp(local)",
             "npm": "@ai-sdk/openai-compatible",
             "options": { "baseURL": "http://127.0.0.1:8080/v1" },
             "models": {
-                "qwen3-coder:a3b": {
-                    "name": "qwen2.5-coder:3b",
+                "qwen3-coder:a7b": {
+                    "name": "qwen2.5-coder:7b",
                     "limit": { "context": 128000, "output": 65536 }
                 }
             }
         }
     },
+    "model": "llama.cpp/qwen3-coder:a7b",
 
     "disabled_providers": [
         "openai",
@@ -38,7 +39,8 @@
             "pwd": "allow",
             "rm *": "deny",
             "curl *": "deny",
-            "wget *": "deny"
+            "wget *": "deny",
+            "sudo *": "deny"
         },
         "edit": "ask",
         "write": "ask"

@@ -207,14 +207,15 @@ plugins {
     filepicker location="zellij:strider" {
         cwd "/"
     }
+    configuration location="zellij:configuration"
 
     zj-hooker location="file:/home/pickle/.config/zellij/plugins/zj-hooker.wasm" {
-        on_attach "echo 'hello'"
-        // on_attach "file:/home/pickle/.zjoin.sh"
-        // on_detach "file:/home/pickle/.zleave.sh"
-        pattern "test"
+        on_attach "file:/home/pickle/.zjoin.sh"
+        on_detach "file:/home/pickle/.zleave.sh"
+        pattern "fort"
     }
 
+    // forgot location="file:/home/pickle/.config/zellij/plugins/zj_forgot.wasm" {
     //     "LOAD_ZELLIJ_BINDINGS"  "false"
     //     "lock"                  "ctrl + g"
     //     "unlock"                "ctrl + g"
