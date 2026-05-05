@@ -48,12 +48,8 @@ rsync_ "$CFG_DIR"/zellij "$DOT_DIR"/.config
 rsync_ "$CFG_DIR"/atuin "$DOT_DIR"/.config --exclude ".*"
 rsync_ "$CFG_DIR"/btop/btop.conf "$DOT_DIR"/.config/btop
 
-# agent setup
-OPENCODE_DIR="$CFG_DIR"/opencode
-rsync_ "$OPENCODE_DIR"/opencode.json "$DOT_DIR"/.config/opencode/opencode.json
-rsync_ "$OPENCODE_DIR"/opencode.local.json "$DOT_DIR"/.config/opencode/opencode.local.json
-rsync_ "$OPENCODE_DIR"/AGENTS.md "$DOT_DIR"/.config/opencode/AGENTS.md
-rsync_ "$OPENCODE_DIR"/agents "$DOT_DIR"/.config/opencode
+# agentic setup
+rsync_ "$CFG_DIR"/opencode/ "$DOT_DIR"/.config/opencode/
 
 # KDE
 rsync_ "$CFG_DIR"/kdeglobals "$DOT_DIR"/.config
