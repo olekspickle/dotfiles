@@ -1,7 +1,7 @@
 keybinds {
     normal {
-        // bind "Ctrl l" { Clear; Run "kill"{args " -9 $$"; }; }
-        bind "Ctrl q" { Detach; }
+        // uncomment this and adjust key if using copy_on_select=false
+        // bind "Alt c" { Copy; }
     }
     locked {
         bind "Ctrl g" { SwitchToMode "Normal"; }
@@ -80,6 +80,8 @@ keybinds {
         bind "Ctrl b" "PageUp" "Left" "h" { PageScrollUp; }
         bind "d" { HalfPageScrollDown; }
         bind "u" { HalfPageScrollUp; }
+        // uncomment this and adjust key if using copy_on_select=false
+        // bind "Alt c" { Copy; }
     }
     search {
         bind "Ctrl s" { SwitchToMode "Normal"; }
@@ -173,7 +175,7 @@ keybinds {
     }
     shared_except "locked" {
         bind "Ctrl g" { SwitchToMode "Locked"; }
-        // bind "Ctrl q" { Quit; }
+        bind "Ctrl q" { Quit; }
         bind "Alt f" { ToggleFloatingPanes; }
         bind "Alt n" { NewPane; }
         bind "Alt i" { MoveTab "Left"; }
@@ -188,19 +190,6 @@ keybinds {
         bind "Alt ]" { NextSwapLayout; }
         bind "Alt p" { TogglePaneInGroup; }
         bind "Alt Shift p" { ToggleGroupMarking; }
-        // bind "Ctrl y" {
-        //     LaunchOrFocusPlugin "forgot" {
-        //         floating true
-        //         move_to_focused_tab true
-        //     }
-        // }
-
-        bind "Alt m" {
-            LaunchPlugin "file:~/.config/zellij/plugins/monocle.wasm" {
-                floating true
-            };
-            SwitchToMode "Normal"
-        }
     }
     shared_except "normal" "locked" {
         bind "Enter" "Esc" { SwitchToMode "Normal"; }
@@ -227,8 +216,10 @@ keybinds {
         bind "Ctrl b" { SwitchToMode "Tmux"; }
     }
 }
-plugins {
 
+// Plugin aliases - can be used to change the implementation of Zellij
+// changing these requires a restart to take effect
+plugins {
     tab-bar location="zellij:tab-bar"
     status-bar location="zellij:status-bar"
     strider location="zellij:strider"
@@ -243,145 +234,6 @@ plugins {
     configuration location="zellij:configuration"
     plugin-manager location="zellij:plugin-manager"
     about location="zellij:about"
-
-    zj-hooker location="file:/home/pickle/.config/zellij/plugins/zj-hooker.wasm" {
-        on_attach "file:/home/pickle/.zjoin.sh"
-        on_detach "file:/home/pickle/.zleave.sh"
-        pattern "fort"
-    }
-
-    // forgot location="file:/home/pickle/.config/zellij/plugins/zj_forgot.wasm" {
-    //     "LOAD_ZELLIJ_BINDINGS"  "false"
-    //     "lock"                  "ctrl + g"
-    //     "unlock"                "ctrl + g"
-    //     "new pane"              "ctrl + p + n"
-    //     "change focus of pane"  "ctrl + p + arrow key"
-    //     "close pane"            "ctrl + p + x"
-    //     "rename pane"           "ctrl + p + c"
-    //     "toggle fullscreen"     "ctrl + p + f"
-    //     "toggle floating pane"  "ctrl + p + w"
-    //     "toggle embed pane"     "ctrl + p + e"
-    //     "choose right pane"     "ctrl + p + l"
-    //     "choose left pane"      "ctrl + p + r"
-    //     "choose upper pane"     "ctrl + p + k"
-    //     "choose lower pane"     "ctrl + p + j"
-    //     "new tab"               "ctrl + t + n"
-    //     "close tab"             "ctrl + t + x"
-    //     "change focus of tab"   "ctrl + t + arrow key"
-    //     "rename tab"            "ctrl + t + r"
-    //     "sync tab"              "ctrl + t + s"
-    //     "brake pane to new tab" "ctrl + t + b"
-    //     "brake pane left"       "ctrl + t + ["
-    //     "brake pane right"      "ctrl + t + ]"
-    //     "toggle tab"            "ctrl + t + tab"
-    //     "increase pane size"    "ctrl + n + +"
-    //     "decrease pane size"    "ctrl + n + -"
-    //     "increase pane top"     "ctrl + n + k"
-    //     "increase pane right"   "ctrl + n + l"
-    //     "increase pane bottom"  "ctrl + n + j"
-    //     "increase pane left"    "ctrl + n + h"
-    //     "decrease pane top"     "ctrl + n + K"
-    //     "decrease pane right"   "ctrl + n + L"
-    //     "decrease pane bottom"  "ctrl + n + J"
-    //     "decrease pane left"    "ctrl + n + H"
-    //     "move pane to top"      "ctrl + h + k"
-    //     "move pane to right"    "ctrl + h + l"
-    //     "move pane to bottom"   "ctrl + h + j"
-    //     "move pane to left"     "ctrl + h + h"
-    //     "search"                "ctrl + s + s"
-    //     "go into edit mode"     "ctrl + s + e"
-    //     "detach session"        "ctrl + o + w"
-    //     "open session manager"  "ctrl + o + w"
-    //     "quit zellij"           "ctrl + q"
-    // }
-    zjstatus location="file:/home/pickle/.config/zellij/plugins/zjstatus.wasm" {
-        color_fg        "#eeee47"
-        color_bg        "#4466ee"
-        color_black     "#88aaff"
-        color_red       "#ff3355"
-        color_green     "#33bb66"
-        color_yellow    "#eed747"
-        color_blue      "#4a96ff"
-        color_magenta   "#b77ee0"
-        color_cyan      "#22cccc"
-        color_white     "#e5e9f0"
-        color_orange    "#ffbb55"
-
-        border_enabled  "false"
-        border_char     "─"
-        border_format   "#[fg=$fg]{char}"
-        border_position "bottom"
-
-        // bug: when weather loads everything to the right shifts by 1 char to the left
-        // format_left   "{mode}#[bg=$bg,fg=$fg]{command_weather}"
-        format_left   "{mode}"
-        format_center "{tabs}"
-        format_right  "#[bg=$bg,fg=$green] {command_user}#[bg=$bg,fg=$cyan,bold] 󰀱 {datetime}"
-        format_space  "#[bg=$bg,fg=$fg] "
-
-        // {session}
-        hide_frame_for_single_pane "false"
-        border_enabled  "false"
-
-        mode_normal         "#[bg=$bg,fg=$yellow,bold]     "
-        mode_locked         "#[bg=$bg,fg=$red]   "
-        mode_tab            "#[bg=$blue,fg=$yellow,bold]  t  "
-        mode_rename_tab     "#[bg=$blue,fg=$yellow,bold]  tr "
-        mode_tmux           "#[bg=$yellow,fg=$black,bold]  ┳  "
-        mode_pane           "#[bg=$green,fg=$white]  p  "
-        mode_rename_pane    "#[bg=$green,fg=$white]  rp "
-        mode_scroll         "#[bg=$yellow,fg=$blue,bold]  s  "
-        mode_enter_search   "#[bg=$yellow,fg=$blue,bold]  se "
-        mode_session        "#[bg=$white,fg=$blue,bold]  o  "
-        mode_resize         "#[bg=$orange,fg=$blue,bold]  ⇱⇲ "
-        mode_move           "#[bg=$cyan,fg=$yellow,bold]   ⥄ "
-        mode_prompt         "#[bg=$fg,fg=$magenta]  ? "
-
-        //            〄
-        // ●  /   
-        // 󰀱 󰚄 󰝆 󰡄 󰨈   󰊓 󰹙
-        //   󰩖 󰩗       
-        // 󰎢 󰎣 󰎥 󰎦 󰎨 󰎩 󰎫 󰎬 󰎲 󰎮 󰎯 󰎰 󰎴 󰎵 󰎷 󰎸 󰎺 󰎻 󰎽 󰎾
-        // 󱂡 󱂛 󱂅 󰟹 󰟽
-
-        // formatting for inactive tabs
-        tab_normal              "#[bg=$bg,fg=$blue]{name}"
-        tab_normal_fullscreen   "#[bg=$bg,fg=$blue]{name}{fullscreen_indicator}"
-        tab_normal_sync         "#[bg=$bg,fg=$blue]{name}{sync_indicator}"
-
-        // formatting for the current active tab
-        tab_active              "#[bg=$bg,fg=$fg,bold]{name}#[bg=$bg,fg=$yellow,bold]"
-        tab_active_fullscreen   "#[bg=$bg,fg=$fg,bold]{name}#[bg=$bg,fg=$yellow,bold]{fullscreen_indicator}"
-        tab_active_sync         "#[bg=$bg,fg=$fg,bold]{name}#[bg=$bg,fg=$yellow,bold]{sync_indicator}"
-
-        // separator between the tabs
-        tab_separator           "#[bg=$bg,fg=$green,bold] ⋮ "
-
-        // indicators
-        tab_sync_indicator       " "
-        tab_fullscreen_indicator " 󰊓"
-        tab_floating_indicator   " 󰹙"
-
-
-        notification_format_unread "#[bg=$bg,fg=$yellow]  {message}"
-        notification_format_no_notifications ""
-        notification_show_interval "10"
-
-        command_user_command    "whoami"
-        command_user_format     "{stdout}"
-        command_user_interval   "10"
-        command_user_rendermode "static"
-
-        // weather. courtesy of merikan
-        command_weather_command "curl \"wttr.in/Burglengenfeld?format=%c+%t+%m+%w\""
-        command_weather_format "#[bg=#ffffff]{stdout} "
-        command_weather_interval "10800" // three hours
-        command_weather_rendermode "static"
-
-        datetime        "#[bg=$bg,fg=$fg,bold]{format} "
-        datetime_format "%a,%d-%m-%Y %H:%M"
-        datetime_timezone "Europe/Berlin"
-    }
 }
 
 // Plugins to load in the background when a new session starts
@@ -420,7 +272,7 @@ load_plugins {
 //   - true (default)
 //   - false
 //
-pane_frames false
+// pane_frames true
 
 // Toggle between having Zellij lay out panes according to a predefined set of layouts whenever possible
 // Options:
@@ -475,7 +327,7 @@ pane_frames false
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
-theme "bloom"
+// theme "default"
 
 // The name of the default layout to load on startup
 // Default: "default"
@@ -505,7 +357,7 @@ theme "bloom"
 // Valid values: positive integers
 // Default value: 10000
 //
-scroll_buffer_size 100000
+// scroll_buffer_size 10000
 
 // Provide a command to execute when copying text. The text will be piped to
 // the stdin of the program to perform the copy. This can be used with
@@ -534,7 +386,7 @@ scroll_buffer_size 100000
 // Path to the default editor to use to edit pane scrollbuffer
 // Default: $EDITOR or $VISUAL
 //
-scrollback_editor "/usr/bin/nvim"
+// scrollback_editor "/usr/bin/vim"
 
 // When attaching to an existing session with other users,
 // should the session be mirrored (true)
@@ -552,7 +404,7 @@ scrollback_editor "/usr/bin/nvim"
 // The folder in which Zellij will look for themes
 // (Requires restart)
 //
-theme_dir "/home/pickle/.config/zellij/themes"
+// theme_dir "/path/to/my/theme_dir"
 
 // Enable or disable the rendering of styled and colored underlines (undercurl).
 // May need to be disabled for certain unsupported terminals

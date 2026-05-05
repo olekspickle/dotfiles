@@ -56,8 +56,8 @@ plugin=org.kde.plasma.kickoff
 
 [Containments][2][Applets][39][Configuration]
 PreloadWeight=100
-popupHeight=750
-popupWidth=957
+popupHeight=960
+popupWidth=1912
 
 [Containments][2][Applets][39][Configuration][ConfigDialog]
 DialogHeight=750
@@ -283,21 +283,21 @@ immutability=1
 plugin=org.kde.plasma.battery
 
 [Containments][8][Applets][22][Configuration]
-PreloadWeight=100
+PreloadWeight=97
 
 [Containments][8][Applets][23]
 immutability=1
 plugin=org.kde.plasma.networkmanagement
 
 [Containments][8][Applets][23][Configuration]
-PreloadWeight=92
+PreloadWeight=100
 
 [Containments][8][Applets][24]
 immutability=1
 plugin=org.kde.plasma.bluetooth
 
 [Containments][8][Applets][24][Configuration]
-PreloadWeight=7
+PreloadWeight=5
 
 [Containments][8][Applets][25]
 immutability=1
