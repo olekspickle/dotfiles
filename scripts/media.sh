@@ -38,22 +38,68 @@ respeed() {
 
 
 
-vid-vstack(){
-    local v1 v2 out
-    v1=$1
-    v2=$2
-    out=${3:-"output.mp4"}
-    ffmpeg -i "$v1" -i "$v2" -filter_complex \
-        "[1:v]scale2ref[1r][0r];[0r][1r]vstack" -c:a copy "$out"
+# _vid-stack <v|h> in1 in2 ... [out]
+# last arg is the output unless it's an existing file; default output.mp4
+_vid-stack(){
+    local dir=$1; shift
+    local out="output.mp4" dim scale f i=0 n filter="" labels=""
+    local inputs=()
+
+    if (( $# > 2 )) && [[ ! -e "${@: -1}" ]]; then
+        out="${@: -1}"
+        set -- "${@:1:$(($# - 1))}"
+    fi
+    n=$#
+    if (( n < 2 )); then
+        echo "usage: vid-${dir}stack in1 in2 [in3 ...] [out]" >&2
+        return 1
+    fi
+
+    # stack axis needs a shared dimension: width for vstack, height for hstack
+    if [[ $dir == v ]]; then
+        dim=$(ffprobe -v error -select_streams v:0 -show_entries stream=width -of csv=p=0 "$1")
+        scale="$dim:-2"
+    else
+        dim=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=p=0 "$1")
+        scale="-2:$dim"
+    fi
+
+    for f in "$@"; do
+        inputs+=(-i "$f")
+        filter+="[$i:v]scale=$scale,setsar=1[s$i];"
+        labels+="[s$i]"
+        i=$((i + 1))
+    done
+    filter+="${labels}${dir}stack=inputs=${n}[v]"
+
+    ffmpeg "${inputs[@]}" -filter_complex "$filter" -map "[v]" -map "0:a?" -c:a copy "$out"
 }
 
-vid-hstack(){
-    local v1 v2 out
-    v1=$1
-    v2=$2
-    out=${3:-"output.mp4"}
-    ffmpeg -i "$v1" -i "$v2" -filter_complex \
-        "[1:v]scale2ref[1r][0r];[0r][1r]hstack" -c:a copy "$out"
+vid-vstack(){ _vid-stack v "$@"; }
+vid-hstack(){ _vid-stack h "$@"; }
+
+# vid-scale <in> <size> [out]   works for images and videos, keeps aspect unless WxH
+#   size: 50% | 0.5 | 1280 (width) | x720 (height) | 1280x720 (exact) | W:H (raw ffmpeg)
+vid-scale(){
+    local in=$1 size=$2 out f vf
+    if [[ -z $in || -z $size ]]; then
+        echo "usage: vid-scale <in> <50%|0.5|1280|x720|1280x720|W:H> [out]" >&2
+        return 1
+    fi
+    out=${3:-"${in%.*}_scaled.${in##*.}"}
+
+    # trunc(../2)*2 keeps dims even, which h264/h265 require
+    case $size in
+        *%)        f=$(bc -l <<< "${size%\%} / 100")
+                   vf="scale=trunc(iw*$f/2)*2:trunc(ih*$f/2)*2" ;;
+        0.*|*.*)   vf="scale=trunc(iw*$size/2)*2:trunc(ih*$size/2)*2" ;;
+        *:*)       vf="scale=$size" ;;
+        x*)        vf="scale=-2:${size#x}" ;;
+        *x*)       vf="scale=${size%x*}:${size#*x}" ;;
+        *)         vf="scale=${size}:-2" ;;
+    esac
+
+    ffmpeg -i "$in" -vf "$vf" -c:a copy "$out"
 }
 
 
@@ -89,15 +135,6 @@ vid-merge(){
     echo "$out"
 }
 
-# vid-scale input.mp4 1280:720 [output]  — scale video to given dimensions
-# vid-scale input.mp4 50% [output]  — scale by percentage
-vid-scale(){
-    local in scale out
-    in=${1:?"usage: vid-scale <input> <scale> [output]"}
-    scale=$2
-    out=${3:-"${in%.*}_scaled.${in##*.}"}
-    ffmpeg -y -i "$in" -vf "scale=$scale" "$out"
-}
 
 
 # download from google drive in scripts

@@ -295,6 +295,10 @@ wargames() {
     ssh -o PubkeyAuthentication=no -o PreferredAuthentications=password  -p 2220 "$1"@bandit.labs.overthewire.org
 }
 
+vim-conflict() {
+    nvim $(git ls-files -u | cut -f2 | sort -u)
+}
+
 git-sign-all-commits() {
     # to make it better - add key to an ssh-agent
     git rebase --exec 'git commit --amend --no-edit -S' -i --root

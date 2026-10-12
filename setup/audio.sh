@@ -7,7 +7,7 @@ sudo apt install -y gperf intltool python3 sassc \
     libeigen3-dev libgtk-3-dev libgtkmm-3.0-dev \
     liblilv-dev liblrdf0-dev libsndfile1-dev libfftw3-dev  \
     libarhive-dev libpulse-dev libjack-dev lv2-dev vamp-plugin-sdk \
-    librubberband-dev libaubio-dev libusb-dev
+    librubberband-dev libaubio-dev libusb-dev libstk-dev libgig-dev
 
 # LMMS specific
 sudo apt install -y  qtbase5-private-dev \
