@@ -549,6 +549,24 @@ format-track() {
         #     "${output}"
     }
 
+# set-cover track.mp3 new-cover.jpg [out.mp3]
+set-cover() {
+    local in cover out tmp album
+    in=${1:?"usage: set-cover <track> <cover-image> [output]"}
+    cover=${2:?"usage: set-cover <track> <cover-image> [output]"}
+    out="${3:-$in}"
+    tmp="${out%.*}.tmp.${out##*.}"
+    album=$(ffprobe -v error -show_entries format_tags=album -of default=nw=1:nk=1 "$in")
+
+    # copy audio and tags as-is; only the picture stream is replaced
+    ffmpeg -y -loglevel warning -i "$in" -i "$cover" \
+        -map 0:a -map 1:v:0 -map_metadata 0 -c copy \
+        -id3v2_version 3 -disposition:v:0 attached_pic \
+        -metadata:s:v title="${album} album cover" \
+        -metadata:s:v comment="${album} cover (front)" \
+        "$tmp" && mv "$tmp" "$out"
+}
+
 # frames-to-vid 'frame-*.png' [output.mp4] -r 30
 frames-to-vid() {
     local pattern output framerate
@@ -566,18 +584,76 @@ frames-to-vid() {
     ffmpeg -y -framerate "$framerate" -f image2 -pattern_type glob -i "$pattern" -c:v libx264 -pix_fmt yuv420p "$output"
 }
 
-# to-yt track.mp3 cover.jpg
+# to-yt track.mp3 cover.jpg [-w bars,scope|none] [-c white] [-o out.mp4]
 to-yt() {
-    local audio cover out
-    audio=${1:?"usage: to-yt <audio> <cover-image>"}
-    cover=${2:?"usage: to-yt <audio> <cover-image>"}
+    local usage audio cover out acodec fit viz color rest v f h pos n labels chains ovl prev vargs bottom
+    usage="usage: to-yt <audio> <cover-image> [-w style[,style...]|none] [-c color] [-o output]
+  styles: waves bars cqt scope (default: bars,scope)
+  color:  waves/bars color, e.g. orange, 0xff8800, white@0.7 (default: white)"
+    if (( $# < 2 )); then
+        echo "$usage" >&2
+        return 1
+    fi
+    audio=$1
+    cover=$2
     out="${audio%.*}.mp4"
+    viz="bars,scope"
+    color="white"
+    shift 2
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -w) viz="$2"; shift 2 ;;
+            -c) color="$2"; shift 2 ;;
+            -o) out="$2"; shift 2 ;;
+            *)  echo "Unknown: $1" >&2; return 1 ;;
+        esac
+    done
 
-    ffmpeg -y -loop 1 -i "$cover" -i "$audio" \
-        -map 0:v -map 1:a \
-        -c:v libx264 -tune stillimage -vf "scale=1280:-1:force_original_aspect_ratio=decrease" \
-        -c:a aac -b:a 192k \
-        -shortest "$out"
+    # mp3 fits in mp4 as-is; re-encoding lossy->lossy only loses quality
+    case "${audio##*.}" in
+        mp3) acodec=(-c:a copy) ;;
+        *)   acodec=(-c:a aac -b:a 384k) ;;
+    esac
+
+    fit="scale=1920:1080:force_original_aspect_ratio=decrease:force_divisible_by=2:out_range=tv"
+
+    if [[ "$viz" == none ]]; then
+        vargs=(-loop 1 -framerate 1 -i "$cover" -i "$audio"
+            -map 0:v -map 1:a -c:v libx264 -tune stillimage -vf "${fit},format=yuv420p")
+    else
+        # one asplit branch per style, each overlaid onto the previous result
+        n=0 labels="" chains="" ovl="" prev=bg rest="$viz," bottom=40
+        while [[ -n "$rest" ]]; do
+            v=${rest%%,*} rest=${rest#*,}
+            h=0
+            case "$v" in
+                waves) h=440; f="showwaves=s=1920x${h}:mode=cline:scale=sqrt:draw=full:colors=${color}:rate=30" ;;
+                bars)  h=440; f="dynaudnorm=f=500:g=31:p=0.5,volume=4,showfreqs=s=1920x${h}:mode=bar:ascale=cbrt:fscale=log:colors=${color}|${color}:rate=30:win_size=4096:averaging=2" ;;
+                cqt)   h=300; f="showcqt=s=1920x${h}:r=30" ;;
+                scope) f="avectorscope=s=400x400:r=30:draw=line:zoom=1.5"; pos="W-w-10:(H-h)/2" ;;
+                *)     echo "$usage" >&2; return 1 ;;
+            esac
+            # full-width strips stack upward from the bottom edge
+            if ((h)); then
+                pos="0:H-h-${bottom}"
+                bottom=$((bottom + h + 20))
+            fi
+            n=$((n + 1))
+            labels+="[a${n}]"
+            chains+="[a${n}]${f},format=rgba[w${n}];"
+            ovl+="[${prev}][w${n}]overlay=${pos}:shortest=1[o${n}];"
+            prev="o${n}"
+        done
+        # real framerate and fixed canvas, so much slower to encode than a still
+        vargs=(-loop 1 -framerate 30 -i "$cover" -i "$audio"
+            -filter_complex "[0:v]${fit},pad=1920:1080:(ow-iw)/2:(oh-ih)/2[bg];[1:a]asplit=${n}${labels};${chains}${ovl}[${prev}]format=yuv420p[v]"
+            -map "[v]" -map 1:a -c:v libx264)
+    fi
+
+    ffmpeg -y "${vargs[@]}" \
+        "${acodec[@]}" \
+        -shortest \
+        -movflags +faststart "$out"
 }
 
 # to-mp4 input.mkv
@@ -601,3 +677,12 @@ to-webp() {
     ffmpeg -y -i "$in" "$out"
 }
 
+
+# negate photo.jpg [out.jpg]
+negate() {
+    local in out
+    in=${1:?"usage: negate <image|video> [output]"}
+    out="${2:-${in%.*}-neg.${in##*.}}"
+
+    ffmpeg -y -i "$in" -vf negate -c:a copy "$out"
+}
