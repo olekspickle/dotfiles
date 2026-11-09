@@ -7,7 +7,10 @@ sudo apt install -y gperf intltool python3 sassc \
     libeigen3-dev libgtk-3-dev libgtkmm-3.0-dev \
     liblilv-dev liblrdf0-dev libsndfile1-dev libfftw3-dev  \
     libarhive-dev libpulse-dev libjack-dev lv2-dev vamp-plugin-sdk \
-    librubberband-dev libaubio-dev libusb-dev libstk-dev libgig-dev
+    librubberband-dev libaubio-dev libusb-dev libstk-dev stk libgig-dev \
+    libglibmm-2.4-dev libsigc++-2.0-dev libcairomm-1.0-dev libpangomm-1.4-dev libsuil-dev \
+    libfltk1.4-dev fluid libmp3lame-dev libsdl2-dev \
+    libusb-1.0-0-dev libwebsockets-dev libcppunit-dev qtbase5-private-dev
 
 # LMMS specific
 sudo apt install -y  qtbase5-private-dev \
@@ -15,4 +18,4 @@ sudo apt install -y  qtbase5-private-dev \
     libxcb-util-dev libxcb-keysyms1-dev libxcb-icccm4-dev
 
 # Yoshimi specific
-sudo apt install -y libfltk1.3-dev libreadline-dev
+sudo apt install -y libreadline-dev
